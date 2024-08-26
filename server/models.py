@@ -13,6 +13,10 @@ class Habitat(db.Model, SerializerMixin):
     name = db.Column(db.String, nullable=False, unique=True)
     danger = db.Column(db.Integer, nullable=False)
 
+    reviews = db.relationship('Review', back_populates='habitat', cascade='all, delete-orphan')
+
+    serialize_rules = ('-reviews.habitat',)
+
     @validates('name')
     def validate_name(self, key, name):
         if not name:
@@ -37,6 +41,10 @@ class Trainer(db.Model, SerializerMixin):
     name = db.Column(db.String, nullable=False, unique=True)
     age = db.Column(db.Integer)
 
+    reviews = db.relationship('Review', back_populates='trainer', cascade='all, delete-orphan')
+
+    serialize_rules = ('-reviews.trainer',)
+
     @validates('name')
     def validate_name(self, key, name):
         if not name:
@@ -58,3 +66,11 @@ class Review(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     habitat_id = db.Column(db.Integer, db.ForeignKey('habitats.id'))
     traier_id = db.Column(db.Integer, db.ForeignKey('trainers.id'))
+
+    habitat = db.relationship('Habitat', back_populates='reviews')
+    trainer = db.relationship('Trainer', back_populates='reviews')
+
+    serialize_rules = ('-habitat.reviews', '-trainer.reviews')
+
+    def __repr__(self):
+        return f'<Review {self.id}>'
