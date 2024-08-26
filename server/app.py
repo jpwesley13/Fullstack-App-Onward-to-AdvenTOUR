@@ -37,7 +37,30 @@ class Trainers(Resource):
         except ValueError:
             return make_response({"errors": ["validation errors"]}, 400)
         
+class TrainerById(Resource):
+    def get(self, id):
+        trainer = Trainer.query.filter(Trainer.id == id).first()
+        if trainer:
+            return make_response(trainer.to_dict(), 200)
+        return make_response({'error': 'Trainer not found'}, 404)
+    
+    def patch(self, id):
+        trainer = Trainer.query.filter(Trainer.id == id).first()
+        params = request.get_json()
+
+        if trainer is None:
+            return make_response({"error": "trainer not found"}, 404)
+
+        try:
+            for attr in params:
+                setattr(trainer, attr, params[attr])
+            db.session.commit()
+            return make_response(trainer.to_dict(), 202)
+        except ValueError:
+            return make_response({"errors": ["validation errors"]}, 400)
+        
 api.add_resource(Trainers, '/trainers')
+api.add_resource(TrainerById, '/trainers/<int:id>')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
