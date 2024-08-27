@@ -1,8 +1,9 @@
 from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.ext.associationproxy import association_proxy
+from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import validates
 
-from config import db
+from config import db, bcrypt
 
 
 # Models go here!
@@ -40,10 +41,23 @@ class Trainer(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False, unique=True)
     age = db.Column(db.Integer)
+    _password_hash = db.Column(db.String)
 
     reviews = db.relationship('Review', back_populates='trainer', cascade='all, delete-orphan')
 
     serialize_rules = ('-reviews.trainer',)
+
+    @hybrid_property
+    def password_hash(self):
+        raise AttributeError('Password hashes may not be viewed.')
+    
+    @password_hash.setter
+    def password_hash(self, password):
+        password_hash = bcrypt.generate_password_hash(password.encode('utf-8'))
+        self._password_hash = password_hash.decode('utf-8')
+
+    def authenticate(self, password):
+        return bcrypt.check_password_hash(self._password_hash, password.encode('utf-8'))
 
     @validates('name')
     def validate_name(self, key, name):

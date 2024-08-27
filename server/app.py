@@ -25,12 +25,15 @@ class Trainers(Resource):
     
     def post(self):
         params = request.get_json()
+        password = params.get('password')
 
         try:
             new_trainer = Trainer(
                 name = params['name'],
-                age = params['age']
+                age = params['age'],
             )
+            new_trainer.password_hash = password
+            
             db.session.add(new_trainer)
             db.session.commit()
             return make_response(new_trainer.to_dict(), 201)
@@ -84,6 +87,9 @@ class HabitatById(Resource):
         if habitat:
             return make_response(habitat.to_dict(), 200)
         return make_response({'error': 'Habitat not found.'}, 404)
+    
+class Reviews(Resource):
+    pass
         
 api.add_resource(Trainers, '/trainers')
 api.add_resource(TrainerById, '/trainers/<int:id>')
