@@ -76,8 +76,10 @@ class Trainer(db.Model, SerializerMixin):
     
 class Review(db.Model, SerializerMixin):
     __tablename__ = 'reviews'
+    __table_args__ = (db.CheckConstraint('length(content) >= 50'),)
 
     id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.String, nullable=False)
     habitat_id = db.Column(db.Integer, db.ForeignKey('habitats.id'))
     traier_id = db.Column(db.Integer, db.ForeignKey('trainers.id'))
 
