@@ -51,5 +51,19 @@ if __name__ == '__main__':
 
         db.session.add_all(habitats)
 
+        reviews = []
+        for i in range(50):
+
+            review = Review(
+                content = fake.paragraph(nb_sentences=8)
+            )
+
+            review.trainer = rc(trainers)
+            review.habitat = rc(habitats)
+
+            reviews.append(review)
+
+        db.session.add_all(reviews)
+
         db.session.commit()
 
