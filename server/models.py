@@ -22,7 +22,7 @@ class Habitat(db.Model, SerializerMixin):
     def validate_name(self, key, name):
         if not name:
             raise ValueError('Habitat must be named.')
-        elif not 25 <= len(name) < 1:
+        elif not 25 >= len(name) > 1:
             raise ValueError('Habitat names must be between 2-25 characters long')
         return name
     
