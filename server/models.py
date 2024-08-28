@@ -81,7 +81,7 @@ class Review(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String, nullable=False)
     habitat_id = db.Column(db.Integer, db.ForeignKey('habitats.id'))
-    traier_id = db.Column(db.Integer, db.ForeignKey('trainers.id'))
+    trainer_id = db.Column(db.Integer, db.ForeignKey('trainers.id'))
 
     habitat = db.relationship('Habitat', back_populates='reviews')
     trainer = db.relationship('Trainer', back_populates='reviews')

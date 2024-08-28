@@ -1,8 +1,8 @@
-"""Initial migration.
+"""New initial migration.
 
-Revision ID: 8a08889449d1
+Revision ID: dec10b100600
 Revises: 
-Create Date: 2024-08-27 12:44:16.503210
+Create Date: 2024-08-28 15:31:38.809386
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '8a08889449d1'
+revision = 'dec10b100600'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -29,7 +29,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(), nullable=False),
     sa.Column('age', sa.Integer(), nullable=True),
-    sa.Column('_password_hash', sa.String(), nullable=True),
+    sa.Column('_password_hash', sa.String(), nullable=False),
     sa.PrimaryKeyConstraint('id', name=op.f('pk_trainers')),
     sa.UniqueConstraint('name', name=op.f('uq_trainers_name'))
     )
@@ -37,10 +37,10 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('content', sa.String(), nullable=False),
     sa.Column('habitat_id', sa.Integer(), nullable=True),
-    sa.Column('traier_id', sa.Integer(), nullable=True),
+    sa.Column('trainer_id', sa.Integer(), nullable=True),
     sa.CheckConstraint('length(content) >= 50', name=op.f('ck_reviews_')),
     sa.ForeignKeyConstraint(['habitat_id'], ['habitats.id'], name=op.f('fk_reviews_habitat_id_habitats')),
-    sa.ForeignKeyConstraint(['traier_id'], ['trainers.id'], name=op.f('fk_reviews_traier_id_trainers')),
+    sa.ForeignKeyConstraint(['trainer_id'], ['trainers.id'], name=op.f('fk_reviews_trainer_id_trainers')),
     sa.PrimaryKeyConstraint('id', name=op.f('pk_reviews'))
     )
     # ### end Alembic commands ###
