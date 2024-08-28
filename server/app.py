@@ -109,9 +109,18 @@ class Signup(Resource):
 
             db.session.add(new_trainer)
             db.session.commit()
+            session['user_id'] = new_trainer.id
             return make_response(new_trainer.to_dict(), 201)
         except ValueError:
             return make_response({"errors": ["validation errors"]}, 400)
+        
+class CheckSession(Resource):
+    def get(self):
+        trainer_id = session['user_id']
+        if trainer_id:
+            trainer = Trainer.query.filter(Trainer.id == trainer_id).first()
+            return trainer.to_dict(), 200
+        return {}, 401
         
 class Login(Resource):
     def post(self):
@@ -140,6 +149,7 @@ api.add_resource(HabitatById, '/habitats/<int:id>')
 api.add_resource(Reviews, '/reviews')
 api.add_resource(ReviewById, '/reviews/<int:id>')
 api.add_resource(Signup, '/signup')
+api.add_resource(CheckSession, '/check_session')
 api.add_resource(Login, '/login')
 api.add_resource(Logout, '/logout')
 
