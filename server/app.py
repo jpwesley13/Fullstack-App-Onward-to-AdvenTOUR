@@ -3,7 +3,7 @@
 # Standard library imports
 
 # Remote library imports
-from flask import request, make_response, redirect
+from flask import request, make_response, redirect, session
 from flask_restful import Resource
 from models import Habitat, Trainer, Review
 
@@ -44,23 +44,6 @@ class Trainers(Resource):
     def get(self):
         trainers = [trainer.to_dict() for trainer in Trainer.query.all()]
         return make_response(trainers, 200)
-    
-    def post(self):
-        params = request.get_json()
-        password = params.get('password')
-
-        try:
-            new_trainer = Trainer(
-                name = params['name'],
-                age = params['age'],
-            )
-            new_trainer.password_hash = password
-
-            db.session.add(new_trainer)
-            db.session.commit()
-            return make_response(new_trainer.to_dict(), 201)
-        except ValueError:
-            return make_response({"errors": ["validation errors"]}, 400)
         
 class TrainerById(Resource):
     def get(self, id):
@@ -111,12 +94,54 @@ class ReviewById(Resource):
         if review:
             return make_response(review.to_dict(), 200)
         return make_response({'error': 'Review not found.'}, 404)
+    
+class Signup(Resource):
+    def post(self):
+        params = request.get_json()
+        password = params.get('password')
+
+        try:
+            new_trainer = Trainer(
+                name = params['name'],
+                age = params['age'],
+            )
+            new_trainer.password_hash = password
+
+            db.session.add(new_trainer)
+            db.session.commit()
+            return make_response(new_trainer.to_dict(), 201)
+        except ValueError:
+            return make_response({"errors": ["validation errors"]}, 400)
         
+class Login(Resource):
+    def post(self):
+        params = request.get_json()
+
+        name = params['name']
+        password = params['password']
+
+        trainer = Trainer.query.filter(Trainer.name == name).first()
+
+        if trainer:
+            if trainer.authenticate(password):
+                session['user_id'] = trainer.id
+                return trainer.to_dict(), 200
+        return {'error': '401 Unauthorized'}, 401
+    
+class Logout(Resource):
+    def delete(self):
+        session['user_id'] = None
+        return {}, 204
+    
 api.add_resource(Trainers, '/trainers')
 api.add_resource(TrainerById, '/trainers/<int:id>')
 api.add_resource(Habitats, '/')
 api.add_resource(HabitatById, '/habitats/<int:id>')
+api.add_resource(Reviews, '/reviews')
 api.add_resource(ReviewById, '/reviews/<int:id>')
+api.add_resource(Signup, '/signup')
+api.add_resource(Login, '/login')
+api.add_resource(Logout, '/logout')
 
 @app.route('/habitats')
 def redirect_home():
