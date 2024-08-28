@@ -22,7 +22,7 @@ class Habitat(db.Model, SerializerMixin):
     def validate_name(self, key, name):
         if not name:
             raise ValueError('Habitat must be named.')
-        elif not 25 >= len(name) > 1:
+        elif 25 < len(name) < 1:
             raise ValueError('Habitat names must be between 2-25 characters long')
         return name
     
@@ -41,7 +41,7 @@ class Trainer(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False, unique=True)
     age = db.Column(db.Integer)
-    _password_hash = db.Column(db.String)
+    _password_hash = db.Column(db.String, nullable=False)
 
     reviews = db.relationship('Review', back_populates='trainer', cascade='all, delete-orphan')
 
@@ -67,7 +67,7 @@ class Trainer(db.Model, SerializerMixin):
     
     @validates('age')
     def validate_age(self, key, age):
-        if not age >= 10:
+        if age < 10:
             raise ValueError('Trainers must be at least 10 years old.')
         return age
 
