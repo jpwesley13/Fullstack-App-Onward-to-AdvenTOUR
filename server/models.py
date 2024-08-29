@@ -10,7 +10,6 @@ from config import db, bcrypt
 class Region(db.Model):
     __tablename__ = 'regions'
     
-
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
 
@@ -21,6 +20,21 @@ class Region(db.Model):
         regions = ["Kanto", "Johto", "Hoenn", "Sinnoh", "Unova", "Kalos", "Alola", "Galar", "Paldea", "Orre", "Ultra Space", "Fiore", "Almia", "Oblivia", "Lental", "Uncharted"]
         if name not in regions:
             raise ValueError('Region not recognized. Please select from available options or confirm uncharted territory.')
+        return name
+    
+class Biome(db.Model):
+    __tablename__ = 'biomes'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String)
+
+    trainers = db.relationship('Trainer', back_populates='biome')
+
+    @validates('name')
+    def validate_name(self, key, name):
+        biomes = ['forest', 'mountain', 'river', 'ocean', 'tundra', 'jungle', 'ruins', 'city', 'the unknown', 'cave', 'plains']
+        if name not in biomes:
+            raise ValueError('Biome not recognized. Please select from available options or confirm joy for the unknown')
         return name
     
 class Habitat(db.Model, SerializerMixin):
@@ -61,8 +75,11 @@ class Trainer(db.Model, SerializerMixin):
     name = db.Column(db.String, nullable=False, unique=True)
     age = db.Column(db.Integer)
     _password_hash = db.Column(db.String, nullable=False)
+    biome_id = db.Column(db.Integer, db.ForeignKey('biomes.id'))
 
     reviews = db.relationship('Review', back_populates='trainer', cascade='all, delete-orphan')
+
+    biome = db.relationship('Biome', back_populates='trainers')
 
     serialize_rules = ('-reviews.trainer',)
 
