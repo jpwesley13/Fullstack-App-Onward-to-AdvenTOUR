@@ -7,14 +7,33 @@ from config import db, bcrypt
 
 
 # Models go here!
+class Region(db.Model):
+    __tablename__ = 'regions'
+    
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String)
+
+    habitats = db.relationship('Habitat', back_populates='region')
+
+    @validates('name')
+    def validate_name(self, key, name):
+        regions = ["Kanto", "Johto", "Hoenn", "Sinnoh", "Unova", "Kalos", "Alola", "Galar", "Paldea", "Orre", "Ultra Space", "Fiore", "Almia", "Oblivia", "Lental", "Uncharted"]
+        if name not in regions:
+            raise ValueError('Region not recognized. Please select from available options or confirm uncharted territory.')
+        return name
+    
 class Habitat(db.Model, SerializerMixin):
     __tablename__ = 'habitats'
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False, unique=True)
     danger = db.Column(db.Integer, nullable=False)
+    region_id = db.Column(db.Integer, db.ForeignKey('regions.id'))
 
     reviews = db.relationship('Review', back_populates='habitat', cascade='all, delete-orphan')
+
+    region = db.relationship('Region', back_populates='habitats')
 
     serialize_rules = ('-reviews.habitat',)
 
