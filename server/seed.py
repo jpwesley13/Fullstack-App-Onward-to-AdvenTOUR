@@ -8,7 +8,7 @@ from faker import Faker
 
 # Local imports
 from app import app
-from models import db, Trainer, Habitat, Review, Region
+from models import db, Trainer, Habitat, Review, Region, Biome
 
 if __name__ == '__main__':
     fake = Faker()
@@ -19,6 +19,7 @@ if __name__ == '__main__':
         Habitat.query.delete()
         Review.query.delete()
         Region.query.delete()
+        Biome.query.delete()
         
         regions = []
         region_names = ["Kanto", "Johto", "Hoenn", "Sinnoh", "Unova", "Kalos", "Alola", "Galar", "Paldea", "Orre", "Ultra Space", "Fiore", "Almia", "Oblivia", "Lental", "Uncharted"]
@@ -29,7 +30,18 @@ if __name__ == '__main__':
             )
             regions.append(region)
         
-        db.session.add_all(regions)    
+        db.session.add_all(regions)
+
+        biomes = []
+        biome_names = ['forest', 'mountain', 'river', 'ocean', 'tundra', 'jungle', 'ruins', 'city', 'the unknown', 'cave', 'plains']
+
+        for biome_name in biome_names:
+            biome = Biome(
+                name = biome_name
+            )
+            biomes.append(biome)
+
+        db.session.add_all(biomes)
 
         trainers = []
         names = []
@@ -47,6 +59,8 @@ if __name__ == '__main__':
             )
 
             trainer.password_hash = trainer.name + 'password'
+
+            trainer.biome = rc(biomes)
 
             trainers.append(trainer)
 
