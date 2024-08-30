@@ -47,6 +47,8 @@ class Habitat(db.Model, SerializerMixin):
 
     reviews = db.relationship('Review', back_populates='habitat', cascade='all, delete-orphan')
 
+    sightings = db.relationship('Sighting', back_populates='habitat', cascade='all, delete-orphan')
+
     region = db.relationship('Region', back_populates='habitats')
 
     serialize_rules = ('-reviews.habitat',)
@@ -78,6 +80,8 @@ class Trainer(db.Model, SerializerMixin):
     biome_id = db.Column(db.Integer, db.ForeignKey('biomes.id'))
 
     reviews = db.relationship('Review', back_populates='trainer', cascade='all, delete-orphan')
+
+    sightings = db.relationship('Sighting', back_populates='trainer', cascade='all, delete-orphan')
 
     biome = db.relationship('Biome', back_populates='trainers')
 
@@ -126,3 +130,26 @@ class Review(db.Model, SerializerMixin):
 
     def __repr__(self):
         return f'<Review {self.id}>'
+    
+class Sighting(db.Model, SerializerMixin):
+    __tablename__ = 'sightings'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String, nullable=False)
+    blurb = db.Column(db.String, nullable=False)
+    habitat_id = db.Column(db.Integer, db.ForeignKey('habitats.id'))
+    trainer_id = db.Column(db.Integer, db.ForeignKey('trainers.id'))
+
+    habitat = db.relationship('Habitat', back_populates='sightings')
+    trainer = db.relationship('Trainer', back_populates='sightings')
+
+    serialize_rules = ('-habitat.sightings', '-trainer.sightings')
+
+    @validates('name')
+    def validate_name(self, key, name):
+        if not name:
+            raise ValueError('Please enter the name of the sighting. If not known, please enter "Unknown" instead.')
+        return name
+
+    def __repr__(self):
+        return f'<Rare sighting {self.id}: {self.name} at habitat #{self.habitat_id}>'
