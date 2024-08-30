@@ -8,7 +8,7 @@ from faker import Faker
 
 # Local imports
 from app import app
-from models import db, Trainer, Habitat, Review, Region, Biome
+from models import db, Trainer, Habitat, Review, Region, Biome, Sighting
 
 if __name__ == '__main__':
     fake = Faker()
@@ -20,6 +20,7 @@ if __name__ == '__main__':
         Review.query.delete()
         Region.query.delete()
         Biome.query.delete()
+        Sighting.query.delete()
         
         regions = []
         region_names = ["Kanto", "Johto", "Hoenn", "Sinnoh", "Unova", "Kalos", "Alola", "Galar", "Paldea", "Orre", "Ultra Space", "Fiore", "Almia", "Oblivia", "Lental", "Uncharted"]
@@ -93,6 +94,21 @@ if __name__ == '__main__':
             reviews.append(review)
 
         db.session.add_all(reviews)
+
+        sightings = []
+        for i in range(15):
+
+            sighting = Sighting(
+                name = fake.first_name(),
+                blurb = fake.paragraph(nb_sentences=3)
+            )
+
+            sighting.trainer = rc(trainers)
+            sighting.habitat = rc(habitats)
+
+            sightings.append(sighting)
+
+        db.session.add_all(sightings)
 
         db.session.commit()
 
