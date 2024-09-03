@@ -150,6 +150,12 @@ class Sighting(db.Model, SerializerMixin):
         if not name:
             raise ValueError('Please enter the name of the sighting. If not known, please enter "Unknown" instead.')
         return name
+    
+    @validates('blurb')
+    def validate_blurb(self, key, blurb):
+        if len(blurb) > 200:
+            raise ValueError('Please keep blurbs on rare sightings to 200 characters or less. You are free to go into much greater depths on an encounter in your review of the habitat!')
+        return blurb
 
     def __repr__(self):
         return f'<Rare sighting {self.id}: {self.name} at habitat #{self.habitat_id}>'
