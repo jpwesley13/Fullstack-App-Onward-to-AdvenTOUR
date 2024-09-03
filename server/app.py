@@ -14,6 +14,10 @@ from config import app, db, api
 
 # Views go here!
 
+@app.route('/')
+def index():
+     return '<h1>Test Server</h1>'
+
 class Habitats(Resource):
     def get(self):
         habitats = [habitat.to_dict() for habitat in Habitat.query.all()]
@@ -144,7 +148,8 @@ class Logout(Resource):
     
 api.add_resource(Trainers, '/trainers')
 api.add_resource(TrainerById, '/trainers/<int:id>')
-api.add_resource(Habitats, '/')
+# api.add_resource(Habitats, '/')
+api.add_resource(Habitats, '/habitats')
 api.add_resource(HabitatById, '/habitats/<int:id>')
 api.add_resource(Reviews, '/reviews')
 api.add_resource(ReviewById, '/reviews/<int:id>')
