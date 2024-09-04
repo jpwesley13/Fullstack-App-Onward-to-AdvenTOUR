@@ -7,13 +7,15 @@ from config import db, bcrypt
 
 
 # Models go here!
-class Region(db.Model):
+class Region(db.Model, SerializerMixin):
     __tablename__ = 'regions'
     
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
 
     habitats = db.relationship('Habitat', back_populates='region')
+
+    serialize_rules = ('-habitats.region',)
 
     @validates('name')
     def validate_name(self, key, name):
@@ -51,7 +53,7 @@ class Habitat(db.Model, SerializerMixin):
 
     region = db.relationship('Region', back_populates='habitats')
 
-    serialize_rules = ('-reviews.habitat',)
+    serialize_rules = ('-reviews.habitat', '-region.habitat')
 
     @validates('name')
     def validate_name(self, key, name):
@@ -66,6 +68,11 @@ class Habitat(db.Model, SerializerMixin):
         if not danger:
             raise ValueError('Please enter the observed danger levels of this habitat.')
         return danger
+    
+    # def to_dict(self):
+    #     print(f"Serializing Habitat object: {self.id}")
+    #     # Your existing serialization code here
+    #     return super().to_dict()
 
     def __repr__(self):
         return f'<Habitat {self:id}: {self.name}, danger: {self.danger}>'
