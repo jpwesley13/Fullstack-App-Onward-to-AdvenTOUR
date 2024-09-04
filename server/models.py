@@ -68,14 +68,9 @@ class Habitat(db.Model, SerializerMixin):
         if not danger:
             raise ValueError('Please enter the observed danger levels of this habitat.')
         return danger
-    
-    # def to_dict(self):
-    #     print(f"Serializing Habitat object: {self.id}")
-    #     # Your existing serialization code here
-    #     return super().to_dict()
 
     def __repr__(self):
-        return f'<Habitat {self:id}: {self.name}, danger: {self.danger}>'
+        return f'<Habitat {self.id}: {self.name}, danger: {self.danger}>'
     
 class Trainer(db.Model, SerializerMixin):
     __tablename__ = 'trainers'
@@ -133,7 +128,7 @@ class Review(db.Model, SerializerMixin):
     habitat = db.relationship('Habitat', back_populates='reviews')
     trainer = db.relationship('Trainer', back_populates='reviews')
 
-    serialize_rules = ('-habitat.reviews', '-trainer.reviews')
+    serialize_rules = ('-habitat.reviews', '-trainer.reviews',)
 
     def __repr__(self):
         return f'<Review {self.id}>'
@@ -150,7 +145,7 @@ class Sighting(db.Model, SerializerMixin):
     habitat = db.relationship('Habitat', back_populates='sightings')
     trainer = db.relationship('Trainer', back_populates='sightings')
 
-    serialize_rules = ('-habitat.sightings', '-trainer.sightings')
+    serialize_rules = ('-habitat.sightings', '-trainer.sightings',)
 
     @validates('name')
     def validate_name(self, key, name):
