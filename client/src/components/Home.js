@@ -1,10 +1,22 @@
 import { useOutletContext } from "react-router-dom";
 import HabitatCard from "./HabitatCard";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
 function Home() {
 
-    const {habitats} = useOutletContext();
+    // const {habitats} = useOutletContext();
+    const [habitats, setHabitats] = useState([]);
+
+    useEffect(() => {
+      fetch('/habitats')
+      .then(res => {
+        if (res.ok) {
+          res.json()
+          .then(data => setHabitats(data));
+        }
+      })
+      .catch(error => console.error(error));
+    }, []);
 
     const displayedHabitats = habitats.map(habitat => (
       <HabitatCard 

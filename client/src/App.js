@@ -3,16 +3,25 @@ import NavBar from "./components/NavBar";
 import { Switch, Route, Outlet} from "react-router-dom";
 
 function App() {
-  const [habitats, setHabitats] = useState([]);
+  // const [habitats, setHabitats] = useState([]);
+
+  // useEffect(() => {
+  //   fetch('/habitats')
+  //   .then(res => {
+  //     if (res.ok) {
+  //       res.json()
+  //       .then(data => setHabitats(data));
+  //     }
+  //   })
+  //   .catch(error => console.error(error));
+  // }, []);
+
+  const [sightings, setSightings] = useState([])
 
   useEffect(() => {
-    fetch('/habitats')
-    .then(res => {
-      if (res.ok) {
-        res.json()
-        .then(data => setHabitats(data));
-      }
-    })
+    fetch('/sightings')
+    .then(res => res.json())
+    .then(data => setSightings(data))
     .catch(error => console.error(error));
   }, []);
 
@@ -22,7 +31,7 @@ function App() {
     <header>
       <NavBar />
     </header>
-    <Outlet context={{habitats}} />
+    <Outlet context={{sightings}} />
     </>
   );
 }
