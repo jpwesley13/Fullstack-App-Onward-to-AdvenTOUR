@@ -1,16 +1,17 @@
 import { useOutletContext } from "react-router-dom";
+import HabitatCard from "./HabitatCard";
 import { useEffect } from "react";
 
 function Home() {
 
     const {habitats} = useOutletContext();
 
-    // const displayedMonsters = monsters.map(monster => (
-    //   <MonsterCard 
-    //   key={monster.id}
-    //   monster={monster}
-    //   />
-    // ))
+    const displayedHabitats = habitats.map(habitat => (
+      <HabitatCard 
+      key={habitat.id}
+      habitat={habitat}
+      />
+    ))
 
     useEffect(() => {
       document.title = "Onward to AdvenTOUR"
@@ -22,7 +23,7 @@ function Home() {
           <MonsterForm /> */}
           <hr/>
           <h2 className="header">Habitats:</h2>
-          {/* {displayedMonsters} */}
+          {displayedHabitats}
         </>
     )
 };
