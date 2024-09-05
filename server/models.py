@@ -15,7 +15,7 @@ class Region(db.Model, SerializerMixin):
 
     habitats = db.relationship('Habitat', back_populates='region')
 
-    serialize_rules = ('-habitats.region',)
+    serialize_rules = ('-habitats.region', '-habitats.sightings', '-habitats.reviews')
 
     @validates('name')
     def validate_name(self, key, name):
@@ -24,13 +24,15 @@ class Region(db.Model, SerializerMixin):
             raise ValueError('Region not recognized. Please select from available options or confirm uncharted territory.')
         return name
     
-class Biome(db.Model):
+class Biome(db.Model, SerializerMixin):
     __tablename__ = 'biomes'
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
 
     trainers = db.relationship('Trainer', back_populates='biome')
+
+    serialize_rules = ('-trainers.biome',)
 
     @validates('name')
     def validate_name(self, key, name):
@@ -53,7 +55,9 @@ class Habitat(db.Model, SerializerMixin):
 
     region = db.relationship('Region', back_populates='habitats')
 
-    serialize_rules = ('-reviews.habitat', '-region.habitat')
+    serialize_rules = ('-reviews.habitat', '-region.habitats', '-sightings.habitat',)
+
+    # serialize_only = ('id', 'name', 'danger', 'reviews.content', 'sightings.name', 'region.name', 'region.habitats',)
 
     @validates('name')
     def validate_name(self, key, name):
@@ -75,6 +79,8 @@ class Habitat(db.Model, SerializerMixin):
 class Trainer(db.Model, SerializerMixin):
     __tablename__ = 'trainers'
 
+    serialize_rules = ('-reviews.trainer', '-sightings.trainer', '-biomes.trainer', '-_password_hash', '-reviews.habitat', '-sightings.habitat')
+
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False, unique=True)
     age = db.Column(db.Integer)
@@ -86,8 +92,6 @@ class Trainer(db.Model, SerializerMixin):
     sightings = db.relationship('Sighting', back_populates='trainer', cascade='all, delete-orphan')
 
     biome = db.relationship('Biome', back_populates='trainers')
-
-    serialize_rules = ('-reviews.trainer',)
 
     @hybrid_property
     def password_hash(self):

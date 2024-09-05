@@ -5,7 +5,7 @@
 # Remote library imports
 from flask import request, make_response, redirect, session
 from flask_restful import Resource
-from models import Habitat, Trainer, Review
+from models import Habitat, Trainer, Review, Region, Sighting, Biome
 
 # Local imports
 from config import app, db, api
@@ -17,6 +17,31 @@ from config import app, db, api
 @app.route('/')
 def index():
      return '<h1>Test Server</h1>'
+
+class Regions(Resource):
+    def get(self):
+        regions = [region.to_dict() for region in Region.query.all()]
+        return make_response(regions, 200)
+    
+    def post(self):
+        params = request.get_json()
+
+        try:
+            new_region = Region(
+                name = params['name'],
+            )
+            db.session.add(new_region)
+            db.session.commit()
+            return make_response(new_region.to_dict(), 201)
+        except ValueError:
+            return make_response({"errors": ["validation errors"]}, 400)
+        
+class RegionById(Resource):
+    def get(self, id):
+        region = Region.query.filter(Region.id == id).first()
+        if region:
+            return make_response(region.to_dict(), 200)
+        return make_response({'error': 'Region not found.'}, 404)
 
 class Habitats(Resource):
     def get(self):
@@ -151,6 +176,8 @@ api.add_resource(TrainerById, '/trainers/<int:id>')
 # api.add_resource(Habitats, '/')
 api.add_resource(Habitats, '/habitats')
 api.add_resource(HabitatById, '/habitats/<int:id>')
+api.add_resource(Regions, '/regions')
+api.add_resource(RegionById, '/regions/<int:id>')
 api.add_resource(Reviews, '/reviews')
 api.add_resource(ReviewById, '/reviews/<int:id>')
 api.add_resource(Signup, '/signup')

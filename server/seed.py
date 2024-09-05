@@ -99,7 +99,7 @@ if __name__ == '__main__':
         for i in range(15):
 
             sighting = Sighting(
-                name = fake.first_name(),
+                name = fake.last_name(),
                 blurb = fake.paragraph(nb_sentences=3)
             )
 
