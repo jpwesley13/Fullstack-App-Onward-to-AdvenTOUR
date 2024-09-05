@@ -55,9 +55,7 @@ class Habitat(db.Model, SerializerMixin):
 
     region = db.relationship('Region', back_populates='habitats')
 
-    serialize_rules = ('-reviews.habitat', '-region.habitats', '-sightings.habitat',)
-
-    # serialize_only = ('id', 'name', 'danger', 'reviews.content', 'sightings.name', 'region.name', 'region.habitats',)
+    serialize_rules = ('-reviews.habitat', '-region.habitats', '-sightings.habitat', )
 
     @validates('name')
     def validate_name(self, key, name):
@@ -79,7 +77,7 @@ class Habitat(db.Model, SerializerMixin):
 class Trainer(db.Model, SerializerMixin):
     __tablename__ = 'trainers'
 
-    serialize_rules = ('-reviews.trainer', '-sightings.trainer', '-biomes.trainer', '-_password_hash', '-reviews.habitat', '-sightings.habitat')
+    serialize_rules = ('-reviews.trainer', '-sightings.trainer', '-biome.trainers', '-_password_hash', '-reviews.habitat', '-sightings.habitat')
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False, unique=True)

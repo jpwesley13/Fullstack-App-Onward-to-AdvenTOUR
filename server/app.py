@@ -42,6 +42,31 @@ class RegionById(Resource):
         if region:
             return make_response(region.to_dict(), 200)
         return make_response({'error': 'Region not found.'}, 404)
+    
+class Biomes(Resource):
+    def get(self):
+        biomes = [biome.to_dict() for biome in Biome.query.all()]
+        return make_response(biomes, 200)
+    
+    def post(self):
+        params = request.get_json()
+
+        try:
+            new_biome = Biome(
+                name = params['name'],
+            )
+            db.session.add(new_biome)
+            db.session.commit()
+            return make_response(new_biome.to_dict(), 201)
+        except ValueError:
+            return make_response({"errors": ["validation errors"]}, 400)
+        
+class BiomeById(Resource):
+    def get(self, id):
+        biome = Biome.query.filter(Biome.id == id).first()
+        if biome:
+            return make_response(biome.to_dict(), 200)
+        return make_response({'error': 'Biome not found.'}, 404)
 
 class Habitats(Resource):
     def get(self):
@@ -124,6 +149,35 @@ class ReviewById(Resource):
             return make_response(review.to_dict(), 200)
         return make_response({'error': 'Review not found.'}, 404)
     
+class Sightings(Resource):
+    def get(self):
+        sightings = [sighting.to_dict() for sighting in Sighting.query.all()]
+        return make_response(sightings, 200)
+    
+    def post(self):
+        params = request.get_json()
+
+        try:
+            new_sighting = Sighting(
+                name = params['name'],
+                blurb = params['blurb'],
+                trainer_id = params['trainer_id'],
+                habitat_id = params['habitat_id']
+            )
+
+            db.session.add(new_sighting)
+            db.session.commit()
+            return make_response(new_sighting.to_dict(), 201)
+        except ValueError:
+            return make_response({"errors": ["validation errors"]}, 400)
+    
+class SightingById(Resource):
+    def get(self, id):
+        sighting = Sighting.query.filter(Sighting.id == id).first()
+        if sighting:
+            return make_response(sighting.to_dict(), 200)
+        return make_response({'error': 'Rare sighting not found.'}, 404)
+    
 class Signup(Resource):
     def post(self):
         params = request.get_json()
@@ -178,8 +232,12 @@ api.add_resource(Habitats, '/habitats')
 api.add_resource(HabitatById, '/habitats/<int:id>')
 api.add_resource(Regions, '/regions')
 api.add_resource(RegionById, '/regions/<int:id>')
+api.add_resource(Biomes, '/biomes')
+api.add_resource(BiomeById, '/biomes/<int:id>')
 api.add_resource(Reviews, '/reviews')
 api.add_resource(ReviewById, '/reviews/<int:id>')
+api.add_resource(Sightings, '/sightings')
+api.add_resource(SightingById, '/sightings/<int:id>')
 api.add_resource(Signup, '/signup')
 api.add_resource(CheckSession, '/check_session')
 api.add_resource(Login, '/login')
