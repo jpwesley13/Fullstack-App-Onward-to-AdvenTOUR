@@ -5,3 +5,34 @@
   --text: hsla(0, 0%, 100%, 0.88);
 }
 
+.card {
+  text-align: center;
+  color: rgb(133, 38, 38);
+  border: grey solid 1px;
+  padding: 1rem;
+  width: auto;
+  height: 25rem;
+  display: inline-grid;
+  margin: 1rem 2rem;
+  box-shadow: 3px 4px rgb(133, 38, 38);
+}
+
+.habitat-card {
+  justify-self: center;
+  height: 12rem;
+  width: auto;
+}
+
+.navbar > a{
+  display: inline-block;
+  box-sizing: border-box;
+  width: 70px;
+  padding: 5px;
+  margin: 6px 6px 6px;
+  background: rgb(170, 60, 60);
+  text-decoration: none;
+  text-align: center;
+  font-size: min(10vw, 15px) ;
+  color: rgb(255, 255, 255);
+  border-radius: 10px;
+}

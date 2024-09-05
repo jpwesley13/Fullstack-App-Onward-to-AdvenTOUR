@@ -8,7 +8,7 @@ function HabitatCard({habitat}) {
         <div className="card">
             <h2>{name}</h2>
             <img 
-              src={image}
+              src={`https://picsum.photos/200/?random=${id}`}
               alt={name}
               className="habitat-card"  
             />
