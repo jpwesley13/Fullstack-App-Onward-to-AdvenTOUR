@@ -1,7 +1,7 @@
 import App from "./App";
-import ErrorPage from "./components/ErrorPage";
-import Home from "./components/Home";
-import Trainer from "./components/Trainer";
+import ErrorPage from "./pages/ErrorPage";
+import Home from "./pages/Home";
+import Trainer from "./pages/Trainer";
 
 const routes = [
     {
