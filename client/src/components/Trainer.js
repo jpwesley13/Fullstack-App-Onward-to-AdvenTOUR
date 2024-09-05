@@ -24,8 +24,8 @@ function Trainer() {
 
     return (
         <>
-        <h2>Contributors</h2>
-        <br/>
+        <hr/>
+        <h2>Contributors:</h2>
         {trainerList}
         </>
     );
