@@ -2,17 +2,19 @@ import { Link } from "react-router-dom";
 
 function SightingCard({sighting}) {
 
-    const {name, image, id} = sighting
+    const {name, image, id, habitat} = sighting
 
     return (
         <div className="card">
-            <h2>{name}</h2>
+            <Link to={`/sightings/${id}`}><h2>{name}</h2>
             <img 
               src={`https://picsum.photos/200/?random=${id}`}
               alt={name}
               className="habitat-card"  
             />
-            <Link to={`/sightings/${id}`}>Details</Link>
+            </Link>
+            <span>{habitat.name}</span>
+            {/* <Link to={`/sightings/${id}`}>Details</Link> */}
         </div>
     );
 };

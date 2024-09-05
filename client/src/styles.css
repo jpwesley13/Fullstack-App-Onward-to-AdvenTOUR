@@ -7,14 +7,14 @@
 
 .card {
   text-align: center;
-  color: rgb(133, 38, 38);
+  color: rgb(42, 90, 50);
   border: grey solid 1px;
   padding: 1rem;
   width: auto;
-  height: 25rem;
+  height: auto;
   display: inline-grid;
   margin: 1rem 2rem;
-  box-shadow: 3px 4px rgb(133, 38, 38);
+  box-shadow: 3px 4px rgb(42, 90, 50);
 }
 
 .habitat-card {
