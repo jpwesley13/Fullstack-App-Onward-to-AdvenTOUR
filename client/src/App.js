@@ -17,11 +17,19 @@ function App() {
   // }, []);
 
   const [sightings, setSightings] = useState([])
+  const [reviews, setReviews] = useState([])
 
   useEffect(() => {
     fetch('/sightings')
     .then(res => res.json())
     .then(data => setSightings(data))
+    .catch(error => console.error(error));
+  }, []);
+
+  useEffect(() => {
+    fetch('/reviews')
+    .then(res => res.json())
+    .then(data => setReviews(data))
     .catch(error => console.error(error));
   }, []);
 
@@ -31,7 +39,7 @@ function App() {
     <header>
       <NavBar />
     </header>
-    <Outlet context={{sightings}} />
+    <Outlet context={{sightings, reviews}} />
     </>
   );
 }
