@@ -46,7 +46,6 @@ class Habitat(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False, unique=True)
-    danger = db.Column(db.Integer, nullable=False)
     region_id = db.Column(db.Integer, db.ForeignKey('regions.id'))
 
     reviews = db.relationship('Review', back_populates='habitat', cascade='all, delete-orphan')
@@ -124,6 +123,7 @@ class Review(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String, nullable=False)
+    danger = db.Column(db.Integer, nullable=False)
     habitat_id = db.Column(db.Integer, db.ForeignKey('habitats.id'))
     trainer_id = db.Column(db.Integer, db.ForeignKey('trainers.id'))
 

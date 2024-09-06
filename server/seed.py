@@ -72,7 +72,6 @@ if __name__ == '__main__':
         for i in range(30):
             habitat = Habitat(
                 name = fake.city(),
-                danger = randint(1,5)
             )
 
             habitat.region = rc(regions)
@@ -85,7 +84,8 @@ if __name__ == '__main__':
         for i in range(50):
 
             review = Review(
-                content = fake.paragraph(nb_sentences=8)
+                content = fake.paragraph(nb_sentences=8),
+                danger = randint(1,5)
             )
 
             review.trainer = rc(trainers)
