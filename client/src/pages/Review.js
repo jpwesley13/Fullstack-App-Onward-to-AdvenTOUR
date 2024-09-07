@@ -1,12 +1,46 @@
-import { useOutletContext, useParams } from "react-router-dom";
+import { useOutletContext, useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 function Review() {
     const params = useParams();
     const {reviews} = useOutletContext();
 
+    const [review, setReview] = useState({
+        content: "",
+        danger: "",
+        habitat: "",
+        habitat_id: "",
+        trainer: "",
+        trainer_id: ""
+    })
+
+    useEffect(() => {
+        const rev = reviews.find(review => review.id === parseInt(params.id));
+        if(rev) {
+            setReview(rev)
+            document.title = "Review"
+        }
+    }, [reviews])
+
+    const trainer = review.trainer
+    const habitat = review.habitat
+
+    if(!review) {
+        return <h1>Loading...</h1>
+    };
+
     return (
-        <h2>yay</h2>
+        <>
+        <hr />
+        <Link to={`/trainers/${trainer.id}`}>
+        <button>Back to Trainer's page</button>
+        </Link>
+        <Link to={`/habitats/${habitat.id}`}>
+        <button>Back to Habitat's page</button>
+        </Link>
+        <h2>{trainer.name}'s review of {habitat.name}:</h2>
+        <span>{review.content}</span>
+        </>
     )
 }
 
