@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 function HabitatCard({habitat, dangerAverage}) {
 
-    const {name, image, id, reviews} = habitat
+    const {name, image, id} = habitat
 
     return (
         <div className="card">

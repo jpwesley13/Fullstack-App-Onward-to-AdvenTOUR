@@ -14,7 +14,6 @@ function SightingCard({sighting}) {
             />
             </Link>
             <span>{habitat.name}</span>
-            {/* <Link to={`/sightings/${id}`}>Details</Link> */}
         </div>
     );
 };
