@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Trainer from "./pages/Trainer";
 import Sightings from "./pages/Sightings";
 import Habitat from "./pages/Habitat";
+import Review from "./pages/Review";
 
 const routes = [
     {
@@ -25,7 +26,11 @@ const routes = [
             },
             {
                 path: "/habitats/:id",
-                element: <Habitat />
+                element: <Habitat />,
+            },
+            {
+                path: "reviews/:id",
+                element: <Review />
             }
         ]
     }

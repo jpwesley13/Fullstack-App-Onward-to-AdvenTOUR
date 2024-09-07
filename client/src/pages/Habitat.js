@@ -1,9 +1,9 @@
-import { useParams, useOutletContext } from "react-router-dom";
+import { useParams, useOutletContext, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 function Habitat() {
     const params = useParams();
-    const {habitats} = useOutletContext();
+    const {habitats, reviews} = useOutletContext();
 
     const [habitat, setHabitat] = useState({
         name: "",
@@ -25,10 +25,18 @@ function Habitat() {
         return <h1>Loading...</h1>
     };
 
+    const filteredReviews = reviews.filter(review => review.habitat_id === habitat.id)
+
+    const reviewsList = filteredReviews.map(review => (
+        <li>Review by {review.trainer.name}: <Link to={`/reviews/${review.id}`}>View</Link></li>
+    ))
+
     return (
         <>
         <main>
             <h1>{habitat.name}</h1>
+            <hr />
+            {reviewsList}
             </main></>
     )
 }
