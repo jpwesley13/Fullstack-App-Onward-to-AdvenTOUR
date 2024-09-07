@@ -4,19 +4,7 @@ import { useState, useEffect } from "react";
 
 function Home() {
 
-    const {reviews} = useOutletContext();
-    const [habitats, setHabitats] = useState([]);
-
-    useEffect(() => {
-      fetch('/habitats')
-      .then(res => {
-        if (res.ok) {
-          res.json()
-          .then(data => setHabitats(data));
-        }
-      })
-      .catch(error => console.error(error));
-    }, []);
+    const {reviews, habitats} = useOutletContext();
 
     function dangerAverage(id) {
       let filteredReviews = reviews.filter(review => review.habitat_id === id)
