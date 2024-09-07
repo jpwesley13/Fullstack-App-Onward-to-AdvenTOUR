@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 
 function Home() {
 
-    // const {habitats} = useOutletContext();
+    const {reviews} = useOutletContext();
     const [habitats, setHabitats] = useState([]);
 
     useEffect(() => {
@@ -18,10 +18,19 @@ function Home() {
       .catch(error => console.error(error));
     }, []);
 
+    function dangerAverage(id) {
+      let filteredReviews = reviews.filter(review => review.habitat_id === id)
+      let dangerArray = filteredReviews.map(review => review.danger)
+      let sum = dangerArray.reduce((acc, curr) => acc + curr, 0);
+      let average = sum / dangerArray.length;
+      return average
+  }
+
     const displayedHabitats = habitats.map(habitat => (
       <HabitatCard 
       key={habitat.id}
       habitat={habitat}
+      dangerAverage={dangerAverage}
       />
     ))
 

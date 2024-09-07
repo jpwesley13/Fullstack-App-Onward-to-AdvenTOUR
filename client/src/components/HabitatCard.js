@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 
-function HabitatCard({habitat}) {
+function HabitatCard({habitat, dangerAverage}) {
 
-    const {name, image, id} = habitat
+    const {name, image, id, reviews} = habitat
 
     return (
         <div className="card">
@@ -12,6 +12,7 @@ function HabitatCard({habitat}) {
               alt={name}
               className="habitat-card"  
             />
+            <span>Danger level: {dangerAverage(id)}</span>
             <Link to={`/habitats/${id}`}>Reviews</Link>
         </div>
     );
