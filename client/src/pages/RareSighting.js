@@ -38,7 +38,7 @@ function RareSighting() {
         <Link to={`/habitats/${habitat.id}`}>
         <button>To Habitat's page</button>
         </Link>
-        <h2>{trainer.name}'s rare sighting of a {sighting.name}:</h2>
+        <h2>{trainer.name}'s rare sighting of a {sighting.name} at {habitat.name}:</h2>
         <span>{sighting.blurb}</span>
         </>
     )
