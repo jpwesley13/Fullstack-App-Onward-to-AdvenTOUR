@@ -1,25 +1,18 @@
 import { useOutletContext, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import User from "./User";
 
 function Trainer() {
 
-    const [trainers, setTrainers] = useState([]);
-
-    useEffect(() => {
-        fetch('/trainers')
-        .then(res => res.json())
-        .then(data => {
-            setTrainers(data);
-        })
-        .catch(error => console.error(error));
-    }, []);
+    const {trainers} = useOutletContext();
 
     useEffect(() => {
         document.title = "Contributors"
     }, [])
 
     const trainerList = trainers.map(trainer => (
-        <li>{trainer.name}: <Link to={`/trainers/${trainer.id}`}>Visit Profile</Link></li>
+        <li>{trainer.name}: <Link to={`/trainers/${trainer.id}`}>Visit Profile</Link>
+        </li>
     ))
 
     return (

@@ -5,6 +5,7 @@ import Trainer from "./pages/Trainer";
 import Sightings from "./pages/Sightings";
 import Habitat from "./pages/Habitat";
 import Review from "./pages/Review";
+import User from "./pages/User";
 
 const routes = [
     {
@@ -18,7 +19,7 @@ const routes = [
             },
             {
                 path: "/trainers",
-                element: <Trainer />
+                element: <Trainer />,
             },
             {
                 path: "/sightings",
@@ -31,6 +32,10 @@ const routes = [
             {
                 path: "reviews/:id",
                 element: <Review />
+            },
+            {
+                path: "trainers/:id",
+                element: <User />
             }
         ]
     }

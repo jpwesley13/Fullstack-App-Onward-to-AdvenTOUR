@@ -7,6 +7,16 @@ function App() {
   const [sightings, setSightings] = useState([])
   const [reviews, setReviews] = useState([])
   const [habitats, setHabitats] = useState([]);
+  const [trainers, setTrainers] = useState([]);
+
+    useEffect(() => {
+        fetch('/trainers')
+        .then(res => res.json())
+        .then(data => {
+            setTrainers(data);
+        })
+        .catch(error => console.error(error));
+    }, []);
 
   useEffect(() => {
     fetch('/sightings')
@@ -39,7 +49,7 @@ function App() {
     <header>
       <NavBar />
     </header>
-    <Outlet context={{sightings, reviews, habitats}} />
+    <Outlet context={{sightings, reviews, habitats, trainers}} />
     </>
   );
 }
