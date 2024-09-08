@@ -79,6 +79,7 @@ class Habitats(Resource):
         try:
             new_habitat = Habitat(
                 name = params['name'],
+                image = params['image'],
                 danger = params['danger']
             )
             db.session.add(new_habitat)
@@ -160,6 +161,7 @@ class Sightings(Resource):
         try:
             new_sighting = Sighting(
                 name = params['name'],
+                image = params['image'],
                 blurb = params['blurb'],
                 trainer_id = params['trainer_id'],
                 habitat_id = params['habitat_id']
@@ -186,6 +188,7 @@ class Signup(Resource):
         try:
             new_trainer = Trainer(
                 name = params['name'],
+                image = ['image'],
                 age = params['age'],
             )
             new_trainer.password_hash = password
