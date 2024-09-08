@@ -46,6 +46,7 @@ class Habitat(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False, unique=True)
+    image = db.Column(db.String, nullable=False)
     region_id = db.Column(db.Integer, db.ForeignKey('regions.id'))
 
     reviews = db.relationship('Review', back_populates='habitat', cascade='all, delete-orphan')
@@ -81,6 +82,7 @@ class Trainer(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False, unique=True)
     age = db.Column(db.Integer)
+    image = db.Column(db.String)
     _password_hash = db.Column(db.String, nullable=False)
     biome_id = db.Column(db.Integer, db.ForeignKey('biomes.id'))
 
@@ -139,8 +141,9 @@ class Sighting(db.Model, SerializerMixin):
     __tablename__ = 'sightings'
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String, nullable=False)
+    name = db.Column(db.String)
     blurb = db.Column(db.String, nullable=False)
+    image = db.Column(db.String, nullable=False)
     habitat_id = db.Column(db.Integer, db.ForeignKey('habitats.id'))
     trainer_id = db.Column(db.Integer, db.ForeignKey('trainers.id'))
 
