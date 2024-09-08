@@ -59,6 +59,8 @@ if __name__ == '__main__':
                 age = randint(10,100)
             )
 
+            trainer.image = f'https://picsum.photos/200/?random={trainer.id}'
+
             trainer.password_hash = trainer.name + 'password'
 
             trainer.biome = rc(biomes)
@@ -73,6 +75,8 @@ if __name__ == '__main__':
             habitat = Habitat(
                 name = fake.city(),
             )
+
+            habitat.image = f'https://picsum.photos/200/?random={habitat.id}'
 
             habitat.region = rc(regions)
 
@@ -102,6 +106,8 @@ if __name__ == '__main__':
                 name = fake.last_name(),
                 blurb = fake.paragraph(nb_sentences=3)
             )
+
+            sighting.image = f'https://picsum.photos/200/?random={sighting.id}'
 
             sighting.trainer = rc(trainers)
             sighting.habitat = rc(habitats)
