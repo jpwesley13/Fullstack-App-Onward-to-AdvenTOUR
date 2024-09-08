@@ -20,7 +20,7 @@ function HabitatCard({habitat, dangerAverage}) {
         <div className="card">
             <h2>{name}</h2>
             <img 
-              src={`https://picsum.photos/200/?random=${id}`}
+              src={image}
               alt={name}
               className="habitat-card"  
             />

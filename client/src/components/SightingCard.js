@@ -8,7 +8,7 @@ function SightingCard({sighting}) {
         <div className="card">
             <Link to={`/sightings/${id}`}><h2>{name}</h2>
             <img 
-              src={`https://picsum.photos/200/?random=${id}`}
+              src={image}
               alt={name}
               className="habitat-card"  
             />

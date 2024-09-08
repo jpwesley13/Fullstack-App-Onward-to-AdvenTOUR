@@ -3,7 +3,7 @@
 # Standard library imports
 
 # Remote library imports
-from flask import request, make_response, redirect, session
+from flask import request, make_response, session
 from flask_restful import Resource
 from models import Habitat, Trainer, Review, Region, Sighting, Biome
 
@@ -227,7 +227,6 @@ class Logout(Resource):
     
 api.add_resource(Trainers, '/trainers')
 api.add_resource(TrainerById, '/trainers/<int:id>')
-# api.add_resource(Habitats, '/')
 api.add_resource(Habitats, '/habitats')
 api.add_resource(HabitatById, '/habitats/<int:id>')
 api.add_resource(Regions, '/regions')
@@ -242,10 +241,6 @@ api.add_resource(Signup, '/signup')
 api.add_resource(CheckSession, '/check_session')
 api.add_resource(Login, '/login')
 api.add_resource(Logout, '/logout')
-
-@app.route('/habitats')
-def redirect_home():
-    return redirect('/')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
