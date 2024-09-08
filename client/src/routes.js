@@ -7,6 +7,7 @@ import Habitat from "./pages/Habitat";
 import Review from "./pages/Review";
 import User from "./pages/User";
 import RareSighting from "./pages/RareSighting";
+import Signup from "./pages/Signup";
 
 const routes = [
     {
@@ -41,7 +42,11 @@ const routes = [
             {
                 path: "/sightings/:id",
                 element: <RareSighting />
-            }
+            },
+            {
+                path: "/signup",
+                element: <Signup />
+            },
         ]
     }
 ];
