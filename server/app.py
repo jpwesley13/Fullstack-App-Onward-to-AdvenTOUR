@@ -184,6 +184,7 @@ class Signup(Resource):
     def post(self):
         params = request.get_json()
         password = params.get('password')
+        biome_name = params.get('biome')
 
         try:
             new_trainer = Trainer(
@@ -192,6 +193,9 @@ class Signup(Resource):
                 age = params['age'],
             )
             new_trainer.password_hash = password
+
+            biome = Biome.query.filter(Biome.name == biome_name).first()
+            new_trainer.biome = biome
 
             db.session.add(new_trainer)
             db.session.commit()
