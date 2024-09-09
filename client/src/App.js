@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import NavBar from "./components/NavBar";
+import Login from "./pages/Login";
 import { Switch, Route, Outlet} from "react-router-dom";
 
 function App() {
@@ -12,49 +13,88 @@ function App() {
 
   useEffect(() => {
     fetch('/check_session')
-    .then(res => {
-      if(res.ok) {
-        res.json()
-        .then(data => setTrainer(data))
-      }
-    });
-  }, [])
-
-  if(!trainer) return <Login onLogin={setTrainer} />
-
-  useEffect(() => {
-      fetch('/trainers')
-      .then(res => res.json())
-      .then(data => {
-          setTrainers(data);
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        throw new Error('Session check failed');
       })
-      .catch(error => console.error(error));
+      .then((data) => setTrainer(data))
+      .catch((error) => {
+        console.error(error);
+        setTrainer(null);
+      })
+      .finally(() => {
+        fetch('/trainers')
+          .then((res) => res.json())
+          .then((data) => setTrainers(data))
+          .catch((error) => console.error(error));
+
+        fetch('/sightings')
+          .then((res) => res.json())
+          .then((data) => setSightings(data))
+          .catch((error) => console.error(error));
+
+        fetch('/reviews')
+          .then((res) => res.json())
+          .then((data) => setReviews(data))
+          .catch((error) => console.error(error));
+
+        fetch('/habitats')
+          .then((res) => {
+            if (res.ok) {
+              return res.json();
+            }
+            throw new Error('Failed to fetch habitats');
+          })
+          .then((data) => setHabitats(data))
+          .catch((error) => console.error(error));
+      });
   }, []);
 
-  useEffect(() => {
-    fetch('/sightings')
-    .then(res => res.json())
-    .then(data => setSightings(data))
-    .catch(error => console.error(error));
-  }, []);
+  // useEffect(() => {
+  //     fetch('/trainers')
+  //     .then(res => res.json())
+  //     .then(data => {
+  //         setTrainers(data);
+  //     })
+  //     .catch(error => console.error(error));
+  // }, []);
 
-  useEffect(() => {
-    fetch('/reviews')
-    .then(res => res.json())
-    .then(data => setReviews(data))
-    .catch(error => console.error(error));
-  }, []);
+  // useEffect(() => {
+  //   fetch('/sightings')
+  //   .then(res => res.json())
+  //   .then(data => setSightings(data))
+  //   .catch(error => console.error(error));
+  // }, []);
 
-  useEffect(() => {
-    fetch('/habitats')
-    .then(res => {
-      if (res.ok) {
-        res.json()
-        .then(data => setHabitats(data));
-      }
-    })
-    .catch(error => console.error(error));
-  }, []);
+  // useEffect(() => {
+  //   fetch('/reviews')
+  //   .then(res => res.json())
+  //   .then(data => setReviews(data))
+  //   .catch(error => console.error(error));
+  // }, []);
+
+  // useEffect(() => {
+  //   fetch('/habitats')
+  //   .then(res => {
+  //     if (res.ok) {
+  //       res.json()
+  //       .then(data => setHabitats(data));
+  //     }
+  //   })
+  //   .catch(error => console.error(error));
+  // }, []);
+
+  // useEffect(() => {
+  //   fetch('/check_session')
+  //   .then(res => {
+  //     if(res.ok) {
+  //       res.json()
+  //       .then(data => setTrainer(data))
+  //     }
+  //   });
+  // }, [])
 
   function onAddTrainer(newTrainer){
     return setTrainers([...trainers, newTrainer])
@@ -76,9 +116,9 @@ function App() {
   return (
     <>
     <header>
-      <NavBar trainer={trainer} setTrainer={setTrainer}/>
+      <NavBar key={trainer ? "loggedIn" : "loggedOut"} trainer={trainer} setTrainer={setTrainer}/>
     </header>
-    <Outlet context={{sightings, reviews, habitats, trainers, trainer, onAddTrainer, onAddHabitat, onAddReview, onAddSighting}} />
+    <Outlet context={{setTrainer, sightings, reviews, habitats, trainers, trainer, onAddTrainer, onAddHabitat, onAddReview, onAddSighting}} />
     </>
   );
 }
