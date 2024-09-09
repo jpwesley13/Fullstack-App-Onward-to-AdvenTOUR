@@ -8,6 +8,7 @@ import Review from "./pages/Review";
 import User from "./pages/User";
 import RareSighting from "./pages/RareSighting";
 import Signup from "./pages/Signup";
+import Login from "./pages/Login";
 
 const routes = [
     {
@@ -46,6 +47,10 @@ const routes = [
             {
                 path: "/signup",
                 element: <Signup />
+            },
+            {
+                path: "/login",
+                element: <Login />
             },
         ]
     }

@@ -8,6 +8,19 @@ function App() {
   const [reviews, setReviews] = useState([])
   const [habitats, setHabitats] = useState([]);
   const [trainers, setTrainers] = useState([]);
+  const [trainer, setTrainer] = useState([]);
+
+  useEffect(() => {
+    fetch('/check_session')
+    .then(res => {
+      if(res.ok) {
+        res.json()
+        .then(data => setTrainer(data))
+      }
+    });
+  }, [])
+
+  if(!trainer) return <Login onLogin={setTrainer} />
 
   useEffect(() => {
       fetch('/trainers')
@@ -63,9 +76,9 @@ function App() {
   return (
     <>
     <header>
-      <NavBar />
+      <NavBar trainer={trainer} setTrainer={setTrainer}/>
     </header>
-    <Outlet context={{sightings, reviews, habitats, trainers, onAddTrainer, onAddHabitat, onAddReview, onAddSighting}} />
+    <Outlet context={{sightings, reviews, habitats, trainers, trainer, onAddTrainer, onAddHabitat, onAddReview, onAddSighting}} />
     </>
   );
 }
