@@ -87,3 +87,39 @@ a.active {
   background: black;
   color: white;
 }
+
+form {
+  width: 95%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+form label {
+  font-size: 1rem;
+  font-weight: bold;
+  display: block;
+  text-align: left;
+  margin: 1rem 0 0.2rem;
+}
+
+button {
+  display: block;
+  margin: 1rem 0;
+  padding: 0.35rem 0.5rem;
+  background-color: rgb(42, 90, 50);
+  color: white;
+  border: none;
+  border-radius: 3px;
+  width: 100%;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
