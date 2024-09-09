@@ -17,7 +17,7 @@ function Signup() {
         age: yup.number().integer().required("Must enter age.").min(10, "Must be at least 10 years old to join."),
         image: yup.string().optional(),
         biome: yup.string().optional(),
-        password: yup.string().min(6).max(30).required("Must create a password."),
+        password: yup.string().min(6, "Password must be at least 6 characters.").max(30).required("Must create a password."),
         confirmPassword: yup.string().oneOf([yup.ref('password'), null], "Passwords must match.").required("Required.")
     });
 
@@ -37,7 +37,7 @@ function Signup() {
         // navigate('/')
       };
     
-    const {values, handleBlur, handleChange, handleSubmit, errors, isSubmitting} = useFormik({
+    const {values, handleBlur, handleChange, handleSubmit, touched, errors, isSubmitting} = useFormik({
         initialValues: {
             name: "",
             age: "",
@@ -59,7 +59,9 @@ function Signup() {
                 id="name" 
                 type="name" 
                 placeholder="Enter your name"
-                className={errors.name ? "input-error" : ""} />
+                className={errors.name && touched.name ? "input-error" : ""} 
+            />
+            {errors.name && touched.name && <p className="error">{errors.name}</p>}
             <label htmlFor="age">Age</label>
             <input
                 value={values.age}
@@ -67,7 +69,9 @@ function Signup() {
                 id="age" 
                 type="number" 
                 placeholder="Enter your age" 
-                className={errors.age ? "input-error" : ""} />
+                className={errors.age && touched.age ? "input-error" : ""} 
+            />
+            {errors.age && touched.age && <p className="error">{errors.age}</p>}
             <label htmlFor="image">Profile Picture</label>
             <input
                 value={values.image}
@@ -75,7 +79,9 @@ function Signup() {
                 id="image" 
                 type="text" 
                 placeholder="Post your profile picture's url" 
-                className={errors.image ? "input-error" : ""} />
+                className={errors.image && touched.image ? "input-error" : ""} 
+            />
+            {errors.image && touched.image && <p className="error">{errors.image}</p>}
             <label htmlFor="biome">Favorite Biome</label>
             <input
                 value={values.biome}
@@ -83,7 +89,9 @@ function Signup() {
                 id="biome" 
                 type="text" 
                 placeholder="Enter your favorite biome"
-                className={errors.biome ? "input-error" : ""} />
+                className={errors.biome && touched.biome ? "input-error" : ""} 
+            />
+            {errors.biome && touched.biome && <p className="error">{errors.biome}</p>}
             <label htmlFor="password">Password</label>
             <input
                 value={values.password}
@@ -92,7 +100,9 @@ function Signup() {
                 id="password" 
                 type="password" 
                 placeholder="Enter your password"
-                className={errors.password ? "input-error" : ""} />
+                className={errors.password && touched.password ? "input-error" : ""} 
+            />
+            {errors.password && touched.password && <p className="error">{errors.password}</p>}
             <label htmlFor="password">Confirm Password</label>
             <input
                 value={values.confirmPassword}
@@ -101,7 +111,9 @@ function Signup() {
                 id="confirmPassword" 
                 type="password" 
                 placeholder="Confirm your password"
-                className={errors.confirmPassword ? "input-error" : ""} />
+                className={errors.confirmPassword && touched.confirmPassword ? "input-error" : ""} 
+            />
+            {errors.confirmPassword && touched.confirmPassword && <p className="error">{errors.confirmPassword}</p>}
                 <button disabled={isSubmitting} type="submit">Submit</button>
         </form>
     )

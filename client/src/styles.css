@@ -124,6 +124,13 @@ select.input-error {
   border-color: #ee6666;
 }
 
+.error {
+  color: #ee6666;
+  font-size: 0.75rem;
+  text-align: left;
+  margin-top: 0.25rem;
+}
+
 button {
   display: block;
   margin: 1rem 0;
