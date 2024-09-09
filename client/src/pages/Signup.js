@@ -37,7 +37,7 @@ function Signup() {
         // navigate('/')
       };
     
-    const {values, handleBlur, handleChange, handleSubmit, isSubmitting} = useFormik({
+    const {values, handleBlur, handleChange, handleSubmit, errors, isSubmitting} = useFormik({
         initialValues: {
             name: "",
             age: "",
@@ -58,28 +58,32 @@ function Signup() {
                 onChange={handleChange}
                 id="name" 
                 type="name" 
-                placeholder="Enter your name" />
+                placeholder="Enter your name"
+                className={errors.name ? "input-error" : ""} />
             <label htmlFor="age">Age</label>
             <input
                 value={values.age}
                 onChange={handleChange}
                 id="age" 
                 type="number" 
-                placeholder="Enter your age" />
+                placeholder="Enter your age" 
+                className={errors.age ? "input-error" : ""} />
             <label htmlFor="image">Profile Picture</label>
             <input
                 value={values.image}
                 onChange={handleChange}
                 id="image" 
                 type="text" 
-                placeholder="Post your profile picture's url" />
+                placeholder="Post your profile picture's url" 
+                className={errors.image ? "input-error" : ""} />
             <label htmlFor="biome">Favorite Biome</label>
             <input
                 value={values.biome}
                 onChange={handleChange}
                 id="biome" 
                 type="text" 
-                placeholder="Enter your favorite biome" />
+                placeholder="Enter your favorite biome"
+                className={errors.biome ? "input-error" : ""} />
             <label htmlFor="password">Password</label>
             <input
                 value={values.password}
@@ -87,7 +91,8 @@ function Signup() {
                 onBlur={handleBlur}
                 id="password" 
                 type="password" 
-                placeholder="Enter your password" />
+                placeholder="Enter your password"
+                className={errors.password ? "input-error" : ""} />
             <label htmlFor="password">Confirm Password</label>
             <input
                 value={values.confirmPassword}
@@ -95,7 +100,8 @@ function Signup() {
                 onBlur={handleBlur}
                 id="confirmPassword" 
                 type="password" 
-                placeholder="Confirm your password" />
+                placeholder="Confirm your password"
+                className={errors.confirmPassword ? "input-error" : ""} />
                 <button disabled={isSubmitting} type="submit">Submit</button>
         </form>
     )

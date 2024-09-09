@@ -102,14 +102,36 @@ form label {
   margin: 1rem 0 0.2rem;
 }
 
+input,
+select {
+  width: 100%;
+  padding: 0.65rem 0.5rem;
+  font-size: 1rem;
+  color: rgb(0, 0, 0);
+  border: 2px solid rgb(42, 90, 50);
+  background-color: #ffffff;
+  border-radius: 10px;
+  outline: none;
+}
+
+input:focus,
+select:focus {
+  border-color: #4299e1;
+}
+
+input.input-error,
+select.input-error {
+  border-color: #ee6666;
+}
+
 button {
   display: block;
   margin: 1rem 0;
   padding: 0.35rem 0.5rem;
   background-color: rgb(42, 90, 50);
-  color: white;
+  color: rgb(255, 255, 255);
   border: none;
-  border-radius: 3px;
+  border-radius: 10px;
   width: 100%;
   font-size: 1rem;
   font-weight: bold;
