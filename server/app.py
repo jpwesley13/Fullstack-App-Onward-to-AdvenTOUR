@@ -189,7 +189,7 @@ class Signup(Resource):
         try:
             new_trainer = Trainer(
                 name = params['name'],
-                image = ['image'],
+                image = params['image'],
                 age = params['age'],
             )
             new_trainer.password_hash = password
@@ -197,9 +197,14 @@ class Signup(Resource):
             biome = Biome.query.filter(Biome.name == biome_name).first()
             new_trainer.biome = biome
 
+            print(f"New trainer: {new_trainer}")
+
             db.session.add(new_trainer)
             db.session.commit()
             session['user_id'] = new_trainer.id
+
+            print("Trainer added successfully")
+
             return make_response(new_trainer.to_dict(), 201)
         except ValueError:
             return make_response({"errors": ["validation errors"]}, 400)
@@ -244,7 +249,7 @@ api.add_resource(Reviews, '/reviews')
 api.add_resource(ReviewById, '/reviews/<int:id>')
 api.add_resource(Sightings, '/sightings')
 api.add_resource(SightingById, '/sightings/<int:id>')
-api.add_resource(Signup, '/signup')
+api.add_resource(Signup, '/signup', endpoint='signup')
 api.add_resource(CheckSession, '/check_session')
 api.add_resource(Login, '/login')
 api.add_resource(Logout, '/logout')
