@@ -254,6 +254,8 @@ api.add_resource(CheckSession, '/check_session')
 api.add_resource(Login, '/login')
 api.add_resource(Logout, '/logout')
 
+app.secret_key = '48D7090A3C0D9FB9'
+
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
 

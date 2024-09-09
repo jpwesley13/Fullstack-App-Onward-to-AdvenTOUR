@@ -1,23 +1,32 @@
+import { useOutletContext } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 
-
-
-const onSubmit = async (values, actions) => {
-    fetch('/signup', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(values),
-    })
-    actions.resetForm();
-  };
-
 function Signup() {
 
     const navigate = useNavigate();
+    const {onAddTrainer} = useOutletContext();
+
+    function handleAddTrainer(newTrainer){
+        onAddTrainer(newTrainer)
+    };
+
+    const onSubmit = async (values, actions) => {
+        fetch('/signup', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(values),
+        })
+        .then(res => res.json())
+        .then(data => {
+            handleAddTrainer(data)
+        })
+        actions.resetForm();
+        // navigate('/')
+      };
     
     const {values, handleBlur, handleChange, handleSubmit, isSubmitting} = useFormik({
         initialValues: {

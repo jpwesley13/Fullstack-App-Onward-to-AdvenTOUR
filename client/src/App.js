@@ -9,14 +9,14 @@ function App() {
   const [habitats, setHabitats] = useState([]);
   const [trainers, setTrainers] = useState([]);
 
-    useEffect(() => {
-        fetch('/trainers')
-        .then(res => res.json())
-        .then(data => {
-            setTrainers(data);
-        })
-        .catch(error => console.error(error));
-    }, []);
+  useEffect(() => {
+      fetch('/trainers')
+      .then(res => res.json())
+      .then(data => {
+          setTrainers(data);
+      })
+      .catch(error => console.error(error));
+  }, []);
 
   useEffect(() => {
     fetch('/sightings')
@@ -43,13 +43,29 @@ function App() {
     .catch(error => console.error(error));
   }, []);
 
+  function onAddTrainer(newTrainer){
+    return setTrainers([...trainers, newTrainer])
+  }
+
+  function onAddHabitat(newHabitat){
+    return setHabitats([...habitats, newHabitat])
+  }
+
+  function onAddReview(newReview){
+    return setReviews([...reviews, newReview])
+  }
+
+  function onAddSighting(newSighting){
+    return setSightings([...sightings, newSighting])
+  }
+
 
   return (
     <>
     <header>
       <NavBar />
     </header>
-    <Outlet context={{sightings, reviews, habitats, trainers}} />
+    <Outlet context={{sightings, reviews, habitats, trainers, onAddTrainer, onAddHabitat, onAddReview, onAddSighting}} />
     </>
   );
 }
