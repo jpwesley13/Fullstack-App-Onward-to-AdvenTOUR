@@ -1,14 +1,17 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 function NavBar( { trainer, setTrainer }) {
 
+    const navigate = useNavigate();
+
     function handleLogout() {
-        console.log(trainer)
+        
+
         fetch('/logout', {
             method: 'DELETE'
         })
         .then(setTrainer(null))
-        console.log(trainer)
+        navigate('/')
     }
 
     return (
@@ -32,9 +35,9 @@ function NavBar( { trainer, setTrainer }) {
             </div>
             <div className="navlogin">
             {trainer ? (
-                <NavLink to="/login" onClick={handleLogout}>
+                <button onClick={handleLogout}>
                     Logout
-                </NavLink>
+                </button>
                 ) : (
                 <>
                     <NavLink to="/signup">Signup</NavLink>

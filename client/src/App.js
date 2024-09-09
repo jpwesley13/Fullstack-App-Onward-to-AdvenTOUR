@@ -116,7 +116,7 @@ function App() {
   return (
     <>
     <header>
-      <NavBar key={trainer ? "loggedIn" : "loggedOut"} trainer={trainer} setTrainer={setTrainer}/>
+      <NavBar  trainer={trainer} setTrainer={setTrainer}/>
     </header>
     <Outlet context={{setTrainer, sightings, reviews, habitats, trainers, trainer, onAddTrainer, onAddHabitat, onAddReview, onAddSighting}} />
     </>
