@@ -12,6 +12,15 @@ function Signup() {
         onAddTrainer(newTrainer)
     };
 
+    const formSchema = yup.object().shape({
+        name: yup.string().required("Must enter name.").max(24),
+        age: yup.number().integer().required("Must enter age.").min(10, "Must be at least 10 years old to join."),
+        image: yup.string().optional(),
+        biome: yup.string().optional(),
+        password: yup.string().min(6).max(30).required("Must create a password."),
+        confirmPassword: yup.string().oneOf([yup.ref('password'), null], "Passwords must match.").required("Required.")
+    });
+
     const onSubmit = async (values, actions) => {
         fetch('/signup', {
             method: 'POST',
@@ -37,8 +46,10 @@ function Signup() {
             password: "",
             confirmPassword: ""
         },
+        validationSchema: formSchema,
         onSubmit,
     });
+
     return (
         <form onSubmit={handleSubmit}>
             <label htmlFor="name">Name</label>
