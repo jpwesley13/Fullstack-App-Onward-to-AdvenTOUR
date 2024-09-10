@@ -49,7 +49,7 @@ function User() {
         return <h1>Loading...</h1>
     }
 
-    const { name, image } = trainer
+    const { name, image, biome } = trainer
 
     // const {name, image, id} = trainer
 
@@ -85,7 +85,10 @@ function User() {
             <h1>{name}</h1>
             <hr />
             <div className="profilecontainer">
-                <img src={image} alt={`${name}'s profile pic`} className="profilepic" />
+                <div className="profileinfo">
+                    <img src={image} alt={`${name}'s profile`} className="profilepicture" />
+                    <p>Favorite Biome: {biome.name}</p>
+                </div>
                 <div className="profilecontributions">
                     <h3>Reviews from {name}</h3>
                     {reviewsList}

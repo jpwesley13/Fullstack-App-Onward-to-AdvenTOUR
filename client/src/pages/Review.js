@@ -47,7 +47,10 @@ function Review() {
         <ReturnButtons 
         trainer={trainer.id}
         habitat={habitat.id}/>
-        <h2>{trainer.name}'s review of {habitat.name}:</h2>
+        <h2>
+            <img src={trainer.image} alt={`${trainer.name}'s profile`} className="thumbnail" />
+            {trainer.name}'s review of {habitat.name}:
+        </h2>
         <span>{content}</span>
         </>
     )
