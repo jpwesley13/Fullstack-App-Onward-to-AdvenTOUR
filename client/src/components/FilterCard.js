@@ -1,30 +1,32 @@
 import { useState, useEffect } from "react";
 
-function FilterCard({ specifics, broadGroups, setFilteredGroups }) {
+function FilterCard({ label, filterBy, specifics, broadGroups, setFilteredGroups }) {
     const [filteredSpecific, setFilteredSpecific] = useState("");
 
-    useEffect(() => {
-        if (filteredSpecific) {
+    function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
 
-            if(broadGroups.region){
-                const filteredGroups = broadGroups.filter(
-                    habitat => habitat.region.name === filteredSpecific
-                );
+    useEffect(() => {
+        function filterGroups() {
+            if (filteredSpecific) {
+                const filteredGroups = broadGroups.filter(group => {
+                    if (filterBy === "region") {
+                        return group.region.name === filteredSpecific;
+                    } else if (filterBy === "habitat") {
+                        return group.habitat.name === filteredSpecific;
+                    } else if (filterBy === "biome") {
+                        return group.biome.name === filteredSpecific;
+                    }
+                    return false;
+                });
                 setFilteredGroups(filteredGroups);
-            } else if(broadGroups.habitat) {
-                const filteredGroups = broadGroups.filter(
-                    sighting => sighting.habitat.name === filteredSpecific
-                );
-                setFilteredGroups(filteredGroups);
-            } else if(broadGroups.biome) {
-                const filteredGroups = broadGroups.filter(
-                    trainer => trainer.biome.name === filteredSpecific
-                );
-                setFilteredGroups(filteredGroups);
-            } 
-        } else {
-            setFilteredGroups(broadGroups)
-        }
+            } else {
+                setFilteredGroups(broadGroups);
+            }
+        };
+
+        filterGroups();
     }, [filteredSpecific, broadGroups, setFilteredGroups]);
 
     const specificOptions = specifics.map((specific) => (
@@ -32,5 +34,23 @@ function FilterCard({ specifics, broadGroups, setFilteredGroups }) {
             {specific}
         </option>
     ));
+
+    return (
+        <>
+            <main>
+                <span>Filter {label} by {filterBy}:</span>
+                <br />
+                <select
+                    value={filteredSpecific}
+                    onChange={(e) => setFilteredSpecific(e.target.value)}
+                >
+                    <option value="">
+                        {filteredSpecific ? "No Filter" : `Select a ${capitalizeFirstLetter(filterBy)}`}
+                    </option>
+                    {specificOptions}
+                </select>
+            </main>
+        </>
+    );
 };
 export default FilterCard;

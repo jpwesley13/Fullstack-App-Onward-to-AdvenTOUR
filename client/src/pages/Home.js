@@ -2,6 +2,7 @@ import { useOutletContext } from "react-router-dom";
 import HabitatCard from "../components/HabitatCard";
 import { useState, useEffect } from "react";
 import RegionFilter from "../components/RegionFilter";
+import FilterCard from "../components/FilterCard";
 
 function Home() {
 
@@ -49,10 +50,12 @@ function Home() {
         <>
           <hr/>
           <h2 className="header">Habitats:</h2>
-          <RegionFilter
-          regions={regions}
-          habitats={habitats}
-          setFilteredHabitats={setFilteredHabitats}/>
+          <FilterCard
+          specifics={regions}
+          broadGroups={habitats}
+          setFilteredGroups={setFilteredHabitats}
+          label="habitats"
+          filterBy="region"/>
           {displayedHabitats}
         </>
     )
