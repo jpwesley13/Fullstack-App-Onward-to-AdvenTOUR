@@ -1,5 +1,6 @@
 import { useOutletContext, useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import ReturnButtons from "../components/ReturnButtons";
 
 function Review() {
     const { id } = useParams();
@@ -43,12 +44,9 @@ function Review() {
     return (
         <>
         <hr />
-        <Link to={`/trainers/${trainer.id}`}>
-        <button>Back to Trainer's page</button>
-        </Link>
-        <Link to={`/habitats/${habitat.id}`}>
-        <button>Back to Habitat's page</button>
-        </Link>
+        <ReturnButtons 
+        trainer={trainer.id}
+        habitat={habitat.id}/>
         <h2>{trainer.name}'s review of {habitat.name}:</h2>
         <span>{content}</span>
         </>

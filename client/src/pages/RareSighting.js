@@ -1,5 +1,6 @@
 import { useParams, useOutletContext, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import ReturnButtons from "../components/ReturnButtons";
 
 function RareSighting() {
     const { id } = useParams();
@@ -45,12 +46,9 @@ function RareSighting() {
     return (
         <>
         <hr/>
-        <Link to={`/trainers/${trainer.id}`}>
-        <button>To Trainer's page</button>
-        </Link>
-        <Link to={`/habitats/${habitat.id}`}>
-        <button>To Habitat's page</button>
-        </Link>
+        <ReturnButtons 
+        trainer={trainer.id}
+        habitat={habitat.id}/>
         <h2>{trainer.name}'s rare sighting of a {sighting.name} at {habitat.name}:</h2>
         <span>{sighting.blurb}</span>
         <br/>
