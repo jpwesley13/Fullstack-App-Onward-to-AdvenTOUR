@@ -1,7 +1,6 @@
 import { useOutletContext } from "react-router-dom";
 import HabitatCard from "../components/HabitatCard";
 import { useState, useEffect } from "react";
-import RegionFilter from "../components/RegionFilter";
 import FilterCard from "../components/FilterCard";
 
 function Home() {

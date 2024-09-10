@@ -11,11 +11,11 @@ function FilterCard({ label, filterBy, specifics, broadGroups, setFilteredGroups
         function filterGroups() {
             if (filteredSpecific) {
                 const filteredGroups = broadGroups.filter(group => {
-                    if (filterBy === "region") {
+                    if (filterBy === "region" && group.region) {
                         return group.region.name === filteredSpecific;
-                    } else if (filterBy === "habitat") {
+                    } else if (filterBy === "habitat" && group.habitat) {
                         return group.habitat.name === filteredSpecific;
-                    } else if (filterBy === "biome") {
+                    } else if (filterBy === "favorite biome" && group.biome) {
                         return group.biome.name === filteredSpecific;
                     }
                     return false;
