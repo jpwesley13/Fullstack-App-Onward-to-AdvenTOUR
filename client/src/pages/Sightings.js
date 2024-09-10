@@ -1,13 +1,20 @@
 import { useOutletContext } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import SightingCard from "../components/SightingCard";
 
 function Sightings() {
+
+    const [sightings, setSightings] = useState([]);
+
     useEffect(() => {
         document.title = "Rare Sightings"
-    }, [])
+        fetch('/sightings')
+        .then(res => res.json())
+        .then(data => setSightings(data))
+        .catch(error => console.error(error));
+      }, []);
 
-    const {sightings} = useOutletContext();
+    // const {sightings} = useOutletContext();
 
     const displayedSightings = sightings.map(sighting => (
         <SightingCard 
@@ -18,6 +25,7 @@ function Sightings() {
 
     return (
         <>
+        <hr/>
         <h2>Confirmed rare sightings:</h2>
         <br/>
         {displayedSightings}
