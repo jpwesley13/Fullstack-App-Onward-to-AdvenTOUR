@@ -49,7 +49,7 @@ function User() {
         return <h1>Loading...</h1>
     }
 
-    const { name } = trainer
+    const { name, image } = trainer
 
     // const {name, image, id} = trainer
 
@@ -84,13 +84,18 @@ function User() {
             <hr/>
             <h1>{name}</h1>
             <hr />
-            <h3>Reviews from {name}</h3>
-            {reviewsList}
-            <br/>
-            <hr/>
-            <h3>Rare sightings from {name}</h3>
-            {sightingList}
-            </main></>
+            <div className="profilecontainer">
+                <img src={image} alt={`${name}'s profile pic`} className="profilepic" />
+                <div className="profilecontributions">
+                    <h3>Reviews from {name}</h3>
+                    {reviewsList}
+                    <br/>
+                    <hr/>
+                    <h3>Rare sightings from {name}</h3>
+                    {sightingList}
+                </div>
+            </div>
+        </main></>
     )
 }
 

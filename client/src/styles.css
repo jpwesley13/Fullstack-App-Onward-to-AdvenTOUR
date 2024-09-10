@@ -173,3 +173,18 @@ body {
   font-size: 72px;
   font-weight: bold;
 }
+
+.profilecontainer {
+  display: flex;
+  align-items: flex-start;
+}
+
+.profilepic {
+  margin-right: 50px;
+  width: 150px;
+  height: auto;
+}
+
+.profilecontribution {
+  flex-grow: 1;
+}
