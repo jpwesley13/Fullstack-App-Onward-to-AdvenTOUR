@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import NavBar from "./components/NavBar";
-import Login from "./pages/Login";
-import { Switch, Route, Outlet} from "react-router-dom";
+import Header from "./components/Header";
+import { Outlet} from "react-router-dom";
 
 function App() {
 
@@ -118,6 +118,7 @@ function App() {
     <header>
       <NavBar  trainer={trainer} setTrainer={setTrainer}/>
     </header>
+    <Header />
     <Outlet context={{setTrainer, sightings, reviews, habitats, trainers, trainer, onAddTrainer, onAddHabitat, onAddReview, onAddSighting}} />
     </>
   );
