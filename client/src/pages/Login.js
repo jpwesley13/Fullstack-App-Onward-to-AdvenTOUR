@@ -1,70 +1,72 @@
-// import { useState } from "react";
-
-// function Login({ onLogin }) {
-
-
-//     return (
-//         <h2>yay</h2>
-//     )
-// }
-
-// export default Login;
-
 import React from 'react'
-import { useState } from 'react'
-import { useOutletContext } from 'react-router-dom'
+import { useOutletContext, useNavigate } from 'react-router-dom'
+import { useFormik } from 'formik'
+import * as yup from "yup";
 
 export default function Login() {
-    //states
-    const [name, setName] = useState('')
-    const [password, setPassword] = useState('')
+    const navigate = useNavigate();
 
     const {setTrainer} = useOutletContext();
 
-    const handleSubmit = (e) =>{
-        e.preventDefault()
+    const formSchema = yup.object().shape({
+        name: yup.string().required("Name is required."),
+        password: yup.string().required("Password is required.")
+    });
+
+    const onSubmit = async (values) => {
         fetch('/login', {
-            method:'POST',
-            headers:{
-                'Content-Type':'application/json',
-                'Accept':'application/json'
-            }, 
-            body:JSON.stringify(
-                {name, password}
-            )
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(values),
         })
         .then(res => {
-            if (res.ok) {
+            if(res.ok) {
                 res.json()
                 .then(data => setTrainer(data))
-            } else{
-                alert('Invalid username or password')
+                navigate('/')
+            } else {
+                throw new Error("Invalid login credentials.");
             }
         })
-    }
+        .catch(error => console.error(error)) 
+    };
 
-  return (
+    const {values, handleBlur, handleChange, handleSubmit, touched, errors, isSubmitting} = useFormik({
+        initialValues: {
+            name: "",
+            password: "",
+        },
+        validationSchema: formSchema,
+        onSubmit,
+    });
 
-    <form className='user-form' onSubmit={handleSubmit}>
-
-    <h2>Login</h2>
-
-    <input type="text"
-    onChange={e => setName(e.target.value)}
-    value={name}
-    placeholder='username'
-    />
-
-    <input type="password"
-    onChange={e => setPassword(e.target.value)}
-    value={password}
-    placeholder='password'
-    />
-
-    <input type="submit"
-    value='Login'
-    />
-
-  </form>
-  )
+    return (
+        <form onSubmit={handleSubmit}>
+            <label htmlFor="name">Name</label>
+            <input
+                value={values.name}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                id="name" 
+                type="text" 
+                placeholder="Enter your name"
+                className={errors.name && touched.name ? "input-error" : ""} 
+            />
+            {errors.name && touched.name && <p className="error">{errors.name}</p>}
+            <label htmlFor="password">Password</label>
+            <input
+                value={values.password}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                id="password" 
+                type="password" 
+                placeholder="Enter your password"
+                className={errors.password && touched.password ? "input-error" : ""} 
+            />
+            {errors.password && touched.password && <p className="error">{errors.password}</p>}
+                <button disabled={isSubmitting} type="submit">Login</button>
+        </form>
+    )
 }

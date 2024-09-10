@@ -56,6 +56,7 @@ function Signup() {
             <input
                 value={values.name}
                 onChange={handleChange}
+                onBlur={handleBlur}
                 id="name" 
                 type="name" 
                 placeholder="Enter your name"
@@ -66,6 +67,7 @@ function Signup() {
             <input
                 value={values.age}
                 onChange={handleChange}
+                onBlur={handleBlur}
                 id="age" 
                 type="number" 
                 placeholder="Enter your age" 
@@ -76,6 +78,7 @@ function Signup() {
             <input
                 value={values.image}
                 onChange={handleChange}
+                onBlur={handleBlur}
                 id="image" 
                 type="text" 
                 placeholder="Post your profile picture's url" 
@@ -86,6 +89,7 @@ function Signup() {
             <input
                 value={values.biome}
                 onChange={handleChange}
+                onBlur={handleBlur}
                 id="biome" 
                 type="text" 
                 placeholder="Enter your favorite biome"
