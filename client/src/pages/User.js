@@ -1,31 +1,13 @@
-import { useParams, useOutletContext, Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import SightingCard from "../components/SightingCard";
 
 function User() {
     const { id } = useParams();
-    // const {trainers, reviews, sightings} = useOutletContext();
-
-    // const [trainer, setTrainer] = useState({
-    //     name: "",
-    //     age: "",
-    //     biome: "",
-    //     biome_id: "",
-    //     reviews: "",
-    //     sightings: ""
-    // })
 
     const [trainer, setTrainer] = useState(null);
     const [reviews, setReviews] = useState([]);
     const [sightings, setSightings] = useState([]);
-
-    // useEffect(() => {
-    //     const trn = trainers.find(trainer => trainer.id === parseInt(id));
-    //     if(trn) {
-    //         setTrainer(trn)
-    //         document.title = `${trn.name}`
-    //     }
-    // }, [trainers])
 
     useEffect(() => {
         fetch(`/trainers/${id}`)
@@ -50,22 +32,6 @@ function User() {
     }
 
     const { name, image, biome } = trainer
-
-    // const {name, image, id} = trainer
-
-    // const filteredReviews = reviews.filter(review => review.trainer_id === id)
-    // const filteredSightings = sightings.filter(sighting => sighting.trainer.id === id)
-
-    // const reviewsList = filteredReviews.map(review => (
-    //     <li>{`${name}`}'s review of {`${review.habitat.name}`}: <Link to={`/reviews/${review.id}`}>View</Link></li>
-    // ))
-
-    // const sightingList = filteredSightings.map(sighting => (
-    //     <SightingCard 
-    //     key={sighting.id}
-    //     sighting={sighting}
-    //     />
-    //   ))
 
     const reviewsList = reviews.map(review => (
         <li key={review.id}>{`${name}`}'s review of {`${review.habitat.name}`}: <Link to={`/reviews/${review.id}`}>View</Link></li>
