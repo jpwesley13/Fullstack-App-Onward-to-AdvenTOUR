@@ -16,7 +16,7 @@ function Signup() {
         name: yup.string().required("Must enter name.").max(24),
         age: yup.number().integer().required("Must enter age.").min(10, "Must be at least 10 years old to join."),
         image: yup.string().optional(),
-        biome: yup.string().optional(),
+        biome: yup.string().required(`If you have no preference, enter "N/A"`),
         password: yup.string().min(6, "Password must be at least 6 characters.").max(30).required("Must create a password."),
         confirmPassword: yup.string().oneOf([yup.ref('password'), null], "Passwords must match.").required("Required.")
     });
