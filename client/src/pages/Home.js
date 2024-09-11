@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import FilterCard from "../components/FilterCard";
 import SortCard from "../components/SortCard";
 import Search from "../components/Search";
+import AddNewButton from "../components/AddNewButton";
 
 function Home() {
 
@@ -67,6 +68,9 @@ function Home() {
           <Search 
           search = {search}
           searchSetter={setSearch}/>
+          <AddNewButton
+          newAddition="habitat"
+          />
           <br />
           <FilterCard
           specifics={regions}
