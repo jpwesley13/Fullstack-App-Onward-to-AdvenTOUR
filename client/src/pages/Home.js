@@ -31,7 +31,7 @@ function Home() {
       const dangerArray = filteredReviews.map(review => review.danger)
       const sum = dangerArray.reduce((acc, curr) => acc + curr, 0);
       const average = sum / dangerArray.length;
-      return average
+      return parseFloat(average.toFixed(2));
     };
 
     const searchedHabitats = [...habitats].filter(habitat => habitat.name.toLowerCase().includes(search.toLowerCase()))

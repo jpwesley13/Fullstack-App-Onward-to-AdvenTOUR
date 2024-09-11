@@ -24,7 +24,7 @@ function HabitatCard({habitat, dangerAverage}) {
               alt={name}
               className="habitat-card"  
             />
-            <span>Danger level: {dangerAverage(id)} {dangerIcon(id)}</span>
+            <span>Danger level: {dangerAverage(id)}/5 {dangerIcon(id)}</span>
             <Link to={`/habitats/${id}`}>Details</Link>
         </div>
     );
