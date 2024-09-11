@@ -52,6 +52,9 @@ function Trainer() {
         <>
         <hr/>
         <h2>Contributors:</h2>
+        <div>
+            <span>Our contributors. Go out on an Adven-tour and join 'em!</span>
+        </div>
         <br />
         <Search 
             search = {search}
