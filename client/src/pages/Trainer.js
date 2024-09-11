@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import FilterCard from "../components/FilterCard";
+import SortCard from "../components/SortCard";
 
 function Trainer() {
 
@@ -22,9 +23,11 @@ function Trainer() {
         } else if(sortBy === "Number of Reviews") {
             return trainer1.reviews.length - trainer2.reviews.length;
         } else {
-            return trainer.sightings.length - trainer2.sightings.length;
+            return trainer1.sightings.length - trainer2.sightings.length;
         }
     })
+
+    const options = ["Alphabetically", "Number of Reviews", "Number of Rare Sightings"]
 
     const filteredTrainers = sortedTrainers.filter(trainer => trainer.biome && trainer.biome.name.includes(filterBy))
 
@@ -48,6 +51,10 @@ function Trainer() {
           filterAttr="favorite biome"
           filterCriteria={filterBy}
           onChangeFilter={setFilterBy}/>
+        <SortCard 
+            sortBy={sortBy}
+            onChangeSort={setSortBy}
+            options={options}/>
         {trainerList}
         </>
     );

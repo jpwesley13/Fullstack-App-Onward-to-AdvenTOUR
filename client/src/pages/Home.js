@@ -2,11 +2,13 @@ import { useOutletContext } from "react-router-dom";
 import HabitatCard from "../components/HabitatCard";
 import { useState, useEffect } from "react";
 import FilterCard from "../components/FilterCard";
+import SortCard from "../components/SortCard";
 
 function Home() {
 
     const [habitats, setHabitats] = useState([]);
     const [filterBy, setFilterBy] = useState("");
+    const [sortBy, setSortBy] = useState("Alphabetically")
     const [reviews, setReviews] = useState([]);
 
     useEffect(() => {
@@ -29,7 +31,19 @@ function Home() {
       return average
   }
 
-    const filteredHabitats = habitats.filter(habitat => habitat.region.name.includes(filterBy))
+    const sortedHabitats = [...habitats].sort((habitat1, habitat2) => {
+      if(sortBy === "Alphabetically") {
+          return habitat1.name.localeCompare(habitat2.name);
+      } else if(sortBy === "Number of Reviews") {
+          return habitat1.reviews.length - habitat2.reviews.length;
+      } else {
+          return dangerAverage(habitat1.id) - dangerAverage(habitat2.id);
+      }
+    })
+
+    const options = ["Alphabetically", "Number of Reviews", "Danger Level"]
+
+    const filteredHabitats = sortedHabitats.filter(habitat => habitat.region.name.includes(filterBy))
 
     const displayedHabitats = filteredHabitats.map(habitat => (
       <HabitatCard 
@@ -51,6 +65,10 @@ function Home() {
           filterAttr="region"
           onChangeFilter={setFilterBy}
           filterCriteria={filterBy}/>
+          <SortCard 
+            sortBy={sortBy}
+            onChangeSort={setSortBy}
+            options={options}/>
           {displayedHabitats}
         </>
     )
