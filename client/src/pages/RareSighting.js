@@ -1,28 +1,10 @@
-import { useParams, useOutletContext, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import ReturnButtons from "../components/ReturnButtons";
 
 function RareSighting() {
     const { id } = useParams();
     const [sighting, setSighting] = useState(null)
-    // const {sightings} = useOutletContext();
-
-    // const [sighting, setSightings] = useState({
-    //     name: "",
-    //     blurb: "",
-    //     habitat: "",
-    //     habitat_id: "",
-    //     trainer: "",
-    //     trainer_id: ""
-    // })
-
-    // useEffect(() => {
-    //     const rare = sightings.find(sighting => sighting.id === parseInt(params.id));
-    //     if(rare) {
-    //         setSightings(rare)
-    //         document.title = `${sighting.name}`
-    //     }
-    // }, [sightings])
 
     useEffect(() => {
         fetch(`/sightings/${id}`)
@@ -33,9 +15,6 @@ function RareSighting() {
         })
         .catch(error => console.error(error));
     }, [id]);
-
-    // const trainer = sighting.trainer
-    // const habitat = sighting.habitat
 
     if(!sighting) {
         return <h1>Loading...</h1>

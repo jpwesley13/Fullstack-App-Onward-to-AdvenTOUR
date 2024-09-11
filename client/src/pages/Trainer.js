@@ -2,12 +2,14 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import FilterCard from "../components/FilterCard";
 import SortCard from "../components/SortCard";
+import Search from "../components/Search";
 
 function Trainer() {
 
     const [trainers, setTrainers] = useState([]);
     const [filterBy, setFilterBy] = useState("");
     const [sortBy, setSortBy] = useState("Alphabetically")
+    const [search, setSearch] = useState("");
 
     useEffect(() => {
         document.title = "Contributors";
@@ -17,7 +19,9 @@ function Trainer() {
         .catch(error => console.error(error));
     }, []);
 
-    const sortedTrainers = [...trainers].sort((trainer1, trainer2) => {
+    const searchedTrainers = [...trainers].filter(trainer => trainer.name.toLowerCase().includes(search.toLowerCase()))
+
+    const sortedTrainers = searchedTrainers.sort((trainer1, trainer2) => {
         if(sortBy === "Alphabetically") {
             return trainer1.name.localeCompare(trainer2.name);
         } else if(sortBy === "Number of Reviews") {
@@ -45,12 +49,20 @@ function Trainer() {
         <>
         <hr/>
         <h2>Contributors:</h2>
+        <br />
+        <Search 
+            search = {search}
+            searchSetter={setSearch}
+        />
+        <br />
         <FilterCard
-          specifics={biomes}
-          label="trainers"
-          filterAttr="favorite biome"
-          filterCriteria={filterBy}
-          onChangeFilter={setFilterBy}/>
+            specifics={biomes}
+            label="trainers"
+            filterAttr="favorite biome"
+            filterCriteria={filterBy}
+            onChangeFilter={setFilterBy}
+        />
+        <br />
         <SortCard 
             sortBy={sortBy}
             onChangeSort={setSortBy}
