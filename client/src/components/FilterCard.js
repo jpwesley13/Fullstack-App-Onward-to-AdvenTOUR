@@ -1,4 +1,4 @@
-
+import React from "react";
 
 function FilterCard({ label, filterCriteria, onChangeFilter, filterAttr, specifics }) {
     function capitalizeFirstLetter(string) {

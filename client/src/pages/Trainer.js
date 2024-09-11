@@ -6,6 +6,7 @@ function Trainer() {
 
     const [trainers, setTrainers] = useState([]);
     const [filterBy, setFilterBy] = useState("");
+    const [sortBy, setSortBy] = useState("Alphabetically")
 
     useEffect(() => {
         document.title = "Contributors";
@@ -15,7 +16,17 @@ function Trainer() {
         .catch(error => console.error(error));
     }, []);
 
-    const filteredTrainers = trainers.filter(trainer => trainer.biome && trainer.biome.name.includes(filterBy))
+    const sortedTrainers = [...trainers].sort((trainer1, trainer2) => {
+        if(sortBy === "Alphabetically") {
+            return trainer1.name.localeCompare(trainer2.name);
+        } else if(sortBy === "Number of Reviews") {
+            return trainer1.reviews.length - trainer2.reviews.length;
+        } else {
+            return trainer.sightings.length - trainer2.sightings.length;
+        }
+    })
+
+    const filteredTrainers = sortedTrainers.filter(trainer => trainer.biome && trainer.biome.name.includes(filterBy))
 
     const trainerList = filteredTrainers.map(trainer => (
         <li>{trainer.name}: <Link to={`/trainers/${trainer.id}`}>Visit Profile</Link>
