@@ -45,7 +45,6 @@ function RareSighting() {
 
     return (
         <>
-        <hr/>
         <ReturnButtons 
         trainer={trainer.id}
         habitat={habitat.id}/>
