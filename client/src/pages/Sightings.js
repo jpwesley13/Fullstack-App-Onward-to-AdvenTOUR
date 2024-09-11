@@ -6,7 +6,7 @@ import FilterCard from "../components/FilterCard";
 function Sightings() {
 
     const [sightings, setSightings] = useState([]);
-    const [filteredSightings, setFIlteresSightings] = useState([]);
+    const [filteredSightings, setFilteredSightings] = useState([]);
 
     useEffect(() => {
         document.title = "Rare Sightings"
@@ -14,7 +14,7 @@ function Sightings() {
         .then(res => res.json())
         .then(data => {
             setSightings(data)
-            setFIlteresSightings(data);
+            setFilteredSightings(data);
         })
         .catch(error => console.error(error));
       }, []);
@@ -37,7 +37,7 @@ function Sightings() {
         <FilterCard
         specifics={habitats}
         broadGroups={sightings}
-        setFilteredGroups={setFIlteresSightings}
+        setFilteredGroups={setFilteredSightings}
         label="rare sightings"
         filterBy="habitat" />
         <br/>
