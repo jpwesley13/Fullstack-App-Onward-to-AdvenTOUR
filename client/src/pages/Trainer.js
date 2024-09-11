@@ -19,7 +19,11 @@ function Trainer() {
         .catch(error => console.error(error));
     }, []);
 
-    const searchedTrainers = [...trainers].filter(trainer => trainer.name.toLowerCase().includes(search.toLowerCase()))
+    const contributors = [...trainers].filter(trainer => 
+        trainer.reviews.length > 0 || trainer.sightings.length > 0
+    );
+
+    const searchedTrainers = contributors.filter(trainer => trainer.name.toLowerCase().includes(search.toLowerCase()))
 
     const sortedTrainers = searchedTrainers.sort((trainer1, trainer2) => {
         if(sortBy === "Alphabetically") {
@@ -33,15 +37,14 @@ function Trainer() {
 
     const options = ["Alphabetically", "Number of Reviews", "Number of Rare Sightings"]
 
-    const filteredTrainers = sortedTrainers.filter(trainer => trainer.biome && trainer.biome.name.includes(filterBy))
+    const filteredTrainers = sortedTrainers.filter(trainer => trainer.biome.name.includes(filterBy))
 
     const trainerList = filteredTrainers.map(trainer => (
         <div>{trainer.name}: <Link to={`/trainers/${trainer.id}`}>Visit Profile</Link>
         </div>
     ))
 
-    const biomes = [...new Set(trainers
-        .filter(trainer => trainer.biome && trainer.biome.name)
+    const biomes = [...new Set(contributors
         .map(trainer => trainer.biome.name)
     )];
 
