@@ -1,20 +1,19 @@
-
-
-function DangerAverage({ dangerAverage, id }) {
-
-    function dangerIcon(id) {
-        if(dangerAverage(id) <= 2) {
+function DangerAverage({ dangerAverage }) {
+    function dangerIcon(dangerAverage) {
+        if(dangerAverage <= 2) {
             return "✿"
         }
-        else if(2 < dangerAverage(id) && dangerAverage(id) <= 4) {
+        else if(2 < dangerAverage && dangerAverage <= 4) {
             return "🗲"
         }
-        else if(4 < dangerAverage(id)) {
+        else if(4 < dangerAverage) {
             return "☠"
         }
     }
+
     return (
-        <span>Danger level: {dangerAverage(id)}/5 {dangerIcon(id)}</span>
+        <span>Danger level: {dangerAverage}/5 {dangerIcon(dangerAverage)}</span>
     )
 }
+
 export default DangerAverage;
