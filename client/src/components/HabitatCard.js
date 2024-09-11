@@ -1,20 +1,21 @@
 import { Link } from "react-router-dom";
+import DangerAverage from "./DangerAverage";
 
 function HabitatCard({habitat, dangerAverage}) {
 
     const {name, image, id} = habitat
 
-    function dangerIcon(id) {
-        if(dangerAverage(id) <= 2) {
-            return "✿"
-        }
-        else if(2 < dangerAverage(id) && dangerAverage(id) <= 4) {
-            return "🗲"
-        }
-        else if(4 < dangerAverage(id)) {
-            return "☠"
-        }
-    }
+    // function dangerIcon(id) {
+    //     if(dangerAverage(id) <= 2) {
+    //         return "✿"
+    //     }
+    //     else if(2 < dangerAverage(id) && dangerAverage(id) <= 4) {
+    //         return "🗲"
+    //     }
+    //     else if(4 < dangerAverage(id)) {
+    //         return "☠"
+    //     }
+    // }
 
     return (
         <div className="card">
@@ -24,7 +25,9 @@ function HabitatCard({habitat, dangerAverage}) {
               alt={name}
               className="habitat-card"  
             />
-            <span>Danger level: {dangerAverage(id)}/5 {dangerIcon(id)}</span>
+            <DangerAverage
+            id={id}
+            dangerAverage={dangerAverage}/>
             <Link to={`/habitats/${id}`}>Details</Link>
         </div>
     );

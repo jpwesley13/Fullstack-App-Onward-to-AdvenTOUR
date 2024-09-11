@@ -1,6 +1,7 @@
 import { useParams, useOutletContext, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import AddNewButton from "../components/AddNewButton";
+import DangerAverage from "../components/DangerAverage";
 
 function Habitat() {
     const { id } = useParams();
@@ -26,16 +27,34 @@ function Habitat() {
     };
 
     const reviewsList = reviews.map(review => (
-        <li key ={review.id}>Review by {review.trainer.name}: <Link to={`/reviews/${review.id}`}>View</Link></li>
+        <div key ={review.id}>Review by {review.trainer.name}: <Link to={`/reviews/${review.id}`}>View</Link></div>
     ))
+
+    function dangerAverage(id) {
+        const filteredReviews = reviews.filter(review => review.habitat_id === parseInt(id))
+        const dangerArray = filteredReviews.map(review => review.danger)
+        const sum = dangerArray.reduce((acc, curr) => acc + curr, 0);
+        const average = sum / dangerArray.length;
+        console.log(average)
+        return parseFloat(average.toFixed(2));
+      };
 
     return (
         <>
         <main>
             <hr/>
-            <h1>{habitat.name}</h1>
+            <header className="header">
+                <h1 className="headertitle">{habitat.name}</h1>
+                <img src={habitat.image} alt={habitat.name} />
+            </header>
             <hr />
             <br />
+            <div>
+                <h3>Found in the {habitat.region.name} region. <DangerAverage
+                dangerAverage={dangerAverage}
+                id={id}/>
+                </h3>
+            </div>
             <AddNewButton
             newAddition="review"
             />
