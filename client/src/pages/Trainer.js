@@ -1,27 +1,21 @@
-import { useOutletContext, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import FilterCard from "../components/FilterCard";
 
 function Trainer() {
 
-    // const {trainers} = useOutletContext();
     const [trainers, setTrainers] = useState([]);
-    const [filteredTrainers, setFilteredTrainers] = useState([])
+    const [filterBy, setFilterBy] = useState("");
 
     useEffect(() => {
         document.title = "Contributors";
         fetch('/trainers')
         .then(res => res.json())
-        .then(data => {
-            setTrainers(data);
-            setFilteredTrainers(data)
-        })
+        .then(data => setTrainers(data))
         .catch(error => console.error(error));
     }, []);
 
-    // useEffect(() => {
-    //     document.title = "Contributors"
-    // }, [])
+    const filteredTrainers = trainers.filter(trainer => trainer.biome && trainer.biome.name.includes(filterBy))
 
     const trainerList = filteredTrainers.map(trainer => (
         <li>{trainer.name}: <Link to={`/trainers/${trainer.id}`}>Visit Profile</Link>
@@ -39,10 +33,10 @@ function Trainer() {
         <h2>Contributors:</h2>
         <FilterCard
           specifics={biomes}
-          broadGroups={trainers}
-          setFilteredGroups={setFilteredTrainers}
           label="trainers"
-          filterBy="favorite biome"/>
+          filterAttr="favorite biome"
+          filterCriteria={filterBy}
+          onChangeFilter={setFilterBy}/>
         {trainerList}
         </>
     );

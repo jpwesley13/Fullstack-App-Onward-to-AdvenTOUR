@@ -1,33 +1,13 @@
-import { useState, useEffect } from "react";
 
-function FilterCard({ label, filterBy, specifics, broadGroups, setFilteredGroups }) {
-    const [filteredSpecific, setFilteredSpecific] = useState("");
 
+function FilterCard({ label, filterCriteria, onChangeFilter, filterAttr, specifics }) {
     function capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
 
-    useEffect(() => {
-        function filterGroups() {
-            if (filteredSpecific) {
-                const filteredGroups = broadGroups.filter(group => {
-                    if (filterBy === "region" && group.region) {
-                        return group.region.name === filteredSpecific;
-                    } else if (filterBy === "habitat" && group.habitat) {
-                        return group.habitat.name === filteredSpecific;
-                    } else if (filterBy === "favorite biome" && group.biome) {
-                        return group.biome.name === filteredSpecific;
-                    }
-                    return false;
-                });
-                setFilteredGroups(filteredGroups);
-            } else {
-                setFilteredGroups(broadGroups);
-            }
-        };
-
-        filterGroups();
-    }, [filteredSpecific, broadGroups, setFilteredGroups]);
+    function handleFilterChange(e) {
+        onChangeFilter(e.target.value);
+    }
 
     const specificOptions = specifics.map((specific) => (
         <option key={specific} value={specific}>
@@ -38,19 +18,20 @@ function FilterCard({ label, filterBy, specifics, broadGroups, setFilteredGroups
     return (
         <>
             <main>
-                <span>Filter {label} by {filterBy}:</span>
+                <span>Filter {label} by {filterAttr}:</span>
                 <br />
                 <select
-                    value={filteredSpecific}
-                    onChange={(e) => setFilteredSpecific(e.target.value)}
+                    onChange={handleFilterChange}
+                    value={filterCriteria}
                 >
                     <option value="">
-                        {filteredSpecific ? "No Filter" : `Select a ${capitalizeFirstLetter(filterBy)}`}
+                        {filterCriteria ? "No Filter" : `Select a ${capitalizeFirstLetter(filterAttr)}`}
                     </option>
                     {specificOptions}
                 </select>
             </main>
         </>
     );
-};
+}
+
 export default FilterCard;

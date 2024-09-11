@@ -1,4 +1,3 @@
-import { useOutletContext } from "react-router-dom";
 import { useEffect, useState } from "react";
 import SightingCard from "../components/SightingCard";
 import FilterCard from "../components/FilterCard";
@@ -6,20 +5,17 @@ import FilterCard from "../components/FilterCard";
 function Sightings() {
 
     const [sightings, setSightings] = useState([]);
-    const [filteredSightings, setFilteredSightings] = useState([]);
+    const [filterBy, setFilterBy] = useState("");
 
     useEffect(() => {
         document.title = "Rare Sightings"
         fetch('/sightings')
         .then(res => res.json())
-        .then(data => {
-            setSightings(data)
-            setFilteredSightings(data);
-        })
+        .then(data => setSightings(data))
         .catch(error => console.error(error));
       }, []);
 
-    // const {sightings} = useOutletContext();
+    const filteredSightings = sightings.filter(sighting => sighting.habitat.name.includes(filterBy))
 
     const displayedSightings = filteredSightings.map(sighting => (
         <SightingCard 
@@ -36,10 +32,10 @@ function Sightings() {
         <h2>Confirmed rare sightings:</h2>
         <FilterCard
         specifics={habitats}
-        broadGroups={sightings}
-        setFilteredGroups={setFilteredSightings}
+        onChangeFilter={setFilterBy}
         label="rare sightings"
-        filterBy="habitat" />
+        filterAttr="habitat" 
+        filterCriteria={filterBy}/>
         <br/>
         {displayedSightings}
         </>
