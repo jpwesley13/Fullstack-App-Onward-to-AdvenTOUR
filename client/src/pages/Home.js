@@ -68,6 +68,7 @@ function Home() {
           <Search 
           search = {search}
           searchSetter={setSearch}/>
+          <br />
           <AddNewButton
           newAddition="habitat"
           />

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import SightingCard from "../components/SightingCard";
 import FilterCard from "../components/FilterCard";
 import Search from "../components/Search";
+import AddNewButton from "../components/AddNewButton";
 
 function Sightings() {
 
@@ -38,6 +39,10 @@ function Sightings() {
           <Search 
           search = {search}
           searchSetter={setSearch}/>
+        <br />
+        <AddNewButton
+        newAddition="rare sighting"
+        />
         <br />
         <FilterCard
         specifics={habitats}
