@@ -36,8 +36,8 @@ function Trainer() {
     const filteredTrainers = sortedTrainers.filter(trainer => trainer.biome && trainer.biome.name.includes(filterBy))
 
     const trainerList = filteredTrainers.map(trainer => (
-        <li>{trainer.name}: <Link to={`/trainers/${trainer.id}`}>Visit Profile</Link>
-        </li>
+        <div>{trainer.name}: <Link to={`/trainers/${trainer.id}`}>Visit Profile</Link>
+        </div>
     ))
 
     const biomes = [...new Set(trainers
@@ -67,6 +67,7 @@ function Trainer() {
             sortBy={sortBy}
             onChangeSort={setSortBy}
             options={options}/>
+        <br />
         {trainerList}
         </>
     );
