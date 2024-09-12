@@ -80,7 +80,8 @@ class Habitats(Resource):
         try:
             new_habitat = Habitat(
                 name = params['name'],
-                image = params['image']
+                image = params['image'],
+                region_id = params['region_id']
             )
             db.session.add(new_habitat)
             db.session.commit()

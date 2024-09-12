@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import NewEntry from "./NewEntry";
 
-function HabitatForm({ onAddHabitats }) {
+function HabitatForm({ onAddHabitats, regions }) {
 
     const formSchema = yup.object().shape({
         name: yup.string().required("Must enter habitat's name.").max(30),
@@ -34,11 +34,9 @@ function HabitatForm({ onAddHabitats }) {
     const {values, handleBlur, handleChange, handleSubmit, touched, errors, isSubmitting} = useFormik({
         initialValues: {
             name: "",
-            age: "",
             image: "",
-            biome: "",
-            password: "",
-            confirmPassword: ""
+            region: "",
+            review: ""
         },
         validationSchema: formSchema,
         onSubmit,
