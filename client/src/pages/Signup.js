@@ -1,4 +1,3 @@
-import { useOutletContext } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
@@ -6,11 +5,6 @@ import { useNavigate } from "react-router-dom";
 function Signup() {
 
     const navigate = useNavigate();
-    const {onAddTrainer} = useOutletContext();
-
-    function handleAddTrainer(newTrainer){
-        onAddTrainer(newTrainer)
-    };
 
     const formSchema = yup.object().shape({
         name: yup.string().required("Must enter name.").max(24),
@@ -29,11 +23,16 @@ function Signup() {
             },
             body: JSON.stringify(values),
         })
-        .then(res => res.json())
-        .then(data => {
-            handleAddTrainer(data)
+        .then(res => {
+            if(res.ok) {
+                res.json()
+                navigate('/')
+            } else {
+                throw new Error("Error occurred in signing up new trainer.");
+            }
         })
-        navigate('/')
+        .catch(error => console.error(error))
+        return actions.resetForm()
       };
     
     const {values, handleBlur, handleChange, handleSubmit, touched, errors, isSubmitting} = useFormik({
