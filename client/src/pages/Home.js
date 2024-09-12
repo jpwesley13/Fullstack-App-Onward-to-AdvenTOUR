@@ -5,6 +5,7 @@ import SortCard from "../components/SortCard";
 import Search from "../components/Search";
 import AddNewButton from "../components/AddNewButton";
 import useDangerAverage from "../components/DangerHook";
+import HabitatForm from "../components/HabitatForm";
 
 function Home() {
 
@@ -13,6 +14,11 @@ function Home() {
     const [sortBy, setSortBy] = useState("Alphabetically")
     const [reviews, setReviews] = useState([]);
     const [search, setSearch] = useState("");
+    const [showForm, setShowForm] = useState(false);
+
+    function handleClick() {
+      setShowForm(showForm => !showForm)
+    }
 
     useEffect(() => {
       document.title = "Onward to AdvenTOUR"
@@ -27,6 +33,10 @@ function Home() {
     }, []);
 
     const dangerAverages = useDangerAverage(reviews);
+
+    function onAddHabitats(newHabitat){
+      return setHabitats([...habitats, newHabitat])
+    }
 
     const seededHabitats = [...habitats].filter(habitat => 
       habitat.reviews.length > 0
@@ -67,8 +77,13 @@ function Home() {
           search = {search}
           searchSetter={setSearch}/>
           <br />
+          {showForm ? <HabitatForm
+          onAddHabitats={onAddHabitats}
+          /> : null}
           <AddNewButton
           newAddition="habitat"
+          handleClick={handleClick}
+          showForm={showForm}
           />
           <br />
           <FilterCard
