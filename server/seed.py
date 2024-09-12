@@ -34,7 +34,7 @@ if __name__ == '__main__':
         db.session.add_all(regions)
 
         biomes = []
-        biome_names = ['forest', 'mountain', 'river', 'ocean', 'tundra', 'jungle', 'ruins', 'city', 'the unknown', 'cave', 'plains']
+        biome_names = ['forest', 'mountain', 'river', 'ocean', 'tundra', 'jungle', 'ruins', 'city', 'n/a', 'cave', 'plains']
 
         for biome_name in biome_names:
             biome = Biome(

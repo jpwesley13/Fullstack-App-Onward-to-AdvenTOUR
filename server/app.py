@@ -6,6 +6,7 @@
 from flask import request, make_response, session
 from flask_restful import Resource
 from models import Habitat, Trainer, Review, Region, Sighting, Biome
+from sqlalchemy.exc import IntegrityError
 
 # Local imports
 from config import app, db, api
@@ -140,7 +141,7 @@ class Reviews(Resource):
             db.session.add(new_review)
             db.session.commit()
             return make_response(new_review.to_dict(), 201)
-        except ValueError:
+        except (ValueError):
             return make_response({"errors": ["validation errors"]}, 400)
     
 class ReviewById(Resource):
@@ -206,7 +207,7 @@ class Signup(Resource):
             print("Trainer added successfully")
 
             return make_response(new_trainer.to_dict(), 201)
-        except ValueError:
+        except (IntegrityError, ValueError):
             return make_response({"errors": ["validation errors"]}, 400)
         
 class CheckSession(Resource):

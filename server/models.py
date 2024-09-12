@@ -36,9 +36,9 @@ class Biome(db.Model, SerializerMixin):
 
     @validates('name')
     def validate_name(self, key, name):
-        biomes = ['forest', 'mountain', 'river', 'ocean', 'tundra', 'jungle', 'ruins', 'city', 'the unknown', 'cave', 'plains']
+        biomes = ['forest', 'mountain', 'river', 'ocean', 'tundra', 'jungle', 'ruins', 'city', 'n/a', 'cave', 'plains']
         if name not in biomes:
-            raise ValueError('Biome not recognized. Please select from available options or confirm joy for the unknown')
+            raise ValueError('Biome not recognized. Please select from available options or enter "N/A"')
         return name
     
 class Habitat(db.Model, SerializerMixin):
