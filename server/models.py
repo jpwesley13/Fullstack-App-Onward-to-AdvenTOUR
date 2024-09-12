@@ -64,15 +64,9 @@ class Habitat(db.Model, SerializerMixin):
         elif 25 < len(name) < 1:
             raise ValueError('Habitat names must be between 2-25 characters long')
         return name
-    
-    @validates('danger')
-    def validate_danger(self, key, danger):
-        if not danger:
-            raise ValueError('Please enter the observed danger levels of this habitat.')
-        return danger
 
     def __repr__(self):
-        return f'<Habitat {self.id}: {self.name}, danger: {self.danger}>'
+        return f'<Habitat {self.id}: {self.name}>'
     
 class Trainer(db.Model, SerializerMixin):
     __tablename__ = 'trainers'
@@ -133,6 +127,12 @@ class Review(db.Model, SerializerMixin):
     trainer = db.relationship('Trainer', back_populates='reviews')
 
     serialize_rules = ('-habitat.reviews', '-trainer.reviews',)
+
+    @validates('danger')
+    def validate_danger(self, key, danger):
+        if not danger:
+            raise ValueError('Please enter the observed danger levels of this habitat.')
+        return danger
 
     def __repr__(self):
         return f'<Review {self.id}>'

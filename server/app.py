@@ -79,8 +79,7 @@ class Habitats(Resource):
         try:
             new_habitat = Habitat(
                 name = params['name'],
-                image = params['image'],
-                danger = params['danger']
+                image = params['image']
             )
             db.session.add(new_habitat)
             db.session.commit()
@@ -133,6 +132,7 @@ class Reviews(Resource):
         try:
             new_review = Review(
                 content = params['content'],
+                danger = params['danger'],
                 trainer_id = params['trainer_id'],
                 habitat_id = params['habitat_id']
             )
