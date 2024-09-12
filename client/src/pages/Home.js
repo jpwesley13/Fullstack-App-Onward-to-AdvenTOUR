@@ -66,8 +66,7 @@ function Home() {
       />
     ))
     
-    const regions = [...new Set(habitats.map(habitat => habitat.region))]
-    const regionNames = [...new Set(regions.map(region => region.name))]
+    const regions = [...new Set(habitats.map(habitat => habitat.region.name))]
 
     return (
         <>
@@ -80,7 +79,6 @@ function Home() {
           <br />
           {showForm ? <HabitatForm
           onAddHabitats={onAddHabitats}
-          regions={regions}
           /> : null}
           <AddNewButton
           newAddition="habitat"
@@ -89,7 +87,7 @@ function Home() {
           />
           <br />
           <FilterCard
-          specifics={regionNames}
+          specifics={regions}
           label="habitats"
           filterAttr="region"
           onChangeFilter={setFilterBy}
