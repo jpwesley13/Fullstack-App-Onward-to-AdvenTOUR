@@ -17,7 +17,7 @@ function Signup() {
         age: yup.number().integer().required("Must enter age.").min(10, "Must be at least 10 years old to join."),
         image: yup.string().optional(),
         biome: yup.string().required(`If you have no preference, enter "N/A"`),
-        password: yup.string().min(6, "Password must be at least 6 characters.").max(30).required("Must create a password."),
+        password: yup.string().min(6, "Password must be at least 6 characters.").max(30, "Password cannot exceed 30 characters.").required("Must create a password."),
         confirmPassword: yup.string().oneOf([yup.ref('password'), null], "Passwords must match.").required("Required.")
     });
 
@@ -33,8 +33,7 @@ function Signup() {
         .then(data => {
             handleAddTrainer(data)
         })
-        actions.resetForm();
-        // navigate('/')
+        navigate('/')
       };
     
     const {values, handleBlur, handleChange, handleSubmit, touched, errors, isSubmitting} = useFormik({
