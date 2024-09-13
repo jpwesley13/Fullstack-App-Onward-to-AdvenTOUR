@@ -31,7 +31,12 @@ function Habitat() {
     };
 
     const reviewsList = reviews.map(review => (
-        <div key ={review.id}>Review by {review.trainer.name}: <Link to={`/reviews/${review.id}`}>View</Link></div>
+        <div key ={review.id}>Review by {review.trainer.name}: <Link to={`/reviews/${review.id}`}>View</Link>
+            <div>
+                Rating: {review.rating}/5
+            </div>
+            <br />
+        </div>
     ))
 
     return (
@@ -51,7 +56,10 @@ function Habitat() {
                     id={id}/>
                 </h3>
                 <h3>
-                    Average rating of {ratingAverages[parseInt(id)]}/5
+                    Average <AverageIcons
+                    average={ratingAverages[parseInt(id)]}
+                    property="rating"
+                    id={id}/>
                 </h3>
             </div>
             <AddNewButton newAddition="review" />
