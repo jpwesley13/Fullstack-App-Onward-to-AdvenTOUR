@@ -3,12 +3,18 @@ import SightingCard from "../components/SightingCard";
 import FilterCard from "../components/FilterCard";
 import Search from "../components/Search";
 import AddNewButton from "../components/AddNewButton";
+import SightingForm from "../components/SightingForm";
 
 function Sightings() {
 
     const [sightings, setSightings] = useState([]);
     const [filterBy, setFilterBy] = useState("");
     const [search, setSearch] = useState("");
+    const [showForm, setShowForm] = useState(false);
+
+    function handleClick() {
+      setShowForm(showForm => !showForm)
+    }
 
     useEffect(() => {
         document.title = "Rare Sightings"
@@ -17,6 +23,10 @@ function Sightings() {
         .then(data => setSightings(data))
         .catch(error => console.error(error));
     }, []);
+
+    function onAddSighting(newSighting){
+      return setSightings([...habitats, newSighting])
+    }
 
     const searchedSightings = [...sightings].filter(sighting => sighting.name.toLowerCase().includes(search.toLowerCase()))
 
@@ -41,8 +51,15 @@ function Sightings() {
           search = {search}
           searchSetter={setSearch}/>
         <br />
+        {showForm ? <SightingForm
+          onAddSighting={onAddSighting}
+          handleClick={handleClick}
+          habitats={habitats}
+          /> : null}
         <AddNewButton
         newAddition="rare sighting"
+        handleClick={handleClick}
+        showForm={showForm}
         />
         <br />
         <FilterCard
