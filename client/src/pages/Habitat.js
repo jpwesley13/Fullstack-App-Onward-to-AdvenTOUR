@@ -1,4 +1,4 @@
-import useDangerAverage from "../components/DangerHook";
+import useDangerAverage from "../context and hooks/DangerHook";
 import DangerAverage from "../components/DangerAverage";
 import { useState, useEffect } from "react";
 import AddNewButton from '../components/AddNewButton';

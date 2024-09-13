@@ -1,17 +1,20 @@
+import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import { useAuth } from "../context and hooks/AuthContext";
 
-function NavBar( { trainer, setTrainer }) {
+function NavBar() {
 
     const navigate = useNavigate();
+    const { trainer, setTrainer } = useAuth();
 
     function handleLogout() {
-        
-
         fetch('/logout', {
             method: 'DELETE'
         })
-        .then(setTrainer(null))
-        navigate('/')
+        .then(() => {
+            setTrainer(null);
+            navigate('/');
+        })
     }
 
     return (

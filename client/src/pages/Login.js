@@ -1,12 +1,12 @@
 import React from 'react'
-import { useOutletContext, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useFormik } from 'formik'
 import * as yup from "yup";
+import { useAuth } from '../context and hooks/AuthContext';
 
 export default function Login() {
+    const { setTrainer } = useAuth();
     const navigate = useNavigate();
-
-    const {setTrainer} = useOutletContext();
 
     const formSchema = yup.object().shape({
         name: yup.string().required("Name is required."),
@@ -23,12 +23,14 @@ export default function Login() {
         })
         .then(res => {
             if(res.ok) {
-                res.json()
-                .then(data => setTrainer(data))
-                navigate('/')
+                return res.json()
             } else {
                 throw new Error("Invalid login credentials.");
             }
+        })
+        .then(data => { 
+            setTrainer(data)
+            navigate('/');
         })
         .catch(error => console.error(error)) 
     };

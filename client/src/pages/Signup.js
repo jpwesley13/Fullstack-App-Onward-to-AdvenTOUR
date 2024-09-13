@@ -2,10 +2,12 @@ import { useFormik } from "formik";
 import { useState, useEffect } from "react";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context and hooks/AuthContext";
 
 function Signup() {
 
     const [biomes, setBiomes] = useState([]);
+    
 
     useEffect(() => {
         fetch('/biomes')
@@ -13,8 +15,6 @@ function Signup() {
         .then(data => setBiomes(data))
         .catch(error => console.error(error));
     }, []);
-
-    const navigate = useNavigate();
 
     const formSchema = yup.object().shape({
         name: yup.string().required("Must enter name.").max(24),
@@ -35,11 +35,14 @@ function Signup() {
         })
         .then(res => {
             if(res.ok) {
-                res.json()
-                navigate('/')
+                return res.json()
             } else {
                 throw new Error("Error occurred in signing up new trainer.");
             }
+        })
+        .then(data => {
+            setTrainer(data);
+            navigate('/');
         })
         .catch(error => console.error(error))
         actions.resetForm()
