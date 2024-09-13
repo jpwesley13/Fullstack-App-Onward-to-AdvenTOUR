@@ -186,18 +186,15 @@ class Signup(Resource):
     def post(self):
         params = request.get_json()
         password = params.get('password')
-        biome_name = params.get('biome')
 
         try:
             new_trainer = Trainer(
                 name = params['name'],
                 image = params['image'],
                 age = params['age'],
+                biome_id = params['biome_id']
             )
             new_trainer.password_hash = password
-
-            biome = Biome.query.filter(Biome.name == biome_name).first()
-            new_trainer.biome = biome
 
             print(f"New trainer: {new_trainer}")
 

@@ -1,8 +1,18 @@
 import { useFormik } from "formik";
+import { useState, useEffect } from "react";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 
 function Signup() {
+
+    const [biomes, setBiomes] = useState([]);
+
+    useEffect(() => {
+        fetch('/biomes')
+        .then(res => res.json())
+        .then(data => setBiomes(data))
+        .catch(error => console.error(error));
+    }, []);
 
     const navigate = useNavigate();
 
@@ -10,7 +20,7 @@ function Signup() {
         name: yup.string().required("Must enter name.").max(24),
         age: yup.number().integer().required("Must enter age.").min(10, "Must be at least 10 years old to join."),
         image: yup.string().optional(),
-        biome: yup.string().required(`If you have no preference, enter "N/A"`),
+        biome_id: yup.string().required(`If you have no preference, select "No Preference"`),
         password: yup.string().min(6, "Password must be at least 6 characters.").max(30, "Password cannot exceed 30 characters.").required("Must create a password."),
         confirmPassword: yup.string().oneOf([yup.ref('password'), null], "Passwords must match.").required("Required.")
     });
@@ -32,7 +42,7 @@ function Signup() {
             }
         })
         .catch(error => console.error(error))
-        return actions.resetForm()
+        actions.resetForm()
       };
     
     const {values, handleBlur, handleChange, handleSubmit, touched, errors, isSubmitting} = useFormik({
@@ -40,7 +50,7 @@ function Signup() {
             name: "",
             age: "",
             image: "",
-            biome: "",
+            biome_id: "",
             password: "",
             confirmPassword: ""
         },
@@ -84,16 +94,20 @@ function Signup() {
             />
             {errors.image && touched.image && <p className="error">{errors.image}</p>}
             <label htmlFor="biome">Favorite Biome</label>
-            <input
-                value={values.biome}
+            <select
+                value={values.biome_id}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                id="biome" 
+                id="biome_id" 
                 type="text" 
-                placeholder="Enter your favorite biome"
-                className={errors.biome && touched.biome ? "input-error" : ""} 
-            />
-            {errors.biome && touched.biome && <p className="error">{errors.biome}</p>}
+                placeholder="Select your favorite biome" 
+                className={errors.biome_id && touched.biome_id ? "input-error" : ""}>
+                    <option value="" hidden disabled>Select a biome</option>
+                    {biomes.map((biome) => (
+                    <option key={biome.id} value={biome.id}>{biome.name}</option>
+                ))}
+            </select>
+            {errors.biome_id && touched.biome_id && <p className="error">{errors.biome_id}</p>}
             <label htmlFor="password">Password</label>
             <input
                 value={values.password}
