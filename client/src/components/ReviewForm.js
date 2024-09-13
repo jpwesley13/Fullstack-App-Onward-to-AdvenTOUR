@@ -55,13 +55,14 @@ function ReviewForm({ onAddReview, handleClick, id }) {
     return (
         <form onSubmit={handleSubmit}>
             <label htmlFor="content">Review</label>
-            <input
+            <textarea
                 value={values.content}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 id="content" 
-                type="text" 
                 placeholder="Write your review here"
+                rows="5"
+                cols="54"
                 className={errors.content && touched.content ? "input-error" : ""} 
             />
             {errors.content && touched.content && <p className="error">{errors.content}</p>}
