@@ -7,7 +7,8 @@ import { useAuth } from "../context and hooks/AuthContext";
 function Signup() {
 
     const [biomes, setBiomes] = useState([]);
-    
+    const { setTrainer } = useAuth();
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetch('/biomes')
