@@ -17,7 +17,7 @@ function ReviewForm({ onAddReview, handleClick, id }) {
         const reviewData = {
             ...values,
             trainer_id: trainer.id,
-            danger: id
+            habitat_id: id
         };
 
         fetch('/reviews', {
@@ -65,7 +65,7 @@ function ReviewForm({ onAddReview, handleClick, id }) {
                 className={errors.content && touched.content ? "input-error" : ""} 
             />
             {errors.content && touched.content && <p className="error">{errors.content}</p>}
-            <label htmlFor="danger">Danger level</label>
+            <label htmlFor="danger">Danger level (lowest to highest)</label>
             <select
                 value={values.danger}
                 onChange={handleChange}
@@ -80,7 +80,7 @@ function ReviewForm({ onAddReview, handleClick, id }) {
                 ))}
             </select>
             {errors.danger && touched.danger && <p className="error">{errors.danger}</p>}
-            <label htmlFor="rating">Rating</label>
+            <label htmlFor="rating">Rating (least best to best)</label>
             <select
                 value={values.rating}
                 onChange={handleChange}

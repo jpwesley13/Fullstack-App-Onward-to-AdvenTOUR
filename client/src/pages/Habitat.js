@@ -3,11 +3,17 @@ import AverageIcons from "../components/AverageIcons";
 import { useState, useEffect } from "react";
 import AddNewButton from '../components/AddNewButton';
 import { Link, useParams } from "react-router-dom";
+import ReviewForm from "../components/ReviewForm";
 
 function Habitat() {
     const { id } = useParams();
     const [habitat, setHabitat] = useState(null);
     const [reviews, setReviews] = useState([]);
+    const [showForm, setShowForm] = useState(false);
+
+    function handleClick() {
+        setShowForm(showForm => !showForm)
+      }
 
     useEffect(() => {
         fetch(`/habitats/${id}`)
@@ -22,6 +28,10 @@ function Habitat() {
         .then(data => setReviews(data.filter(review => review.habitat_id === parseInt(id))))
         .catch(error => console.error(error));
     }, [id]);
+
+    function onAddReview(newReview){
+        return setReviews([...reviews, newReview])
+      }
 
     const dangerAverages = useAverage(reviews, 'danger');
     const ratingAverages = useAverage(reviews, 'rating');
@@ -62,7 +72,14 @@ function Habitat() {
                     id={id}/>
                 </h3>
             </div>
-            <AddNewButton newAddition="review" />
+            {showForm ? <ReviewForm
+                onAddReview={onAddReview}
+                handleClick={handleClick}
+                id={id}
+          /> : null}
+            <AddNewButton newAddition="review" 
+            handleClick={handleClick}
+            showForm={showForm}/>
             <br />
             {reviewsList}
         </main>
