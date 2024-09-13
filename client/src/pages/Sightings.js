@@ -29,7 +29,8 @@ function Sightings() {
         />
       ))
 
-    const habitats = [...new Set(sightings.map(sighting => sighting.habitat.name))]
+    const habitats = [...new Set(sightings.map(sighting => sighting.habitat))]
+    const habitatNames = habitats.map(habitat => habitat.name)
 
     return (
         <>
@@ -45,7 +46,7 @@ function Sightings() {
         />
         <br />
         <FilterCard
-        specifics={habitats}
+        specifics={habitatNames}
         onChangeFilter={setFilterBy}
         label="rare sightings"
         filterAttr="habitat" 
