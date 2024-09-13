@@ -89,7 +89,8 @@ if __name__ == '__main__':
 
             review = Review(
                 content = fake.paragraph(nb_sentences=8),
-                danger = randint(1,5)
+                danger = randint(1,5),
+                rating = randint(1,5)
             )
 
             review.trainer = rc(trainers)
