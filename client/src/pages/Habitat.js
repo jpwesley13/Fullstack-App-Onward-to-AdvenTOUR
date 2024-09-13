@@ -1,4 +1,4 @@
-import useDangerAverage from "../context and hooks/DangerHook";
+import useAverage from "../context and hooks/AverageHook";
 import DangerAverage from "../components/DangerAverage";
 import { useState, useEffect } from "react";
 import AddNewButton from '../components/AddNewButton';
@@ -23,7 +23,8 @@ function Habitat() {
         .catch(error => console.error(error));
     }, [id]);
 
-    const dangerAverages = useDangerAverage(reviews);
+    const dangerAverages = useAverage(reviews, 'danger');
+    const ratingAverages = useAverage(reviews, 'rating');
 
     if(!habitat) {
         return <h1>Loading...</h1>
@@ -47,6 +48,9 @@ function Habitat() {
                 <h3>Found in the {habitat.region.name} region. <DangerAverage
                     dangerAverage={dangerAverages[parseInt(id)]}
                     id={id}/>
+                </h3>
+                <h3>
+                    Average rating of {ratingAverages[parseInt(id)]}/5
                 </h3>
             </div>
             <AddNewButton newAddition="review" />

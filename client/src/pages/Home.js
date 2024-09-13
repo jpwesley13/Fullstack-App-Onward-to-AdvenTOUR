@@ -4,7 +4,7 @@ import FilterCard from "../components/FilterCard";
 import SortCard from "../components/SortCard";
 import Search from "../components/Search";
 import AddNewButton from "../components/AddNewButton";
-import useDangerAverage from "../context and hooks/DangerHook";
+import useAverage from "../context and hooks/AverageHook";
 import HabitatForm from "../components/HabitatForm";
 
 function Home() {
@@ -32,7 +32,8 @@ function Home() {
       .catch(error => console.error(error));
     }, []);
 
-    const dangerAverages = useDangerAverage(reviews);
+    const dangerAverages = useAverage(reviews, 'danger');
+    const ratingAverages = useAverage(reviews, 'rating');
 
     function onAddHabitats(newHabitat){
       return setHabitats([...habitats, newHabitat])
@@ -49,12 +50,14 @@ function Home() {
           return habitat1.name.localeCompare(habitat2.name);
       } else if(sortBy === "Number of Reviews") {
           return habitat1.reviews.length - habitat2.reviews.length;
-      } else {
+      } else if(sortBy === "Danger Level") {
         return dangerAverages[habitat1.id] - dangerAverages[habitat2.id];
+      } else {
+        return ratingAverages[habitat2.id] - ratingAverages[habitat1.id];
       }
     })
 
-    const options = ["Alphabetically", "Number of Reviews", "Danger Level"]
+    const options = ["Alphabetically", "Number of Reviews", "Danger Level", "Rating"]
 
     const filteredHabitats = sortedHabitats.filter(habitat => habitat.region.name.includes(filterBy))
 
@@ -63,6 +66,7 @@ function Home() {
       key={habitat.id}
       habitat={habitat}
       dangerAverage={dangerAverages[habitat.id]}
+      ratingAverage={ratingAverages[habitat.id]}
       />
     ))
     

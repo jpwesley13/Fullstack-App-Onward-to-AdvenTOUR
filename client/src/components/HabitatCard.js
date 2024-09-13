@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import DangerAverage from "./DangerAverage";
 
-function HabitatCard({habitat, dangerAverage}) {
+function HabitatCard({habitat, dangerAverage, ratingAverage}) {
 
     const {name, image, id} = habitat
 
@@ -16,6 +16,7 @@ function HabitatCard({habitat, dangerAverage}) {
             <DangerAverage
             id={id}
             dangerAverage={dangerAverage}/>
+            {ratingAverage}/5
             <Link to={`/habitats/${id}`}>Details</Link>
         </div>
     );
