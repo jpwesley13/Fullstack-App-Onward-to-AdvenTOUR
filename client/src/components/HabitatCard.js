@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import DangerAverage from "./DangerAverage";
+import AverageIcons from "./AverageIcons";
 
 function HabitatCard({habitat, dangerAverage, ratingAverage}) {
 
@@ -13,10 +13,14 @@ function HabitatCard({habitat, dangerAverage, ratingAverage}) {
               alt={name}
               className="habitat-card"  
             />
-            <DangerAverage
+            <AverageIcons
             id={id}
-            dangerAverage={dangerAverage}/>
-            {ratingAverage}/5
+            average={dangerAverage}
+            property={'danger'}/>
+            <AverageIcons
+            id={id}
+            average={ratingAverage}
+            property={"rating"} />
             <Link to={`/habitats/${id}`}>Details</Link>
         </div>
     );

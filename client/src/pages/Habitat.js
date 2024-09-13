@@ -1,5 +1,5 @@
 import useAverage from "../context and hooks/AverageHook";
-import DangerAverage from "../components/DangerAverage";
+import AverageIcons from "../components/AverageIcons";
 import { useState, useEffect } from "react";
 import AddNewButton from '../components/AddNewButton';
 import { Link, useParams } from "react-router-dom";
@@ -45,8 +45,9 @@ function Habitat() {
             <hr />
             <br />
             <div>
-                <h3>Found in the {habitat.region.name} region. <DangerAverage
-                    dangerAverage={dangerAverages[parseInt(id)]}
+                <h3>Found in the {habitat.region.name} region. <AverageIcons
+                    average={dangerAverages[parseInt(id)]}
+                    property="danger"
                     id={id}/>
                 </h3>
                 <h3>

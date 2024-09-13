@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import ReturnButtons from "../components/ReturnButtons";
-import DangerAverage from "../components/DangerAverage";
+import AverageIcons from "../components/AverageIcons";
 
 function Review() {
     const { id } = useParams();
@@ -33,8 +33,9 @@ function Review() {
         <span>{content}</span>
         <div>
             <p>Score: {rating}/5</p>
-            <DangerAverage
-            dangerAverage={danger}
+            <AverageIcons
+            average={danger}
+            property="danger"
             />
         </div>
         </>
