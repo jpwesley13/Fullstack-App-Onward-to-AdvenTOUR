@@ -4,7 +4,7 @@ import FilterCard from "../components/FilterCard";
 import SortCard from "../components/SortCard";
 import Search from "../components/Search";
 import AddNewButton from "../components/AddNewButton";
-import useDangerAverage from "../components/DangerHook";
+import useDangerAverage from "../context and hooks/DangerHook";
 import HabitatForm from "../components/HabitatForm";
 
 function Home() {
