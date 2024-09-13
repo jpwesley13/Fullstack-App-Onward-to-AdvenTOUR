@@ -143,6 +143,11 @@ button {
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
+  
+}
+
+button:disabled {
+  opacity: 0.35;
 }
 
 body {

@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import { useEffect, useState } from "react";
 import * as yup from "yup";
 
-function HabitatForm({ onAddHabitats }) {
+function HabitatForm({ onAddHabitats, handleClick }) {
 
     const [regions, setRegions] = useState([])
 
@@ -32,12 +32,13 @@ function HabitatForm({ onAddHabitats }) {
             if(res.ok) {
                 res.json()
                 .then(data => onAddHabitats(data))
+                handleClick()
             } else {
                 throw new Error("Error occurred in adding new habitat.");
             }
         })
         .catch(error => console.error(error))
-        return actions.resetForm()
+        actions.resetForm()
       };
     
     const {values, handleBlur, handleChange, handleSubmit, touched, errors, isSubmitting} = useFormik({

@@ -79,6 +79,7 @@ function Home() {
           <br />
           {showForm ? <HabitatForm
           onAddHabitats={onAddHabitats}
+          handleClick={handleClick}
           /> : null}
           <AddNewButton
           newAddition="habitat"
