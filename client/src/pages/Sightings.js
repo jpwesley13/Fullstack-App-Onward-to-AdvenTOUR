@@ -25,7 +25,7 @@ function Sightings() {
     }, []);
 
     function onAddSighting(newSighting){
-      return setSightings([...habitats, newSighting])
+      return setSightings([...sightings, newSighting])
     }
 
     const searchedSightings = [...sightings].filter(sighting => sighting.name.toLowerCase().includes(search.toLowerCase()))
