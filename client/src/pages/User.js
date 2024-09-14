@@ -1,11 +1,12 @@
 import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import SightingCard from "../components/SightingCard";
+import { useAuth } from "../context and hooks/AuthContext";
 
 function User() {
     const { id } = useParams();
-
-    const [trainer, setTrainer] = useState(null);
+    const { trainer } = useAuth();
+    const [user, setUser] = useState(null);
     const [reviews, setReviews] = useState([]);
     const [sightings, setSightings] = useState([]);
 
@@ -13,7 +14,7 @@ function User() {
         fetch(`/trainers/${id}`)
         .then(res => res.json())
         .then(data => {
-            setTrainer(data);
+            setUser(data);
             document.title = `${data.name}`;
         })
         .catch(error => console.error(error));
@@ -27,14 +28,25 @@ function User() {
         .catch(error => console.error(error));
     }, [id])
 
-    if(!trainer) {
+    if(!user) {
         return <h1>Loading...</h1>
     }
 
-    const { name, image, biome } = trainer
+    const { name, image, biome } = user
 
     const reviewsList = reviews.map(review => (
-        <li key={review.id}>{`${name}`}'s review of {`${review.habitat.name}`}: <Link to={`/reviews/${review.id}`}>View</Link></li>
+        <p key={review.id} className="profile-list-item">
+            <div className="profile-content">
+                <span>{`${name}`}'s review of {`${review.habitat.name}`}: </span>
+                <Link to={`/reviews/${review.id}`}>View</Link> 
+                {trainer.id === parseInt(id) && (
+                    <>
+                        <button>Edit</button>
+                        <button>Delete</button>
+                    </>
+                )}
+            </div>
+        </p>
     ))
 
     const sightingList = sightings.map(sighting => (
@@ -61,7 +73,9 @@ function User() {
                     <br/>
                     <hr/>
                     <h3>Rare sightings from {name}</h3>
+                    <div className="cards-container">
                     {sightingList}
+                    </div>
                 </div>
             </div>
         </main></>

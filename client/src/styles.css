@@ -213,3 +213,48 @@ body {
   font-size: 1em;
   vertical-align: middle;
 }
+
+.profile-list-item {
+  margin-bottom: 10px;
+}
+
+.profile-content {
+  display: inline-flex;
+  align-items: center;
+}
+
+.profile-content span,
+.profile-content a,
+.profile-content button {
+  margin-left: 10px;
+}
+
+.profile-content span:first-child {
+  margin-left: 0;
+}
+
+.profile-sighting {
+  display: flex;
+  justify-content: center; 
+  gap: 10px; 
+  margin-top: 10px; 
+}
+
+.profile-card {
+  text-align: center;
+  color: rgb(42, 90, 50);
+  border: grey solid 1px;
+  padding: 1rem;
+  width: auto;
+  height: auto;
+  display: flex;
+  flex-direction: column; 
+  margin: 1rem 2rem;
+  box-shadow: 3px 4px rgb(42, 90, 50);
+}
+
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}

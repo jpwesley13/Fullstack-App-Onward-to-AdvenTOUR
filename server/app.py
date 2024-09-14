@@ -250,9 +250,9 @@ api.add_resource(ReviewById, '/reviews/<int:id>')
 api.add_resource(Sightings, '/sightings')
 api.add_resource(SightingById, '/sightings/<int:id>')
 api.add_resource(Signup, '/signup', endpoint='signup')
-api.add_resource(CheckSession, '/check_session')
-api.add_resource(Login, '/login')
-api.add_resource(Logout, '/logout')
+api.add_resource(CheckSession, '/check_session', endpoint='check_session')
+api.add_resource(Login, '/login', endpoint='login')
+api.add_resource(Logout, '/logout', endpoint='logout')
 
 app.secret_key = '48D7090A3C0D9FB9'
 
