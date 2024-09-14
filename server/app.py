@@ -135,6 +135,7 @@ class Reviews(Resource):
             new_review = Review(
                 content = params['content'],
                 danger = params['danger'],
+                rating = params['rating'],
                 trainer_id = params['trainer_id'],
                 habitat_id = params['habitat_id']
             )
