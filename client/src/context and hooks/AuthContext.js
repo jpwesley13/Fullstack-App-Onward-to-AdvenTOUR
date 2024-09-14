@@ -4,6 +4,7 @@ const AuthContext = createContext();
 
 function AuthProvider({ children }) {
   const [trainer, setTrainer] = useState(null);
+  const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
     fetch('/check_session')
@@ -17,15 +18,17 @@ function AuthProvider({ children }) {
       .catch((error) => {
         console.error(error);
         setTrainer(null);
-      });
+      })
+      .finally(() => setLoading(false));
   }, []);
 
   return (
-    <AuthContext.Provider value={{ trainer, setTrainer }}>
+    <AuthContext.Provider value={{ trainer, setTrainer, loading }}>
       {children}
     </AuthContext.Provider>
   );
-};
+}
+
 export default AuthProvider;
 
 export const useAuth = () => {
