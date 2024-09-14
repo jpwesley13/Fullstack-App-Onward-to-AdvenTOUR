@@ -1,10 +1,8 @@
 import { Link } from "react-router-dom";
-import { useAuth } from "../context and hooks/AuthContext";
 
 function SightingCard({sighting}) {
 
-    const {name, image, id, habitat, trainer: user} = sighting;
-    const {trainer} = useAuth();
+    const {name, image, id, habitat} = sighting
 
     return (
         <div className="card">
@@ -15,15 +13,9 @@ function SightingCard({sighting}) {
               className="habitat-card"  
             />
             </Link>
-            <span>{habitat.name}</span>    
-        {trainer.id === parseInt(user.id) && (
-            <div className="profile-sighting">
-                <button>Edit</button>
-                <button>Delete</button>
-            </div>
-        )}
+            <span>{habitat.name}</span>
         </div>
     );
 };
 
-export default SightingCard;
+export default SightingCard

@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import SightingCard from "../components/SightingCard";
+import ProfileCard from "../components/ProfileCard";
 import { useAuth } from "../context and hooks/AuthContext";
 
 function User() {
@@ -50,7 +50,7 @@ function User() {
     ))
 
     const sightingList = sightings.map(sighting => (
-        <SightingCard 
+        <ProfileCard 
         key={sighting.id}
         sighting={sighting}
         />
@@ -68,14 +68,18 @@ function User() {
                     <p>Favorite Biome: {biome.name}</p>
                 </div>
                 <div className="profilecontributions">
+                    {reviews.length > 0 && (<>
                     <h3>Reviews from {name}</h3>
                     {reviewsList}
                     <br/>
+                    </>)}
+                    {sightings.length > 0 && (<>
                     <hr/>
                     <h3>Rare sightings from {name}</h3>
                     <div className="cards-container">
                     {sightingList}
                     </div>
+                    </>)}
                 </div>
             </div>
         </main></>
