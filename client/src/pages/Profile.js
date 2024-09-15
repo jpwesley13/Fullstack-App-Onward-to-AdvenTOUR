@@ -3,6 +3,25 @@ import { useEffect, useState } from "react";
 import ProfileCard from "../components/ProfileCard";
 import { useAuth } from "../context and hooks/AuthContext";
 import EditProfile from "../components/EditProfile";
+import { Modal, Box, Button } from "@mui/material";
+import { styled } from "@mui/material";
+
+const CustomButton = styled(Button)({
+    display: 'block',
+    margin: '1rem 0',
+    padding: '0.35rem 0.5rem',
+    backgroundColor: 'rgb(42, 90, 50)',
+    color: 'rgb(255, 255, 255)',
+    border: 'none',
+    borderRadius: '10px',
+    width: 'fit-content',
+    fontSize: '1rem',
+    fontWeight: 'bold',
+    cursor: 'pointer',
+    '&:disabled': {
+      opacity: 0.35,
+    },
+  });
 
 function Profile() {
     const { id } = useParams();
@@ -11,6 +30,7 @@ function Profile() {
     const [reviews, setReviews] = useState([]);
     const [sightings, setSightings] = useState([]);
     const [showForm, setShowForm] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     function handleClick() {
         setShowForm(showForm => !showForm)
@@ -78,12 +98,10 @@ function Profile() {
                     <span>Favorite Biome: {biome.name}</span>
                     {trainer.id === parseInt(user.id) && (
                     <div className="profile-sighting">
-                        {showForm ? <EditProfile
-                            handleClick={handleClick}
-                            onUpdateProfile={onUpdateProfile}
-                        /> : null}
-                        <button onClick={handleClick}>{showForm ? "Cancel" : "Edit Profile"}</button>
-                    </div>)}
+                    <CustomButton variant="contained" color="primary" onClick={() => setIsModalOpen(true)}>
+                        Edit Profile
+                    </CustomButton>
+                </div>)}
                 </div>
                 <div className="profile-contributions">
                     {reviews.length > 0 && (<>
@@ -100,7 +118,34 @@ function Profile() {
                     </>)}
                 </div>
             </div>
-        </main></>
+        </main>
+        <Modal
+                open={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                aria-labelledby="edit-profile-modal-title"
+                aria-describedby="edit-profile-modal-description"
+            >
+                <Box sx={{
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    width: '80%',
+                    maxWidth: 600,
+                    bgcolor: 'background.paper',
+                    border: '2px solid #000',
+                    boxShadow: 24,
+                    p: 4,
+                    borderRadius: '10px',
+                }}>
+                    <CustomButton className="button" onClick={() => setIsModalOpen(false)} sx={{ mb: 2 }}>Close</CustomButton>
+                    <EditProfile
+                        handleClick={() => setIsModalOpen(false)}
+                        onUpdateProfile={onUpdateProfile}
+                    />
+                </Box>
+            </Modal>
+    </>
     )
 }
 

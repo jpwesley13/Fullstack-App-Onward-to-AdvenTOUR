@@ -1,7 +1,7 @@
 :root {
   --bg: #282c34;
   --header: #fff;
-  --link: #61dafb;
+  --link: rgb(42, 90, 50);
   --text: hsla(0, 0%, 100%, 0.88);
 }
 
@@ -142,8 +142,7 @@ button {
   width: fit-content;
   font-size: 1rem;
   font-weight: bold;
-  cursor: pointer;
-  
+  cursor: pointer; 
 }
 
 button:disabled {
@@ -259,3 +258,4 @@ body {
   flex-wrap: wrap;
   justify-content: center;
 }
+
