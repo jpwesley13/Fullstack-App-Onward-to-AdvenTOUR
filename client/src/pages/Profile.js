@@ -4,7 +4,7 @@ import ProfileCard from "../components/ProfileCard";
 import { useAuth } from "../context and hooks/AuthContext";
 import EditProfile from "../components/EditProfile";
 
-function User() {
+function Profile() {
     const { id } = useParams();
     const { trainer } = useAuth();
     const [user, setUser] = useState(null);
@@ -99,4 +99,4 @@ function User() {
     )
 }
 
-export default User;
+export default Profile;

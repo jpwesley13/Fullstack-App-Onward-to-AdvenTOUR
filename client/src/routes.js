@@ -5,7 +5,7 @@ import Trainer from "./pages/Trainer";
 import Sightings from "./pages/Sightings";
 import Habitat from "./pages/Habitat";
 import Review from "./pages/Review";
-import User from "./pages/User";
+import Profile from "./pages/Profile";
 import RareSighting from "./pages/RareSighting";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
@@ -38,7 +38,7 @@ const routes = [
             },
             {
                 path: "trainers/:id",
-                element: <User />
+                element: <Profile />
             },
             {
                 path: "/sightings/:id",
