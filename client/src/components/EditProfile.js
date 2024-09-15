@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import * as yup from "yup";
 import { useAuth } from "../context and hooks/AuthContext";
 
-function EditProfile() {
+function EditProfile( { handleClick }) {
 
     const [biomes, setBiomes] = useState([]);
     const { trainer, setTrainer } = useAuth();
@@ -47,6 +47,7 @@ function EditProfile() {
         })
         .then(data => {
             setTrainer(data);
+            handleClick();
         })
         .catch(error => console.error(error))
         actions.resetForm()

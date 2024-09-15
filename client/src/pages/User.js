@@ -2,6 +2,7 @@ import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import ProfileCard from "../components/ProfileCard";
 import { useAuth } from "../context and hooks/AuthContext";
+import EditProfile from "../components/EditProfile";
 
 function User() {
     const { id } = useParams();
@@ -9,6 +10,11 @@ function User() {
     const [user, setUser] = useState(null);
     const [reviews, setReviews] = useState([]);
     const [sightings, setSightings] = useState([]);
+    const [showForm, setShowForm] = useState(false);
+
+    function handleClick() {
+        setShowForm(showForm => !showForm)
+      }
 
     useEffect(() => {
         fetch(`/trainers/${id}`)
@@ -68,7 +74,10 @@ function User() {
                     <span>Favorite Biome: {biome.name}</span>
                     {trainer.id === parseInt(user.id) && (
                     <div className="profile-sighting">
-                        <button>Edit Profile</button>
+                        {showForm ? <EditProfile
+                            handleClick={handleClick}
+                        /> : null}
+                        <button onClick={handleClick}>{showForm ? "Cancel" : "Edit Profile"}</button>
                     </div>)}
                 </div>
                 <div className="profile-contributions">
