@@ -14,6 +14,7 @@ const StyledButton = styled(Button)({
     fontSize: '1rem',
     fontWeight: 'bold',
     cursor: 'pointer',
+    textTransform: 'none',
     '&:disabled': {
       opacity: 0.35,
     },
