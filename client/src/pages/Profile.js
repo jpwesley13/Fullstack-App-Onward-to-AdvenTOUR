@@ -41,6 +41,20 @@ function Profile() {
         };
     };
 
+    async function handleDeleteSightingClick(sighting){
+        const confirmDelete = window.confirm("Are you sure?")
+        if(confirmDelete) {
+            const res = await fetch(`/sightings/${sighting.id}`, {
+                method: "DELETE",
+            });
+            if(res.ok) {
+                setSightings(sightings.filter(s => s.id !== sighting.id));
+            } else {
+                console.error("Error in deleting sighting.");
+            };
+        };
+    };
+
     useEffect(() => {
         fetch(`/trainers/${id}`)
         .then(res => res.json())
@@ -88,6 +102,8 @@ function Profile() {
         <ProfileCard 
         key={sighting.id}
         sighting={sighting}
+        setSightings={setSightings}
+        handleDeleteSightingClick={handleDeleteSightingClick}
         />
       ))
 
