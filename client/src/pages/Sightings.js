@@ -6,7 +6,6 @@ import SightingForm from "../components/SightingForm";
 import ModalButton from "../components/ModalButton";
 import { Modal, Box } from "@mui/material";
 
-
 function Sightings() {
 
     const [sightings, setSightings] = useState([]);

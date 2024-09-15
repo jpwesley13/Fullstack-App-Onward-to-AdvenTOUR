@@ -1,19 +1,16 @@
 import useAverage from "../context and hooks/AverageHook";
 import AverageIcons from "../components/AverageIcons";
 import { useState, useEffect } from "react";
-import AddNewButton from '../components/AddNewButton';
 import { Link, useParams } from "react-router-dom";
 import ReviewForm from "../components/ReviewForm";
+import { Modal, Box } from "@mui/material";
+import ModalButton from "../components/ModalButton";
 
 function Habitat() {
     const { id } = useParams();
     const [habitat, setHabitat] = useState(null);
     const [reviews, setReviews] = useState([]);
-    const [showForm, setShowForm] = useState(false);
-
-    function handleClick() {
-        setShowForm(showForm => !showForm)
-      }
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
         fetch(`/habitats/${id}`)
@@ -72,17 +69,28 @@ function Habitat() {
                     id={id}/>
                 </h3>
             </div>
-            {showForm ? <ReviewForm
-                onAddReview={onAddReview}
-                handleClick={handleClick}
-                id={id}
-          /> : null}
-            <AddNewButton newAddition="review" 
-            handleClick={handleClick}
-            showForm={showForm}/>
+            <ModalButton variant="contained" color="primary" onClick={() => setIsModalOpen(true)}>
+                        Add new review
+                    </ModalButton>
             <br />
             {reviewsList}
         </main>
+        <Modal
+                open={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                aria-labelledby="edit-profile-modal-title"
+                aria-describedby="edit-profile-modal-description"
+            >
+                <Box className="modal-box">
+                    <h2>Add new review</h2>
+                    <ModalButton className="close-button" onClick={() => setIsModalOpen(false)} sx={{ mb: 2 }}>Close</ModalButton>
+                    <ReviewForm
+                        handleClick={() => setIsModalOpen(false)}
+                        onAddReview={onAddReview}
+                        id={id}
+                    />
+                </Box>
+            </Modal>
         </>
     )
 }

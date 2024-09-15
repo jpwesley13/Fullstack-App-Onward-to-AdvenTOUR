@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import FilterCard from "../components/FilterCard";
 import SortCard from "../components/SortCard";
 import Search from "../components/Search";
-import AddNewButton from "../components/AddNewButton";
 import useAverage from "../context and hooks/AverageHook";
 import HabitatForm from "../components/HabitatForm";
 import { Modal, Box } from "@mui/material";
@@ -16,12 +15,7 @@ function Home() {
     const [sortBy, setSortBy] = useState("Alphabetically")
     const [reviews, setReviews] = useState([]);
     const [search, setSearch] = useState("");
-    const [showForm, setShowForm] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
-
-    function handleClick() {
-      setShowForm(showForm => !showForm)
-    }
 
     useEffect(() => {
       document.title = "Onward to AdvenTOUR"
@@ -84,10 +78,6 @@ function Home() {
           search = {search}
           searchSetter={setSearch}/>
           <br />
-          {showForm ? <HabitatForm
-          onAddHabitats={onAddHabitats}
-          handleClick={handleClick}
-          /> : null}
           <ModalButton variant="contained" color="primary" onClick={() => setIsModalOpen(true)}>
                         Add new habitat
                     </ModalButton>
