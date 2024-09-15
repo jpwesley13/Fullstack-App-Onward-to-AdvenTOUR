@@ -65,6 +65,28 @@ function SightingForm({ onAddSighting, handleClick, habitats }) {
                 className={errors.name && touched.name ? "input-error" : ""} 
             />
             {errors.name && touched.name && <p className="error">{errors.name}</p>}
+            <label htmlFor="blurb">Enter a Short Blurb for the Sighting</label>
+            <input
+                value={values.blurb}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                id="blurb" 
+                type="text" 
+                placeholder="Enter your blurb"
+                className={errors.blurb && touched.blurb ? "input-error" : ""} 
+            />
+            {errors.blurb && touched.blurb && <p className="error">{errors.blurb}</p>}
+            <label htmlFor="image">Sighting Picture</label>
+            <input
+                value={values.image}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                id="image" 
+                type="text" 
+                placeholder="Post an image url of the rare sighting" 
+                className={errors.image && touched.image ? "input-error" : ""} 
+            />
+            {errors.image && touched.image && <p className="error">{errors.image}</p>}
             <label htmlFor="habitat">Habitat</label>
             <select
                 value={values.habitat_id}
@@ -80,28 +102,6 @@ function SightingForm({ onAddSighting, handleClick, habitats }) {
                 ))}
             </select>
             {errors.habitat_id && touched.habitat_id && <p className="error">{errors.habitat_id}</p>}
-            <label htmlFor="image">Sighting Picture</label>
-            <input
-                value={values.image}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                id="image" 
-                type="text" 
-                placeholder="Post an image url of the rare sighting" 
-                className={errors.image && touched.image ? "input-error" : ""} 
-            />
-            {errors.image && touched.image && <p className="error">{errors.image}</p>}
-            <label htmlFor="blurb">Enter a Short Blurb for the Sighting</label>
-            <input
-                value={values.blurb}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                id="blurb" 
-                type="text" 
-                placeholder="Enter your blurb"
-                className={errors.blurb && touched.blurb ? "input-error" : ""} 
-            />
-            {errors.blurb && touched.blurb && <p className="error">{errors.blurb}</p>}
                 <button disabled={isSubmitting} type="submit">Submit</button>
         </form>
     )

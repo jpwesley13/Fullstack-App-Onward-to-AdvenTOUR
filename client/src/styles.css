@@ -277,16 +277,6 @@ body {
   margin-bottom: 16px;
 }
 
-.custom-button {
-  display: block;
-  margin: 1rem 0;
-  padding: 0.35rem 0.5rem;
-  background-color: rgb(42, 90, 50);
-  color: rgb(255, 255, 255);
-  border: none;
-  border-radius: 10px;
-  width: fit-content;
-  font-size: 1rem;
-  font-weight: bold;
-  cursor: pointer;
+select:last-of-type {
+  margin-bottom: 1rem;
 }
