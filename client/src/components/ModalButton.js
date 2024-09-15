@@ -1,0 +1,26 @@
+import React from "react";
+import { Button } from "@mui/material";
+import { styled } from "@mui/material";
+
+const StyledButton = styled(Button)({
+    display: 'block',
+    margin: '1rem 0',
+    padding: '0.35rem 0.5rem',
+    backgroundColor: 'rgb(42, 90, 50)',
+    color: 'rgb(255, 255, 255)',
+    border: 'none',
+    borderRadius: '10px',
+    width: 'fit-content',
+    fontSize: '1rem',
+    fontWeight: 'bold',
+    cursor: 'pointer',
+    '&:disabled': {
+      opacity: 0.35,
+    },
+  });
+
+  const ModalButton = ({ children, ...props }) => {
+    return <StyledButton {...props}>{children}</StyledButton>;
+  };
+
+  export default ModalButton;

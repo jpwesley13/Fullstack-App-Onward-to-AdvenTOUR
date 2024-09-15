@@ -259,3 +259,34 @@ body {
   justify-content: center;
 }
 
+.modal-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 600px;
+  background: white;
+  border: 2px solid #000;
+  box-shadow: 24;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.close-button {
+  margin-bottom: 16px;
+}
+
+.custom-button {
+  display: block;
+  margin: 1rem 0;
+  padding: 0.35rem 0.5rem;
+  background-color: rgb(42, 90, 50);
+  color: rgb(255, 255, 255);
+  border: none;
+  border-radius: 10px;
+  width: fit-content;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+}

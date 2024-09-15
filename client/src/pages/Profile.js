@@ -3,25 +3,10 @@ import { useEffect, useState } from "react";
 import ProfileCard from "../components/ProfileCard";
 import { useAuth } from "../context and hooks/AuthContext";
 import EditProfile from "../components/EditProfile";
-import { Modal, Box, Button } from "@mui/material";
-import { styled } from "@mui/material";
+import { Modal, Box } from "@mui/material";
+import ModalButton from "../components/ModalButton";
 
-const CustomButton = styled(Button)({
-    display: 'block',
-    margin: '1rem 0',
-    padding: '0.35rem 0.5rem',
-    backgroundColor: 'rgb(42, 90, 50)',
-    color: 'rgb(255, 255, 255)',
-    border: 'none',
-    borderRadius: '10px',
-    width: 'fit-content',
-    fontSize: '1rem',
-    fontWeight: 'bold',
-    cursor: 'pointer',
-    '&:disabled': {
-      opacity: 0.35,
-    },
-  });
+
 
 function Profile() {
     const { id } = useParams();
@@ -98,9 +83,9 @@ function Profile() {
                     <span>Favorite Biome: {biome.name}</span>
                     {trainer.id === parseInt(user.id) && (
                     <div className="profile-sighting">
-                    <CustomButton variant="contained" color="primary" onClick={() => setIsModalOpen(true)}>
+                    <ModalButton variant="contained" color="primary" onClick={() => setIsModalOpen(true)}>
                         Edit Profile
-                    </CustomButton>
+                    </ModalButton>
                 </div>)}
                 </div>
                 <div className="profile-contributions">
@@ -125,20 +110,9 @@ function Profile() {
                 aria-labelledby="edit-profile-modal-title"
                 aria-describedby="edit-profile-modal-description"
             >
-                <Box sx={{
-                    position: 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    width: '80%',
-                    maxWidth: 600,
-                    bgcolor: 'background.paper',
-                    border: '2px solid #000',
-                    boxShadow: 24,
-                    p: 4,
-                    borderRadius: '10px',
-                }}>
-                    <CustomButton className="button" onClick={() => setIsModalOpen(false)} sx={{ mb: 2 }}>Close</CustomButton>
+                <Box className="modal-box">
+                    <h2>Edit Profile</h2>
+                    <ModalButton className="close-button" onClick={() => setIsModalOpen(false)} sx={{ mb: 2 }}>Close</ModalButton>
                     <EditProfile
                         handleClick={() => setIsModalOpen(false)}
                         onUpdateProfile={onUpdateProfile}
