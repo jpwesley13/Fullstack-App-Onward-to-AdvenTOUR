@@ -16,6 +16,10 @@ function Profile() {
         setShowForm(showForm => !showForm)
       }
 
+    function onUpdateProfile(updatedProfile){
+    return setUser(updatedProfile)
+    }
+
     useEffect(() => {
         fetch(`/trainers/${id}`)
         .then(res => res.json())
@@ -76,6 +80,7 @@ function Profile() {
                     <div className="profile-sighting">
                         {showForm ? <EditProfile
                             handleClick={handleClick}
+                            onUpdateProfile={onUpdateProfile}
                         /> : null}
                         <button onClick={handleClick}>{showForm ? "Cancel" : "Edit Profile"}</button>
                     </div>)}
