@@ -16,16 +16,30 @@ function Profile() {
     const [sightings, setSightings] = useState([]);
     const [profileModal, setProfileModal] = useState(false);
     const [reviewModal, setReviewModal] = useState(false);
-    const [editedReview, setEditedReview] = useState(null);
+    const [currentReview, setCurrentReview] = useState(null);
 
     function onUpdateProfile(updatedProfile){
     return setUser(updatedProfile)
     }
 
     function handleEditReviewClick(review){
-        setEditedReview(review);
+        setCurrentReview(review);
         setReviewModal(true)
-    }
+    };
+    async function handleDeleteReviewClick(review){
+        setCurrentReview(review)
+        const confirmDelete = window.confirm("Are you sure?")
+        if(confirmDelete) {
+            const res = await fetch(`/reviews/${review.id}`, {
+                method: "DELETE",
+            });
+            if(res.ok) {
+                setReviews(reviews.filter(rev => rev.id !== review.id));
+            } else {
+                console.error("Error in deleting review.");
+            };
+        };
+    };
 
     useEffect(() => {
         fetch(`/trainers/${id}`)
@@ -61,7 +75,9 @@ function Profile() {
                         <ModalButton variant="contained" color="primary" onClick={() => handleEditReviewClick(review)}>
                         Edit
                         </ModalButton>
-                        <button>Delete</button>
+                        <ModalButton variant="contained" color="primary" onClick={() => handleDeleteReviewClick(review)}>
+                        Delete
+                        </ModalButton>
                     </>
                 )}
             </div>
@@ -135,7 +151,7 @@ function Profile() {
                 <EditReview
                     handleClick={() => setReviewModal(false)}
                     setReviews={setReviews}
-                    review={editedReview}
+                    review={currentReview}
                 />
             </Box>
         </Modal>
