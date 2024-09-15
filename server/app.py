@@ -214,7 +214,7 @@ class SightingById(Resource):
         params = request.get_json()
 
         if sighting is None:
-            return make_response({"error": "Sighting not found."}, 404)
+            return make_response({"error": "Rare sighting not found."}, 404)
         
         try:
             for attr in params:
@@ -228,7 +228,7 @@ class SightingById(Resource):
         sighting = Sighting.query.filter(Sighting.id == id).first()
 
         if sighting is None:
-            return make_response({"error": "Review not found."}, 404)
+            return make_response({"error": "Rare sighting not found."}, 404)
         
         db.session.delete(sighting)
         db.session.commit()
