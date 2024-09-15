@@ -37,7 +37,7 @@ function Sightings() {
       ))
 
     const habitats = [...new Set(sightings.map(sighting => sighting.habitat))]
-    const habitatNames = habitats.map(habitat => habitat.name)
+    const habitatNames = [...new Set(habitats.map(habitat => habitat.name))]
 
     return (
         <>

@@ -5,7 +5,7 @@ import { styled } from "@mui/material";
 const StyledButton = styled(Button)({
     display: 'block',
     margin: '1rem 0',
-    padding: '0.35rem 0.5rem',
+    padding: '0.01rem 0.5rem',
     backgroundColor: 'rgb(42, 90, 50)',
     color: 'rgb(255, 255, 255)',
     border: 'none',
