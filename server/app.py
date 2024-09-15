@@ -3,7 +3,7 @@
 # Standard library imports
 
 # Remote library imports
-from flask import request, make_response, session
+from flask import request, make_response, session, jsonify
 from flask_restful import Resource
 from models import Habitat, Trainer, Review, Region, Sighting, Biome
 from sqlalchemy.exc import IntegrityError
@@ -117,6 +117,8 @@ class TrainerById(Resource):
 
         try:
             for attr in params:
+                if attr == "name" and Trainer.query.filter(Trainer.name == params[attr]).first():
+                    return make_response(jsonify({"errors": {"name": "Name must be unique"}}), 400)
                 setattr(trainer, attr, params[attr])
             db.session.commit()
             return make_response(trainer.to_dict(), 202)

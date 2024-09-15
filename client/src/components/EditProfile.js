@@ -17,7 +17,7 @@ function EditProfile( { handleClick, onUpdateProfile }) {
 
     const formSchema = yup.object().shape({
         name: yup.string().optional().max(24),
-        age: yup.number().integer().optional().min(10),
+        age: yup.number().integer().optional().min(10, 'Trainers must be at least 10 years old.'),
         image: yup.string().optional(),
         biome_id: yup.string().optional(),
     });
@@ -38,20 +38,19 @@ function EditProfile( { handleClick, onUpdateProfile }) {
             },
             body: JSON.stringify(filteredValues),
         })
-        .then(res => {
-            if(res.ok) {
-                return res.json()
+        .then(async res => {
+            const data = await res.json();
+            if (res.status >= 400) {
+                actions.setErrors(data.errors);
             } else {
-                throw new Error("Error occurred updating profile.");
+                setTrainer(data);
+                onUpdateProfile(data);
+                handleClick();
+                actions.resetForm();
             }
         })
-        .then(data => {
-            setTrainer(data);
-            onUpdateProfile(data);
-            handleClick();
-        })
         .catch(error => console.error(error))
-        actions.resetForm()
+        
       };
     
     const {values, handleBlur, handleChange, handleSubmit, touched, errors, isSubmitting} = useFormik({
