@@ -153,6 +153,32 @@ class ReviewById(Resource):
             return make_response(review.to_dict(), 200)
         return make_response({'error': 'Review not found.'}, 404)
     
+    def patch(self, id):
+        review = Review.query.filter(Review.id == id).first()
+        params = request.get_json()
+
+        if review is None:
+            return make_response({"error": "Review not found."}, 404)
+        
+        try:
+            for attr in params:
+                setattr(review, attr, params[attr])
+            db.session.commit()
+            return make_response(review.to_dict(), 202)
+        except ValueError:
+            return make_response({"errors": ["validation errors"]}, 400)
+    
+    def delete(self, id):
+        review = Review.query.filter(Review.id == id).first()
+
+        if review is None:
+            return make_response({"error": "Review not found."}, 404)
+        
+        db.session.delete(review)
+        db.session.commit()
+
+        return {}, 204
+    
 class Sightings(Resource):
     def get(self):
         sightings = [sighting.to_dict() for sighting in Sighting.query.all()]
@@ -182,6 +208,32 @@ class SightingById(Resource):
         if sighting:
             return make_response(sighting.to_dict(), 200)
         return make_response({'error': 'Rare sighting not found.'}, 404)
+    
+    def patch(self, id):
+        sighting = Sighting.query.filter(Sighting.id == id).first()
+        params = request.get_json()
+
+        if sighting is None:
+            return make_response({"error": "Sighting not found."}, 404)
+        
+        try:
+            for attr in params:
+                setattr(sighting, attr, params[attr])
+            db.session.commit()
+            return make_response(sighting.to_dict(), 202)
+        except ValueError:
+            return make_response({"errors": ["validation errors"]}, 400)
+    
+    def delete(self, id):
+        sighting = Sighting.query.filter(Sighting.id == id).first()
+
+        if sighting is None:
+            return make_response({"error": "Review not found."}, 404)
+        
+        db.session.delete(sighting)
+        db.session.commit()
+
+        return {}, 204
     
 class Signup(Resource):
     def post(self):
