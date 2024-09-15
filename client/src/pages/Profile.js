@@ -5,7 +5,7 @@ import { useAuth } from "../context and hooks/AuthContext";
 import EditProfile from "../components/EditProfile";
 import { Modal, Box } from "@mui/material";
 import ModalButton from "../components/ModalButton";
-
+import EditReview from "../components/EditReview";
 
 
 function Profile() {
@@ -14,15 +14,17 @@ function Profile() {
     const [user, setUser] = useState(null);
     const [reviews, setReviews] = useState([]);
     const [sightings, setSightings] = useState([]);
-    const [showForm, setShowForm] = useState(false);
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
-    function handleClick() {
-        setShowForm(showForm => !showForm)
-      }
+    const [profileModal, setProfileModal] = useState(false);
+    const [reviewModal, setReviewModal] = useState(false);
+    const [editedReview, setEditedReview] = useState(null);
 
     function onUpdateProfile(updatedProfile){
     return setUser(updatedProfile)
+    }
+
+    function handleEditReviewClick(review){
+        setEditedReview(review);
+        setReviewModal(true)
     }
 
     useEffect(() => {
@@ -56,7 +58,9 @@ function Profile() {
                 <Link to={`/reviews/${review.id}`}>View</Link> 
                 {trainer.id === parseInt(id) && (
                     <>
-                        <button>Edit</button>
+                        <ModalButton variant="contained" color="primary" onClick={() => handleEditReviewClick(review)}>
+                        Edit
+                        </ModalButton>
                         <button>Delete</button>
                     </>
                 )}
@@ -83,7 +87,7 @@ function Profile() {
                     <span>Favorite Biome: {biome.name}</span>
                     {trainer.id === parseInt(user.id) && (
                     <div className="profile-sighting">
-                    <ModalButton variant="contained" color="primary" onClick={() => setIsModalOpen(true)}>
+                    <ModalButton variant="contained" color="primary" onClick={() => setProfileModal(true)}>
                         Edit Profile
                     </ModalButton>
                 </div>)}
@@ -105,20 +109,36 @@ function Profile() {
             </div>
         </main>
         <Modal
-                open={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
-                aria-labelledby="edit-profile-modal-title"
-                aria-describedby="edit-profile-modal-description"
-            >
-                <Box className="modal-box">
-                    <h2>Edit Profile</h2>
-                    <ModalButton className="close-button" onClick={() => setIsModalOpen(false)} sx={{ mb: 2 }}>Close</ModalButton>
-                    <EditProfile
-                        handleClick={() => setIsModalOpen(false)}
-                        onUpdateProfile={onUpdateProfile}
-                    />
-                </Box>
-            </Modal>
+            open={profileModal}
+            onClose={() => setProfileModal(false)}
+            aria-labelledby="edit-profile-modal-title"
+            aria-describedby="edit-profile-modal-description"
+        >
+            <Box className="modal-box">
+                <h2>Edit Profile</h2>
+                <ModalButton className="close-button" onClick={() => setProfileModal(false)} sx={{ mb: 2 }}>Close</ModalButton>
+                <EditProfile
+                    handleClick={() => setProfileModal(false)}
+                    onUpdateProfile={onUpdateProfile}
+                />
+            </Box>
+        </Modal>
+        <Modal
+            open={reviewModal}
+            onClose={() => setReviewModal(false)}
+            aria-labelledby="edit-profile-modal-title"
+            aria-describedby="edit-profile-modal-description"
+        >
+            <Box className="modal-box">
+                <h2>Edit Review</h2>
+                <ModalButton className="close-button" onClick={() => setReviewModal(false)} sx={{ mb: 2 }}>Close</ModalButton>
+                <EditReview
+                    handleClick={() => setReviewModal(false)}
+                    setReviews={setReviews}
+                    review={editedReview}
+                />
+            </Box>
+        </Modal>
     </>
     )
 }
