@@ -179,25 +179,26 @@ body {
   font-weight: bold;
 }
 
-.profilecontainer {
+.profile-container {
   display: flex;
   align-items: flex-start;
 }
 
-.profilepic {
+.profile-pic {
   margin-bottom: 10px;
+  margin-left: 10px;
   width: 150px;
   height: auto;
 }
 
-.profileinfo {
+.profile-info {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-right: 50px;
 }
 
-.profilecontribution {
+.profile-contribution {
   flex-grow: 1;
 }
 

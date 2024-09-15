@@ -62,12 +62,16 @@ function User() {
             <hr/>
             <h1>{name}</h1>
             <hr />
-            <div className="profilecontainer">
-                <div className="profileinfo">
-                    <img src={image} alt={`${name}'s profile`} className="profilepicture" />
-                    <p>Favorite Biome: {biome.name}</p>
+            <div className="profile-container">
+                <div className="profile-info">
+                    <img src={image} alt={`${name}'s profile`} className="profile-pic" />
+                    <span>Favorite Biome: {biome.name}</span>
+                    {trainer.id === parseInt(user.id) && (
+                    <div className="profile-sighting">
+                        <button>Edit Profile</button>
+                    </div>)}
                 </div>
-                <div className="profilecontributions">
+                <div className="profile-contributions">
                     {reviews.length > 0 && (<>
                     <h3>Reviews from {name}</h3>
                     {reviewsList}
