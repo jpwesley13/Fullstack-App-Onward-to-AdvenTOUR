@@ -6,6 +6,8 @@ import Search from "../components/Search";
 import AddNewButton from "../components/AddNewButton";
 import useAverage from "../context and hooks/AverageHook";
 import HabitatForm from "../components/HabitatForm";
+import { Modal, Box } from "@mui/material";
+import ModalButton from "../components/ModalButton";
 
 function Home() {
 
@@ -15,6 +17,7 @@ function Home() {
     const [reviews, setReviews] = useState([]);
     const [search, setSearch] = useState("");
     const [showForm, setShowForm] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     function handleClick() {
       setShowForm(showForm => !showForm)
@@ -85,11 +88,9 @@ function Home() {
           onAddHabitats={onAddHabitats}
           handleClick={handleClick}
           /> : null}
-          <AddNewButton
-          newAddition="habitat"
-          handleClick={handleClick}
-          showForm={showForm}
-          />
+          <ModalButton variant="contained" color="primary" onClick={() => setIsModalOpen(true)}>
+                        Add new habitat
+                    </ModalButton>
           <br />
           <FilterCard
           specifics={regions}
@@ -103,6 +104,21 @@ function Home() {
             onChangeSort={setSortBy}
             options={options}/>
           {displayedHabitats}
+          <Modal
+                open={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                aria-labelledby="edit-profile-modal-title"
+                aria-describedby="edit-profile-modal-description"
+            >
+                <Box className="modal-box">
+                    <h2>Add new habitat</h2>
+                    <ModalButton className="close-button" onClick={() => setIsModalOpen(false)} sx={{ mb: 2 }}>Close</ModalButton>
+                    <HabitatForm
+                        handleClick={() => setIsModalOpen(false)}
+                        onAddHabitats={onAddHabitats}
+                    />
+                </Box>
+            </Modal>
         </>
     )
 };
