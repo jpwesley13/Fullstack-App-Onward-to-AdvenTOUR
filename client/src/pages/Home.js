@@ -36,6 +36,10 @@ function Home() {
       return setHabitats([...habitats, newHabitat])
     }
 
+    function onAddReview(newReview){
+      return setReviews([...reviews, newReview])
+    }
+
     const seededHabitats = [...habitats].filter(habitat => 
       habitat.reviews.length > 0
     );
@@ -106,6 +110,7 @@ function Home() {
                     <HabitatForm
                         handleClick={() => setIsModalOpen(false)}
                         onAddHabitats={onAddHabitats}
+                        onAddReview={onAddReview}
                     />
                 </Box>
             </Modal>

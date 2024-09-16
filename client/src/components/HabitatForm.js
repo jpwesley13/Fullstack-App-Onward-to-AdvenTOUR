@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import * as yup from "yup";
 import { useAuth } from "../context and hooks/AuthContext";
 
-function HabitatForm({ onAddHabitats, handleClick }) {
+function HabitatForm({ onAddHabitats, onAddReview, handleClick }) {
 
     const [regions, setRegions] = useState([]);
     const numbers = [1, 2, 3, 4, 5];
@@ -20,7 +20,7 @@ function HabitatForm({ onAddHabitats, handleClick }) {
         name: yup.string().required("Must enter habitat's name.").max(30),
         region_id: yup.string().required("Please select the region this habitat is located in."),
         image: yup.string().required("Must submit an image for new habitat posts."),
-        content: yup.string().required("New habitat posts must be accompanied with a review."),
+        content: yup.string().min(50, "Please make review at least 50 characters long.").required("New habitat posts must be accompanied with a review."),
         danger: yup.number().integer().required("Must give habitat an observed danger level."),
         rating: yup.number().integer().required("Must give habitat a rating."),
     });
@@ -68,7 +68,7 @@ function HabitatForm({ onAddHabitats, handleClick }) {
             habitatData.reviews = [reviewData];
 
             onAddHabitats(habitatData);
-
+            onAddReview(reviewData);
             handleClick();
             actions.resetForm();
         } catch (error) {
