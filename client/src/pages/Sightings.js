@@ -5,6 +5,7 @@ import Search from "../components/Search";
 import SightingForm from "../components/SightingForm";
 import ModalButton from "../components/ModalButton";
 import { Modal, Box } from "@mui/material";
+import { useAuth } from "../context and hooks/AuthContext";
 
 function Sightings() {
 
@@ -12,6 +13,7 @@ function Sightings() {
     const [filterBy, setFilterBy] = useState("");
     const [search, setSearch] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const {trainer} = useAuth();
 
     useEffect(() => {
         document.title = "Rare Sightings"
@@ -58,11 +60,12 @@ function Sightings() {
         filterAttr="habitat" 
         filterCriteria={filterBy}/>
         </div>
-        <div className="filter-sort-button">
+        {trainer && (<div className="filter-sort-button">
         <ModalButton variant="contained" color="primary" onClick={() => setIsModalOpen(true)}>
                         Add new rare sighting
                     </ModalButton>
             </div>
+        )}
         </div>
         {displayedSightings}
         <Modal

@@ -5,6 +5,7 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import ReviewForm from "../components/ReviewForm";
 import { Modal, Box } from "@mui/material";
 import ModalButton from "../components/ModalButton";
+import { useAuth } from "../context and hooks/AuthContext";
 
 function Habitat() {
 
@@ -14,6 +15,7 @@ function Habitat() {
     const [habitat, setHabitat] = useState('loading');
     const [reviews, setReviews] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const {trainer} = useAuth();
 
     useEffect(() => {
         fetch(`/habitats/${id}`)
@@ -82,10 +84,11 @@ function Habitat() {
                 </h3>
             </div>
             <br />
-            <ModalButton variant="contained" color="primary" onClick={() => setIsModalOpen(true)}>
+            {trainer && (<><ModalButton variant="contained" color="primary" onClick={() => setIsModalOpen(true)}>
                         Add new review
                     </ModalButton>
             <br />
+            </>)}
             {reviewsList}
         </main>
         <Modal

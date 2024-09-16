@@ -7,6 +7,7 @@ import useAverage from "../context and hooks/AverageHook";
 import HabitatForm from "../components/HabitatForm";
 import { Modal, Box } from "@mui/material";
 import ModalButton from "../components/ModalButton";
+import { useAuth } from "../context and hooks/AuthContext";
 
 function Home() {
 
@@ -16,6 +17,7 @@ function Home() {
     const [reviews, setReviews] = useState([]);
     const [search, setSearch] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const { trainer } = useAuth();
 
     useEffect(() => {
       document.title = "Onward to AdvenTOUR"
@@ -99,11 +101,12 @@ function Home() {
               options={options}
             />
           </div>
-          <div className="filter-sort-button">
-            <ModalButton variant="contained" color="primary" onClick={() => setIsModalOpen(true)}>
+          {trainer && ( <div className="filter-sort-button">
+             <ModalButton variant="contained" color="primary" onClick={() => setIsModalOpen(true)}>
               Add new habitat
             </ModalButton>
           </div>
+          )}
         </div>
         <div className="cards-container">
           {displayedHabitats}
