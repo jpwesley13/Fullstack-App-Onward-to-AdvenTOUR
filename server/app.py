@@ -287,7 +287,7 @@ class Login(Resource):
             if trainer.authenticate(password):
                 session['user_id'] = trainer.id
                 return trainer.to_dict(), 200
-        return {'error': '401 Unauthorized'}, 401
+        return {'errors': 'Invalid login credentials'}, 401
     
 class Logout(Resource):
     def delete(self):

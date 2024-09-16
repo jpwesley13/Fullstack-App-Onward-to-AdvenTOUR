@@ -13,7 +13,7 @@ export default function Login() {
         password: yup.string().required("Password is required.")
     });
 
-    const onSubmit = async (values) => {
+    const onSubmit = async (values, actions) => {
         fetch('/login', {
             method: 'POST',
             headers: {
@@ -21,16 +21,14 @@ export default function Login() {
             },
             body: JSON.stringify(values),
         })
-        .then(res => {
-            if(res.ok) {
-                return res.json()
+        .then(async res => {
+            const data = await res.json();
+            if(res.status >= 400) {
+                actions.setErrors({credentials: data.errors});
             } else {
-                throw new Error("Invalid login credentials.");
-            }
-        })
-        .then(data => { 
-            setTrainer(data)
-            navigate('/');
+                setTrainer(data)
+                navigate('/');
+            } 
         })
         .catch(error => console.error(error)) 
     };
@@ -69,6 +67,7 @@ export default function Login() {
                 className={errors.password && touched.password ? "input-error" : ""} 
             />
             {errors.password && touched.password && <p className="error">{errors.password}</p>}
+            {errors.credentials && <p className="error">{errors.credentials}</p>}
                 <button disabled={isSubmitting} type="submit">Login</button>
         </form>
     )
