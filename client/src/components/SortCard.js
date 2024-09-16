@@ -7,7 +7,7 @@ function SortCard({ sortBy, onChangeSort, options }) {
 
   const sortOptions= options.map(option => {
     return (
-        <label key={option}>
+        <label key={option} className="sort-option">
         <input
           type="radio"
           value={option}
@@ -21,7 +21,7 @@ function SortCard({ sortBy, onChangeSort, options }) {
   })
 
   return (
-    <div>
+    <div className="sort-card">
       <strong>Sort by:</strong>
         {sortOptions}
     </div>

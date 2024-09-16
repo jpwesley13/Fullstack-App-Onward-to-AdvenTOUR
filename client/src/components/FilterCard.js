@@ -17,7 +17,7 @@ function FilterCard({ label, filterCriteria, onChangeFilter, filterAttr, specifi
 
     return (
         <>
-            <main>
+            <div className="filter-card">
                 <span>Filter {label} by {filterAttr}:</span>
                 <br />
                 <select
@@ -29,7 +29,7 @@ function FilterCard({ label, filterCriteria, onChangeFilter, filterAttr, specifi
                     </option>
                     {specificOptions}
                 </select>
-            </main>
+            </div>
         </>
     );
 }

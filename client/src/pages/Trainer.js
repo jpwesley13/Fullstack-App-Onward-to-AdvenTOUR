@@ -51,16 +51,19 @@ function Trainer() {
     return (
         <>
         <hr/>
-        <h2>Contributors:</h2>
-        <div>
+        <h2 className="header">Contributors:</h2>
+        <div className="header">
             <span>Our contributors. Go out on an Adven-tour and join 'em!</span>
         </div>
         <br />
-        <Search 
-            search = {search}
+        <div className="search-container">
+          <Search 
+            search={search}
             searchSetter={setSearch}
-        />
-        <br />
+          />
+        </div>
+        <div className="filter-sort-container">
+          <div className="filter-sort-row">
         <FilterCard
             specifics={biomes}
             label="trainers"
@@ -68,11 +71,12 @@ function Trainer() {
             filterCriteria={filterBy}
             onChangeFilter={setFilterBy}
         />
-        <br />
         <SortCard 
             sortBy={sortBy}
             onChangeSort={setSortBy}
             options={options}/>
+        </div>
+        </div>
         <br />
         {trainerList}
         </>

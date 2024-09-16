@@ -42,23 +42,28 @@ function Sightings() {
     return (
         <>
         <hr/>
-        <h2>Confirmed rare sightings:</h2>
+        <h2 className="header">Confirmed rare sightings:</h2>
         <br />
+        <div className="search-container">
           <Search 
           search = {search}
           searchSetter={setSearch}/>
-        <br />
-        <ModalButton variant="contained" color="primary" onClick={() => setIsModalOpen(true)}>
-                        Add new rare sighting
-                    </ModalButton>
-        <br />
+        </div>
+        <div className="filter-sort-container">
+          <div className="filter-sort-row">
         <FilterCard
         specifics={habitatNames}
         onChangeFilter={setFilterBy}
         label="rare sightings"
         filterAttr="habitat" 
         filterCriteria={filterBy}/>
-        <br/>
+        </div>
+        <div className="filter-sort-button">
+        <ModalButton variant="contained" color="primary" onClick={() => setIsModalOpen(true)}>
+                        Add new rare sighting
+                    </ModalButton>
+            </div>
+        </div>
         {displayedSightings}
         <Modal
                 open={isModalOpen}
