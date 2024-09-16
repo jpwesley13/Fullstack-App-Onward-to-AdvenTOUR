@@ -34,19 +34,17 @@ function Signup() {
             },
             body: JSON.stringify(values),
         })
-        .then(res => {
-            if(res.ok) {
-                return res.json()
+        .then(async res => {
+            const data = await res.json();
+            if (res.status >= 400) {
+                actions.setErrors(data.errors);
             } else {
-                throw new Error("Error occurred in signing up new trainer.");
+                setTrainer(data);
+                navigate('/');
+                actions.resetForm();
             }
         })
-        .then(data => {
-            setTrainer(data);
-            navigate('/');
-        })
         .catch(error => console.error(error))
-        actions.resetForm()
       };
     
     const {values, handleBlur, handleChange, handleSubmit, touched, errors, isSubmitting} = useFormik({

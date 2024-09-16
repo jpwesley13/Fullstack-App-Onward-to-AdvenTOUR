@@ -246,6 +246,9 @@ class Signup(Resource):
         password = params.get('password')
 
         try:
+            if Trainer.query.filter(Trainer.name == params['name']).first():
+                return make_response(jsonify({"errors": {"name": "Name already exists"}}), 400)
+            
             new_trainer = Trainer(
                 name = params['name'],
                 image = params['image'],
