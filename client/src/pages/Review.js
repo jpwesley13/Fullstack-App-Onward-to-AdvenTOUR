@@ -13,7 +13,7 @@ function Review() {
         fetch(`/reviews/${id}`)
         .then(res => res.json())
         .then(data => {
-            if(review && review.id) {
+            if(data && data.id) {
                 setReview(data)
             } else {
                 setReview(null);
