@@ -1,24 +1,33 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import ReturnButtons from "../components/ReturnButtons";
 
 function RareSighting() {
+    const navigate = useNavigate();
     const { id } = useParams();
-    const [sighting, setSighting] = useState(null)
+    const [sighting, setSighting] = useState('loading');
 
     useEffect(() => {
         fetch(`/sightings/${id}`)
         .then(res => res.json())
         .then(data => {
-            setSighting(data)
-            document.title = `${data.name}`
+            if(data && data.name) {
+                setSighting(data)
+                document.title = `${data.name}`
+            } else {
+                setSighting(null)
+            }
         })
         .catch(error => console.error(error));
     }, [id]);
 
-    if(!sighting) {
+    if(sighting === 'loading') {
         return <h1>Loading...</h1>
     };
+    if(!sighting) {
+        navigate('/error');
+        return null;
+    }
 
     const { trainer, habitat, image, name} = sighting;
 

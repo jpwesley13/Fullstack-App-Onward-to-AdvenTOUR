@@ -1,14 +1,17 @@
 import useAverage from "../context and hooks/AverageHook";
 import AverageIcons from "../components/AverageIcons";
 import { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import ReviewForm from "../components/ReviewForm";
 import { Modal, Box } from "@mui/material";
 import ModalButton from "../components/ModalButton";
 
 function Habitat() {
+
+    const navigate = useNavigate();
+
     const { id } = useParams();
-    const [habitat, setHabitat] = useState(null);
+    const [habitat, setHabitat] = useState('loading');
     const [reviews, setReviews] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -16,8 +19,12 @@ function Habitat() {
         fetch(`/habitats/${id}`)
         .then(res => res.json())
         .then(data => {
-            setHabitat(data);
-            document.title = `${data.name}`;
+            if(data && data.name) {
+                setHabitat(data);
+                document.title = `${data.name}`;
+            } else {
+                setHabitat(null);
+            }
         })
         .catch(error => console.error(error));
         fetch('/reviews')
@@ -33,9 +40,13 @@ function Habitat() {
     const dangerAverages = useAverage(reviews, 'danger');
     const ratingAverages = useAverage(reviews, 'rating');
 
-    if(!habitat) {
+    if(habitat === 'loading') {
         return <h1>Loading...</h1>
     };
+    if(!habitat) {
+        navigate('/error');
+        return null;
+    }
 
     const reviewsList = reviews.map(review => (
         <div key ={review.id}>Review by {review.trainer.name}: <Link to={`/reviews/${review.id}`}>View</Link>

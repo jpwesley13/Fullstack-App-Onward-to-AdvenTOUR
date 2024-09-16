@@ -1,4 +1,4 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import ProfileCard from "../components/ProfileCard";
 import { useAuth } from "../context and hooks/AuthContext";
@@ -9,9 +9,10 @@ import EditReview from "../components/EditReview";
 
 
 function Profile() {
+    const navigate = useNavigate();
     const { id } = useParams();
     const { trainer } = useAuth();
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState('loading');
     const [reviews, setReviews] = useState([]);
     const [sightings, setSightings] = useState([]);
     const [profileModal, setProfileModal] = useState(false);
@@ -59,8 +60,12 @@ function Profile() {
         fetch(`/trainers/${id}`)
         .then(res => res.json())
         .then(data => {
-            setUser(data);
-            document.title = `${data.name}`;
+            if(data && data.name) {
+                setUser(data);
+                document.title = `${data.name}`;
+            } else {
+                setUser(null);
+            }
         })
         .catch(error => console.error(error));
         fetch('/sightings')
@@ -73,8 +78,12 @@ function Profile() {
         .catch(error => console.error(error));
     }, [id])
 
-    if(!user) {
+    if(user === 'loading') {
         return <h1>Loading...</h1>
+    }
+    if(!user) {
+        navigate('/error');
+        return null
     }
 
     const { name, image, biome } = user
