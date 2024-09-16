@@ -12,7 +12,7 @@ function Home() {
 
     const [habitats, setHabitats] = useState([]);
     const [filterBy, setFilterBy] = useState("");
-    const [sortBy, setSortBy] = useState("Alphabetically")
+    const [sortBy, setSortBy] = useState("Alphabetical Order")
     const [reviews, setReviews] = useState([]);
     const [search, setSearch] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -47,10 +47,10 @@ function Home() {
     const searchedHabitats = seededHabitats.filter(habitat => habitat.name.toLowerCase().includes(search.toLowerCase()))
 
     const sortedHabitats = searchedHabitats.sort((habitat1, habitat2) => {
-      if(sortBy === "Alphabetically") {
+      if(sortBy === "Alphabetical Order") {
           return habitat1.name.localeCompare(habitat2.name);
-      } else if(sortBy === "Number of Reviews") {
-          return habitat1.reviews.length - habitat2.reviews.length;
+      } else if(sortBy === "Most Reviews") {
+          return habitat2.reviews.length - habitat1.reviews.length;
       } else if(sortBy === "Danger Level") {
         return dangerAverages[habitat1.id] - dangerAverages[habitat2.id];
       } else {
@@ -58,7 +58,7 @@ function Home() {
       }
     })
 
-    const options = ["Alphabetically", "Number of Reviews", "Danger Level", "Rating"]
+    const options = ["Alphabetical Order", "Most Reviews", "Danger Level", "Highest Rating"]
 
     const filteredHabitats = sortedHabitats.filter(habitat => habitat.region.name.includes(filterBy))
 

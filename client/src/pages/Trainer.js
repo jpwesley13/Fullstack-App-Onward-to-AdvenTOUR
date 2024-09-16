@@ -8,7 +8,7 @@ function Trainer() {
 
     const [trainers, setTrainers] = useState([]);
     const [filterBy, setFilterBy] = useState("");
-    const [sortBy, setSortBy] = useState("Alphabetically")
+    const [sortBy, setSortBy] = useState("Alphabetical Order")
     const [search, setSearch] = useState("");
 
     useEffect(() => {
@@ -26,16 +26,16 @@ function Trainer() {
     const searchedTrainers = contributors.filter(trainer => trainer.name.toLowerCase().includes(search.toLowerCase()))
 
     const sortedTrainers = searchedTrainers.sort((trainer1, trainer2) => {
-        if(sortBy === "Alphabetically") {
+        if(sortBy === "Alphabetical Order") {
             return trainer1.name.localeCompare(trainer2.name);
-        } else if(sortBy === "Number of Reviews") {
-            return trainer1.reviews.length - trainer2.reviews.length;
+        } else if(sortBy === "Most Reviews") {
+            return trainer2.reviews.length - trainer1.reviews.length;
         } else {
-            return trainer1.sightings.length - trainer2.sightings.length;
+            return trainer2.sightings.length - trainer1.sightings.length;
         }
     })
 
-    const options = ["Alphabetically", "Number of Reviews", "Number of Rare Sightings"]
+    const options = ["Alphabetical Order", "Most Reviews", "Most Rare Sightings"]
 
     const filteredTrainers = sortedTrainers.filter(trainer => trainer.biome.name.includes(filterBy))
 
