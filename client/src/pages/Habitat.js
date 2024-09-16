@@ -68,18 +68,20 @@ function Habitat() {
             <hr />
             <br />
             <div>
-                <h3>Found in the {habitat.region.name} region. <AverageIcons
+                <h3>Found in the {habitat.region.name} region. 
+                    <br />
+                    <AverageIcons
                     average={dangerAverages[parseInt(id)]}
                     property="danger"
                     id={id}/>
-                </h3>
-                <h3>
+                    <br />
                     Average <AverageIcons
                     average={ratingAverages[parseInt(id)]}
                     property="rating"
                     id={id}/>
                 </h3>
             </div>
+            <br />
             <ModalButton variant="contained" color="primary" onClick={() => setIsModalOpen(true)}>
                         Add new review
                     </ModalButton>

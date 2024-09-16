@@ -42,11 +42,17 @@ function Review() {
             {trainer.name}'s review of {habitat.name}:
         </h2>
         <span>{content}</span>
+        <br />
+        <br />
         <div>
-            <p>Score: {rating}/5</p>
             <AverageIcons
             average={danger}
             property="danger"
+            />
+            <br />
+            <AverageIcons
+            average={rating}
+            property="rating"
             />
         </div>
         </>

@@ -26,6 +26,7 @@
 .navbar, .navbutton, .navlogin {
   display: flex;
   justify-content: space-between;
+  font-weight: bold;
   align-items: center;
   }
 
