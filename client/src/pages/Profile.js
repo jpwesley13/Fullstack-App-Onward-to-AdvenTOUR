@@ -93,7 +93,7 @@ function Profile() {
             <div className="profile-content">
                 <span>{`${name}`}'s review of {`${review.habitat.name}`}: </span>
                 <Link to={`/reviews/${review.id}`}>View</Link> 
-                {trainer.id === parseInt(id) && (
+                {trainer && trainer.id === parseInt(id) && (
                     <>
                         <ModalButton variant="contained" color="primary" onClick={() => handleEditReviewClick(review)}>
                         Edit
@@ -126,7 +126,7 @@ function Profile() {
                 <div className="profile-info">
                     <img src={image} alt={`${name}'s profile`} className="profile-pic" />
                     <span>Favorite Biome: {biome.name}</span>
-                    {trainer.id === parseInt(user.id) && (
+                    {trainer && trainer.id === parseInt(user.id) && (
                     <div className="profile-sighting">
                     <ModalButton variant="contained" color="primary" onClick={() => setProfileModal(true)}>
                         Edit Profile

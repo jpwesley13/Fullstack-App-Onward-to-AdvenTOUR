@@ -20,7 +20,7 @@ function ProfileCard({sighting, setSightings, handleDeleteSightingClick}) {
               className="habitat-card"  
             />
             </Link>  
-        {trainer.id === parseInt(user.id) && (
+        {trainer && trainer.id === parseInt(user.id) && (
             <div className="profile-sighting">
                 <ModalButton variant="contained" color="primary" onClick={() => setSightingModal(true)}>
                         Edit
