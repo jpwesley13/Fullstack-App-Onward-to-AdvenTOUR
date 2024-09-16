@@ -78,6 +78,9 @@ class Habitats(Resource):
         params = request.get_json()
 
         try:
+            if Habitat.query.filter(Habitat.name == params['name']).first():
+                return make_response(jsonify({"errors": {"name": "Habitat with this name already exists"}}), 400)
+            
             new_habitat = Habitat(
                 name = params['name'],
                 image = params['image'],

@@ -38,8 +38,9 @@ function HabitatForm({ onAddHabitats, handleClick }) {
                     region_id: values.region_id,
                 }),
             });
-            if(!habitatRes.ok) {
-                throw new Error("Error occurred in adding new habitat.");
+            if(habitatRes.status >= 400) {
+                const data = await habitatRes.json();
+                actions.setErrors(data.errors);
             };
 
             const habitatData = await habitatRes.json();
