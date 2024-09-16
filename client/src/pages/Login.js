@@ -59,6 +59,7 @@ export default function Login() {
             {errors.name && touched.name && <p className="error">{errors.name}</p>}
             <label htmlFor="password">Password</label>
             <input
+                style={{ marginBottom: '1rem' }}
                 value={values.password}
                 onChange={handleChange}
                 onBlur={handleBlur}

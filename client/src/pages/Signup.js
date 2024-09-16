@@ -19,7 +19,7 @@ function Signup() {
 
     const formSchema = yup.object().shape({
         name: yup.string().required("Must enter name.").max(24),
-        age: yup.number().integer().required("Must enter age.").min(10, "Must be at least 10 years old to join."),
+        age: yup.number().integer().required("Must enter age.").typeError("Please enter an Integer").min(10, "Must be at least 10 years old to join."),
         image: yup.string().optional(),
         biome_id: yup.string().required(`If you have no preference, select "No Preference"`),
         password: yup.string().min(6, "Password must be at least 6 characters.").max(30, "Password cannot exceed 30 characters.").required("Must create a password."),
@@ -86,6 +86,28 @@ function Signup() {
                 className={errors.age && touched.age ? "input-error" : ""} 
             />
             {errors.age && touched.age && <p className="error">{errors.age}</p>}
+            <label htmlFor="password">Password</label>
+            <input
+                value={values.password}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                id="password" 
+                type="password" 
+                placeholder="Enter your password"
+                className={errors.password && touched.password ? "input-error" : ""} 
+            />
+            {errors.password && touched.password && <p className="error">{errors.password}</p>}
+            <label htmlFor="password">Confirm Password</label>
+            <input
+                value={values.confirmPassword}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                id="confirmPassword" 
+                type="password" 
+                placeholder="Confirm your password"
+                className={errors.confirmPassword && touched.confirmPassword ? "input-error" : ""} 
+            />
+            {errors.confirmPassword && touched.confirmPassword && <p className="error">{errors.confirmPassword}</p>}
             <label htmlFor="image">Profile Picture</label>
             <input
                 value={values.image}
@@ -112,28 +134,6 @@ function Signup() {
                 ))}
             </select>
             {errors.biome_id && touched.biome_id && <p className="error">{errors.biome_id}</p>}
-            <label htmlFor="password">Password</label>
-            <input
-                value={values.password}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                id="password" 
-                type="password" 
-                placeholder="Enter your password"
-                className={errors.password && touched.password ? "input-error" : ""} 
-            />
-            {errors.password && touched.password && <p className="error">{errors.password}</p>}
-            <label htmlFor="password">Confirm Password</label>
-            <input
-                value={values.confirmPassword}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                id="confirmPassword" 
-                type="password" 
-                placeholder="Confirm your password"
-                className={errors.confirmPassword && touched.confirmPassword ? "input-error" : ""} 
-            />
-            {errors.confirmPassword && touched.confirmPassword && <p className="error">{errors.confirmPassword}</p>}
                 <button disabled={isSubmitting} type="submit">Submit</button>
         </form>
     )
