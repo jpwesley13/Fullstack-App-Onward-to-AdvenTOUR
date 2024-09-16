@@ -63,7 +63,7 @@ function Habitat() {
             <hr/>
             <header className="header">
                 <h1 className="headertitle">{habitat.name}</h1>
-                <img src={habitat.image} alt={habitat.name} />
+                <img src={habitat.image} alt={habitat.name} className="habitat-pic"/>
             </header>
             <hr />
             <br />
