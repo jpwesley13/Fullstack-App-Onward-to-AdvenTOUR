@@ -1,357 +1,39 @@
-# Phase 4 Full-Stack Application Project Template
-
-## Learning Goals
-
-- Discuss the basic directory structure of a full-stack Flask/React application.
-- Carry out the first steps in creating your Phase 4 project.
-
----
-
-## Introduction
-
-Fork and clone this lesson for a template for your full-stack application. Take
-a look at the directory structure before we begin (NOTE: node_modules will be
-generated in a subsequent step):
+# Onward to AdvenTOUR!
 
-```console
-$ tree -L 2
-$ # the -L argument limits the depth at which we look into the directory structure
-.
-├── CONTRIBUTING.md
-├── LICENSE.md
-├── Pipfile
-├── README.md
-├── client
-│   ├── README.md
-│   ├── package.json
-│   ├── public
-│   └── src
-└── server
-    ├── app.py
-    ├── config.py
-    ├── models.py
-    └── seed.py
-```
+Onward to AdvenTOUR (OTA) is an application that primarily serves as a hub for adventurers around the (fictional) world to view and review habitats in their travels. The user is able to create an account to add their own reviews or rare sightings to the app, but is not required to log in to view such. All basic viewing functionality of OTA is available to all visitors, with an account only required to alter or add to the app.
 
-A `migrations` folder will be added to the `server` directory in a later step.
+## Initialization
 
-The `client` folder contains a basic React application, while the `server`
-folder contains a basic Flask application. You will adapt both folders to
-implement the code for your project .
+When OTA is loaded, the user is met with the home page, which displays all habitats that have currently been reviewed by other users with their averaged out danger levels and ratings alongside them, as well as various ways to seek out specific habitats based on criteria. Various navigation options guide the user to other aspects of the app.
 
-NOTE: If you did not previously install `tree` in your environment setup, MacOS
-users can install this with the command `brew install tree`. WSL and Linux users
-can run `sudo apt-get install tree` to download it as well.
+## Features
 
-## Where Do I Start?
+* User may view a list of all habitats, contributors, and rare sightings on the app, as well as individual pages for each.
+* When signed up and logged in, the user may add new habitats to the app, new rare sightings found at habitats, as well as new reviews for existing habitats.
+* The user, when on their own page, is able to edit aspects of their profile as well as make changes or deletions to their contributions.
+* When viewing the main pages of the app, the user is able to search, filter, and sort the results for more effective finding of specific items.
+* Simple navigation options allow the user to easily jump from main pages, as well as visiting habitats or contributors from reviews to learn more about either.
 
-Just as with your Phase 3 Project, this will likely be one of the biggest
-projects you've undertaken so far. Your first task should be creating a Git
-repository to keep track of your work and roll back any undesired changes.
+## All Items
 
-### Removing Existing Git Configuration
+On the three main pages of OTA, the user is met with a list of all entries for that category. On the initial home page, the user is shown display cards of all habitats that have currently been added to OTA. These display cards let the user see an image of the habitat as well as its danger level and rating, as averaged by the culmination of its reviews. Similarly if the user visits the rare sightings page they will see all rare sightings on OTA, with their name and image at the forefront, as well as which habitats they were spotted at. The contributors page is comparatively less visually exciting, but still lists all users who have added content to OTA. On all three main pages, the user is able to view the page of any specific item.
 
-If you're using this template, start off by removing the existing metadata for
-Github and Canvas. Run the following command to carry this out:
+## Signing In and Add New Item
 
-```console
-$ rm -rf .git .canvas
-```
+In order to contribute to OTA, a user needs an account. On any given page, the user may sign up or log in to the app, which will then redirect them to the home page on success. Errors or invalid credentials will be met with error messages on the form to guide the user toward success. Similar error messages appear on all forms within the app to assist the user.
 
-The `rm` command removes files from your computer's memory. The `-r` flag tells
-the console to remove _recursively_, which allows the command to remove
-directories and the files within them. `-f` removes them permanently.
+Once the user is signed into an account, they are given access to add additional content to the app. On the home page they are given access to adding new habitats. As the app serves primarily as a place to see reviews of habitats, in order to add a habitat to the app, it must be accompanied with a complete review as well. On any individual habitat's page, a logged in user can also add their own review independently, changing its averaged danger and rating in real time. Lastly, a logged in user may also add new rare sightings to the app. Rare sightings may only be added to habitats that already exist on OTA. As previously mentioned, on all forms for adding or editing content, errors or invalid fields will be met with on-screen messages in red to notify the user and guide them toward fixes.
 
-`.git` contains this directory's configuration to track changes and push to
-Github (you want to track and push _your own_ changes instead), and `.canvas`
-contains the metadata to create a Canvas page from your Git repo. You don't have
-the permissions to edit our Canvas course, so it's not worth keeping around.
+## Profile Page
 
-### Creating Your Own Git Repo
+On the Contributors page, a user is able to view any contributor's profile. Here the user maye view a contributor's reviews and/or rare sightings, as well as their profile picture and favorite biome. If the user is visiting their own profile page, they are given additional options. When visiting one's own profile page, a user is able to make changes to the aforementioned profile picture and favorite biome. Additionally the user is able to edit or entirely delete their contributed reviews or rare sightings. This is useful in situations where a previously unknown sighting is identified or conversely, found out to be a hoax.
 
-First things first- rename this directory! Once you have an idea for a name,
-move one level up with `cd ..` and run
-`mv python-p4-project-template <new-directory-name>` to change its name (replace
-<new-directory-name> with an appropriate project directory name).
+## Main Page Criteria
 
-> **Note: If you typed the `mv` command in a terminal within VS Code, you should
-> close VS Code then reopen it.**
+For each of the main pages on OTA, a user is able to refine their results through various means. All three main pages allow the user to search for a specific item by name via a search bar. Further, all three main pages have some sort of way to filter their items as well. On the main page, the user is able to filter habitats down by the region in which they are found. This is primarily meant for users to plan out trips to regions or to explore their own home region. On the rare sightings page the user may filter results by habitats, either to see if a particular habitat has had any rare sightings or to see if one habitat is more prone to rare sightings. And lastly on the contributors page, a user can filter results by the contributor's favorite biome. This filter is meant to ideally lead the user to finding a contributor with similar preferences as them and therefore be more likely to visit and review habitats the user would enjoy themselves.
 
-> **Note: `mv` actually stands for "move", but your computer interprets this
-> rename as a move from a directory with the old name to a directory with a new
-> name.**
+Additionally, the home and contributors pages both have ways for the user to sort the results. Both by default will sort their list alphabetically. On the contributors page, the user may also sort by which contributor has submitted the most reviews, or by who has had the most rare sightings. The home page meanwhile also allows the habitats to be sorted by which has had the most reviews submitted for it. Beyond that, the habitats may be sorted by the highest average rating, as well as by its averaged danger level, starting from the least dangerous. These options allow the user to get an idea for which habitats are considered favorites or which are best for a newer adventurer to visit.
 
-`cd` back into your new directory and run `git init` to create a local git
-repository. Add all of your local files to version control with `git add --all`,
-then commit them with `git commit -m'initial commit'`. (You can change the
-message here- this one is just a common choice.)
+## Menu Navigation
 
-Navigate to [GitHub](https://github.com). In the upper-right corner of the page,
-click on the "+" dropdown menu, then select "New repository". Enter the name of
-your local repo, choose whether you would like it to be public or private, make
-sure "Initialize this repository with a README" is unchecked (you already have
-one), then click "Create repository".
-
-Head back to the command line and enter
-`git remote add origin git@github.com:github-username/new-repository-name.git`.
-NOTE: Replace `github-username` with your github username, and
-`new-repository-name` with the name of your new repository. This command will
-map the remote repository to your local repository. Finally, push your first
-commit with `git push -u origin main`.
-
-Your project is now version-controlled locally and online. This will allow you
-to create different versions of your project and pick up your work on a
-different machine if the need arises.
-
----
-
-## Setup
-
-### `server/`
-
-The `server/` directory contains all of your backend code.
-
-`app.py` is your Flask application. You'll want to use Flask to build a simple
-API backend like we have in previous modules. You should use Flask-RESTful for
-your routes. You should be familiar with `models.py` and `seed.py` by now, but
-remember that you will need to use Flask-SQLAlchemy, Flask-Migrate, and
-SQLAlchemy-Serializer instead of SQLAlchemy and Alembic in your models.
-
-The project contains a default `Pipfile` with some basic dependencies. You may
-adapt the `Pipfile` if there are additional dependencies you want to add for
-your project.
-
-To download the dependencies for the backend server, run:
-
-```console
-pipenv install
-pipenv shell
-```
-
-You can run your Flask API on [`localhost:5555`](http://localhost:5555) by
-running:
-
-```console
-python server/app.py
-```
-
-Check that your server serves the default route `http://localhost:5555`. You
-should see a web page with the heading "Project Server".
-
-### `client/`
-
-The `client/` directory contains all of your frontend code. The file
-`package.json` has been configured with common React application dependencies,
-include `react-router-dom`. The file also sets the `proxy` field to forward
-requests to `"http://localhost:5555". Feel free to change this to another port-
-just remember to configure your Flask app to use another port as well!
-
-To download the dependencies for the frontend client, run:
-
-```console
-npm install --prefix client
-```
-
-You can run your React app on [`localhost:3000`](http://localhost:3000) by
-running:
-
-```sh
-npm start --prefix client
-```
-
-Check that your the React client displays a default page
-`http://localhost:3000`. You should see a web page with the heading "Project
-Client".
-
-## Generating Your Database
-
-NOTE: The initial project directory structure does not contain the `instance` or
-`migrations` folders. Change into the `server` directory:
-
-```console
-cd server
-```
-
-Then enter the commands to create the `instance` and `migrations` folders and
-the database `app.db` file:
-
-```
-flask db init
-flask db upgrade head
-```
-
-Type `tree -L 2` within the `server` folder to confirm the new directory
-structure:
-
-```console
-.
-├── app.py
-├── config.py
-├── instance
-│   └── app.db
-├── migrations
-│   ├── README
-│   ├── __pycache__
-│   ├── alembic.ini
-│   ├── env.py
-│   ├── script.py.mako
-│   └── versions
-├── models.py
-└── seed.py
-```
-
-Edit `models.py` and start creating your models. Import your models as needed in
-other modules, i.e. `from models import ...`.
-
-Remember to regularly run
-`flask db revision --autogenerate -m'<descriptive message>'`, replacing
-`<descriptive message>` with an appropriate message, and `flask db upgrade head`
-to track your modifications to the database and create checkpoints in case you
-ever need to roll those modifications back.
-
-> **Tip: It's always a good idea to start with an empty revision! This allows
-> you to roll all the way back while still holding onto your database. You can
-> create this empty revision with `flask db revision -m'Create DB'`.**
-
-If you want to seed your database, now would be a great time to write out your
-`seed.py` script and run it to generate some test data. Faker has been included
-in the Pipfile if you'd like to use that library.
-
----
-
-#### `config.py`
-
-When developing a large Python application, you might run into a common issue:
-_circular imports_. A circular import occurs when two modules import from one
-another, such as `app.py` and `models.py`. When you create a circular import and
-attempt to run your app, you'll see the following error:
-
-```console
-ImportError: cannot import name
-```
-
-If you're going to need an object in multiple modules like `app` or `db`,
-creating a _third_ module to instantiate these objects can save you a great deal
-of circular grief. Here's a good start to a Flask config file (you may need more
-if you intend to include features like authentication and passwords):
-
-```py
-# Standard library imports
-
-# Remote library imports
-from flask import Flask
-from flask_cors import CORS
-from flask_migrate import Migrate
-from flask_restful import Api
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import MetaData
-
-# Local imports
-
-# Instantiate app, set attributes
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.json.compact = False
-
-# Define metadata, instantiate db
-metadata = MetaData(naming_convention={
-    "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
-})
-db = SQLAlchemy(metadata=metadata)
-migrate = Migrate(app, db)
-db.init_app(app)
-
-# Instantiate REST API
-api = Api(app)
-
-# Instantiate CORS
-CORS(app)
-
-```
-
-Now let's review that last line...
-
-#### CORS
-
-CORS (Cross-Origin Resource Sharing) is a system that uses HTTP headers to
-determine whether resources from different servers-of-origin can be accessed. If
-you're using the fetch API to connect your frontend to your Flask backend, you
-need to configure CORS on your Flask application instance. Lucky for us, that
-only takes one line:
-
-```py
-CORS(app)
-
-```
-
-By default, Flask-CORS enables CORS on all routes in your application with all
-fetching servers. You can also specify the resources that allow CORS. The
-following specifies that routes beginning with `api/` allow CORS from any
-originating server:
-
-```py
-CORS(app, resources={r"/api/*": {"origins": "*"}})
-
-```
-
-You can also set this up resource-by-resource by importing and using the
-`@cross_origin` decorator:
-
-```py
-@app.route("/")
-@cross_origin()
-def howdy():
-  return "Howdy partner!"
-
-```
-
----
-
-## Updating Your README.md
-
-`README.md` is a Markdown file that describes your project. These files can be
-used in many different ways- you may have noticed that we use them to generate
-entire Canvas lessons- but they're most commonly used as homepages for online
-Git repositories. **When you develop something that you want other people to
-use, you need to have a README.**
-
-Markdown is not a language that we cover in Flatiron's Software Engineering
-curriculum, but it's not a particularly difficult language to learn (if you've
-ever left a comment on Reddit, you might already know the basics). Refer to the
-cheat sheet in this lesson's resources for a basic guide to Markdown.
-
-### What Goes into a README?
-
-This README should serve as a template for your own- go through the important
-files in your project and describe what they do. Each file that you edit (you
-can ignore your migration files) should get at least a paragraph. Each function
-should get a small blurb.
-
-You should descibe your application first, and with a good level of detail. The
-rest should be ordered by importance to the user. (Probably routes next, then
-models.)
-
-Screenshots and links to resources that you used throughout are also useful to
-users and collaborators, but a little more syntactically complicated. Only add
-these in if you're feeling comfortable with Markdown.
-
----
-
-## Conclusion
-
-A lot of work goes into a full-stack application, but it all relies on concepts
-that you've practiced thoroughly throughout this phase. Hopefully this template
-and guide will get you off to a good start with your Phase 4 Project.
-
-Happy coding!
-
----
-
-## Resources
-
-- [Setting up a respository - Atlassian](https://www.atlassian.com/git/tutorials/setting-up-a-repository)
-- [Create a repo- GitHub Docs](https://docs.github.com/en/get-started/quickstart/create-a-repo)
-- [Markdown Cheat Sheet](https://www.markdownguide.org/cheat-sheet/)
-- [Python Circular Imports - StackAbuse](https://stackabuse.com/python-circular-imports/)
-- [Flask-CORS](https://flask-cors.readthedocs.io/en/latest/)
+Navigation on OTA is kept minimum and simple. The Navigation Bar is present on all pages of the site, including the error page should a user somehow find themselves there. This NavBar allows the user to quickly get to any of the three main pages of OTA. On all non-error pages, the NavBar also is where the user is able to handle login features, being taken to the login or signup page when clicking the respective buttons. As reviews and rare sightings may be access from multiple sources, on their individual pages, OTA has links that will take the user to either the profile of the contributor that submitted the item, or to the habitat in which the item is about/was found.
