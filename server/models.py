@@ -19,7 +19,7 @@ class Region(db.Model, SerializerMixin):
 
     @validates('name')
     def validate_name(self, key, name):
-        regions = ["Kanto", "Johto", "Hoenn", "Sinnoh", "Unova", "Kalos", "Alola", "Galar", "Paldea", "Orre", "Ultra Space", "Fiore", "Almia", "Oblivia", "Lental", "Uncharted"]
+        regions = ["Kanto", "Johto", "Hoenn", "Sinnoh", "Unova", "Kalos", "Alola", "Galar", "Paldea", "Orre", "Ultra Space", "Kitakami", "Almia", "Oblivia", "Lental", "Uncharted"]
         if name not in regions:
             raise ValueError('Region not recognized. Please select from available options or confirm uncharted territory.')
         return name
