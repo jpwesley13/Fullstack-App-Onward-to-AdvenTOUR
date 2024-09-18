@@ -3,7 +3,7 @@
 # Standard library imports
 
 # Remote library imports
-from flask import request, make_response, session, jsonify
+from flask import request, make_response, session
 from flask_restful import Resource
 from models import Habitat, Trainer, Review, Region, Sighting, Biome
 from sqlalchemy.exc import IntegrityError
@@ -79,7 +79,7 @@ class Habitats(Resource):
 
         try:
             if Habitat.query.filter(Habitat.name == params['name']).first():
-                return make_response(jsonify({"errors": {"name": "Habitat with this name already exists"}}), 400)
+                return make_response({"errors": {"name": "Habitat with this name already exists"}}, 400)
             
             new_habitat = Habitat(
                 name = params['name'],
@@ -121,7 +121,7 @@ class TrainerById(Resource):
         try:
             for attr in params:
                 if attr == "name" and Trainer.query.filter(Trainer.name == params[attr]).first():
-                    return make_response(jsonify({"errors": {"name": "Name must be unique"}}), 400)
+                    return make_response({"errors": {"name": "Name must be unique"}}, 400)
                 setattr(trainer, attr, params[attr])
             db.session.commit()
             return make_response(trainer.to_dict(), 202)
@@ -247,7 +247,7 @@ class Signup(Resource):
 
         try:
             if Trainer.query.filter(Trainer.name == params['name']).first():
-                return make_response(jsonify({"errors": {"name": "Name already exists"}}), 400)
+                return make_response({"errors": {"name": "Name already exists"}}, 400)
             
             new_trainer = Trainer(
                 name = params['name'],
