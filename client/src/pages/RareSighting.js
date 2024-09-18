@@ -34,8 +34,8 @@ function RareSighting() {
     return (
         <>
         <ReturnButtons 
-        trainer={trainer.id}
-        habitat={habitat.id}/>
+        trainer_id={trainer.id}
+        habitat_id={habitat.id}/>
         <h2>{trainer.name}'s rare {sighting.name} sighting at {habitat.name}:</h2>
         <span>{sighting.blurb}</span>
         <br/>
