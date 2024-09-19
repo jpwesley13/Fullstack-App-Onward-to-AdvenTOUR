@@ -19,7 +19,7 @@ function Trainer() {
         .catch(error => console.error(error));
     }, []);
 
-    const contributors = [...trainers].filter(trainer => 
+    const contributors = trainers.filter(trainer => 
         trainer.reviews.length > 0 || trainer.sightings.length > 0
     );
 

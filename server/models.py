@@ -1,12 +1,9 @@
 from sqlalchemy_serializer import SerializerMixin
-from sqlalchemy.ext.associationproxy import association_proxy
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import validates
 
 from config import db, bcrypt
 
-
-# Models go here!
 class Region(db.Model, SerializerMixin):
     __tablename__ = 'regions'
     
@@ -15,7 +12,7 @@ class Region(db.Model, SerializerMixin):
 
     habitats = db.relationship('Habitat', back_populates='region')
 
-    serialize_rules = ('-habitats.region', '-habitats.sightings', '-habitats.reviews')
+    serialize_rules = ('-habitats.region',)
 
     @validates('name')
     def validate_name(self, key, name):
@@ -38,7 +35,7 @@ class Biome(db.Model, SerializerMixin):
     def validate_name(self, key, name):
         biomes = ['Coastal', 'Polar', 'Taiga', 'Mires', 'Forest (conif.)', 'Forest (decid.)', 'Forest (tropical rain)', 'Forest (temperate rain)', 'Grasslands', 'Shrublands', 'Desert', 'Savanna', 'Wetland', 'River and Stream', 'Lake', 'Intertidal', 'Reef', 'Sea', 'Ocean', 'Deep Ocean', 'Cavern', 'Mountain', 'Ruins', 'City', 'No Preference']
         if name not in biomes:
-            raise ValueError('Biome not recognized. Please select from available options or enter "No Preference"')
+            raise ValueError('Biome not recognized. Please select from available options. If no preference, select "No Preference"')
         return name
     
 class Habitat(db.Model, SerializerMixin):
@@ -61,7 +58,7 @@ class Habitat(db.Model, SerializerMixin):
     def validate_name(self, key, name):
         if not name:
             raise ValueError('Habitat must be named.')
-        elif 25 < len(name) < 1:
+        elif 25 < len(name) < 2:
             raise ValueError('Habitat names must be between 2-25 characters long')
         return name
 
@@ -156,7 +153,7 @@ class Sighting(db.Model, SerializerMixin):
     @validates('name')
     def validate_name(self, key, name):
         if not name:
-            raise ValueError('Please enter the name of the sighting. If not known, please enter "Unknown" instead.')
+            raise ValueError('Please enter the name of the sighting. If not known, please enter "Pokémon Unknown" instead.')
         return name
     
     @validates('blurb')

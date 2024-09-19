@@ -391,7 +391,7 @@ if __name__ == '__main__':
         sightings.append(sighting10)
 
         sighting11 = Sighting(
-            name = "Pokemon Unknown",
+            name = "Pokémon Unknown",
             blurb = fake.paragraph(nb_sentences=3),
             image = "https://facts.net/wp-content/uploads/2023/07/20-facts-about-buzzwole-1689679970.jpg"
         )
@@ -400,7 +400,7 @@ if __name__ == '__main__':
         sightings.append(sighting11)
 
         sighting12 = Sighting(
-            name = "Pokemon Unknown",
+            name = "Pokémon Unknown",
             blurb = fake.paragraph(nb_sentences=3),
             image = "https://archives.bulbagarden.net/media/upload/d/d6/Necrozma_Evolutions.png"
         )

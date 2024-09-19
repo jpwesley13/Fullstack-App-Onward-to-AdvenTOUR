@@ -1,19 +1,11 @@
 #!/usr/bin/env python3
 
-# Standard library imports
-
-# Remote library imports
 from flask import request, make_response, session
 from flask_restful import Resource
 from models import Habitat, Trainer, Review, Region, Sighting, Biome
 from sqlalchemy.exc import IntegrityError
 
-# Local imports
 from config import app, db, api
-# Add your model imports
-
-
-# Views go here!
 
 @app.route('/')
 def index():

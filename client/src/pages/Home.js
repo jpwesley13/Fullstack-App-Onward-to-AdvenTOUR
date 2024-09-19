@@ -42,7 +42,7 @@ function Home() {
       return setReviews([...reviews, newReview])
     }
 
-    const seededHabitats = [...habitats].filter(habitat => 
+    const seededHabitats = habitats.filter(habitat => 
       habitat.reviews.length > 0
     );
 
