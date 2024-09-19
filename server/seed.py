@@ -435,20 +435,6 @@ if __name__ == '__main__':
         sighting15.habitat = rc(habitats)
         sightings.append(sighting15)
 
-        # for i in range(15):
-
-        #     sighting = Sighting(
-        #         name = fake.last_name(),
-        #         blurb = fake.paragraph(nb_sentences=3)
-        #     )
-
-        #     sighting.image = f'https://picsum.photos/200/?random={i+1}'
-
-        #     sighting.trainer = rc(trainers)
-        #     sighting.habitat = rc(habitats)
-
-        #     sightings.append(sighting)
-
         db.session.add_all(sightings)
 
         db.session.commit()
